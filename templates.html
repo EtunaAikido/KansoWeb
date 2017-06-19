@@ -1,0 +1,97 @@
+<script id="ikonBarn" type="x-tmpl-mustache">
+    <i class="circular inverted green child icon"></i>
+</script>
+<script id="ikonUngdomar" type="x-tmpl-mustache">
+    <i class="circular inverted purple student icon"></i>
+</script>
+<script id="ikonVuxna" type="x-tmpl-mustache">
+    <i class="circular inverted blue user icon"></i>
+</script>
+<script id="ikonHandelse" type="x-tmpl-mustache">
+    <i class="circular inverted red announcement icon"></i>
+</script>
+<script id="metaBeskrivning" type="x-tmpl-mustache">
+    <div class="meta">
+        <a class="like">
+            <i class="info circle icon"></i> {{description}}
+        </a>
+    </div>
+</script>
+<script id="metaPlats" type="x-tmpl-mustache">
+    <div class="meta">
+        <a class="like" href="https://maps.google.com/maps?q={{address}}">
+            <i class="marker icon"></i> {{location}}
+        </a>
+    </div>
+</script>
+<script id="metaTid" type="x-tmpl-mustache">
+    <div class="meta">
+        <a class="like">
+            <i class="alarm icon"></i> {{timespan}}
+        </a>
+    </div>
+</script>
+<script id="mallDatum" type="x-tmpl-mustache">
+    <div class="event">
+        <div class="content">
+            <h4 class="ui horizontal divider header">
+                <span class="ui large teal circular label">{{date}}</span>
+            </h4>
+        </div>
+    </div>
+</script>
+<script id="mallHandelse" type="x-tmpl-mustache">
+    <div class="event">
+        <div class="label">
+            {{{icon}}}
+        </div>
+        <div class="content">
+            <div class="summary">
+                {{summary}}
+            </div>
+            {{{meta}}}
+        </div>
+    </div>
+</script>
+<script id="mallInstallt" type="x-tmpl-mustache">
+    <div class="event">
+        <div class="label">
+            <i class="circular inverted red ban icon"></i>
+        </div>
+        <div class="content">
+            <div class="summary">
+                {{summary}}
+            </div>
+            <div class="meta">
+                <a class="like" style="text-decoration:line-through">
+                    <i class="alarm icon"></i> {{timespan}}
+                </a>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="mallTagg" type="x-tmpl-mustache">
+    <div class="event">
+        <div class="content">
+            <span class="ui tag label">{{summary}}</span>
+        </div>
+    </div>
+</script>
+<script id="mallNavigation" type="x-tmpl-mustache">
+    <div class="item">
+        <h2>ESKILSTUNA KI-AIKIDO</h2>
+    </div>
+    {{#items}}
+    <div class="item">
+        <a href="{{url}}" class="ui active red {{state}} button">
+            {{name}}
+        </a>
+    </div>
+    {{/items}}
+    <div class="item">
+        <a href="https://calendar.google.com/calendar/embed?src=etuna.aikido%40gmail.com&ctz=Europe/Stockholm"><i class="circular inverted red calendar icon"></i></a>
+        <a href="https://goo.gl/maps/xrVzPPVFW3n"><i class="circular inverted red marker icon"></i></a>
+        <a href="https://sv-se.facebook.com/EskilstunaKiAikido/"><i class="circular inverted red facebook icon"></i></a>
+        <a href="https://www.instagram.com/etuna.aikido/"><i class="circular inverted red instagram icon"></i></a>
+    </div>
+</script>

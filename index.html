@@ -23,87 +23,6 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="fav/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <!-- Mustache templates begin -->
-    <script id="ikonBarn" type="x-tmpl-mustache">
-        <i class="circular inverted green child icon"></i>
-    </script>
-    <script id="ikonUngdomar" type="x-tmpl-mustache">
-        <i class="circular inverted purple student icon"></i>
-    </script>
-    <script id="ikonVuxna" type="x-tmpl-mustache">
-        <i class="circular inverted blue user icon"></i>
-    </script>
-    <script id="ikonHandelse" type="x-tmpl-mustache">
-        <i class="circular inverted red announcement icon"></i>
-    </script>
-    <script id="metaBeskrivning" type="x-tmpl-mustache">
-        <div class="meta">
-            <a class="like">
-                <i class="info circle icon"></i> {{description}}
-            </a>
-        </div>
-    </script>
-    <script id="metaPlats" type="x-tmpl-mustache">
-        <div class="meta">
-            <a class="like" href="https://maps.google.com/maps?q={{address}}">
-                <i class="marker icon"></i> {{location}}
-            </a>
-        </div>
-    </script>
-    <script id="metaTid" type="x-tmpl-mustache">
-        <div class="meta">
-            <a class="like">
-                <i class="alarm icon"></i> {{timespan}}
-            </a>
-        </div>
-    </script>
-    <script id="mallDatum" type="x-tmpl-mustache">
-        <div class="event">
-            <div class="content">
-                <h4 class="ui horizontal divider header">
-                    <span class="ui large teal circular label">{{date}}</span>
-                </h4>
-            </div>
-        </div>
-    </script>
-    <script id="mallHandelse" type="x-tmpl-mustache">
-        <div class="event">
-            <div class="label">
-                {{{icon}}}
-            </div>
-            <div class="content">
-                <div class="summary">
-                    {{summary}}
-                </div>
-                {{{meta}}}
-            </div>
-        </div>
-    </script>
-    <script id="mallInstallt" type="x-tmpl-mustache">
-        <div class="event">
-            <div class="label">
-                <i class="circular inverted red ban icon"></i>
-            </div>
-            <div class="content">
-                <div class="summary">
-                    {{summary}}
-                </div>
-                <div class="meta">
-                    <a class="like" style="text-decoration:line-through">
-                        <i class="alarm icon"></i> {{timespan}}
-                    </a>
-                </div>
-            </div>
-        </div>
-    </script>
-    <script id="mallTagg" type="x-tmpl-mustache">
-        <div class="event">
-            <div class="content">
-                <span class="ui tag label">{{summary}}</span>
-            </div>
-        </div>
-    </script>
-    <!-- Mustache templates end -->
     <link rel="stylesheet" href="https://get.mavo.io/mavo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" integrity="sha256-5+W3JHnvGYIJkVxUBsw+jBi9+pOlu9enPX3vZapXj5M=" crossorigin="anonymous" />
     <script type="text/javascript" src="https://get.mavo.io/mavo.js"></script>
@@ -115,45 +34,12 @@
 </head>
 <body>
     <!-- Header -->
-    <div mv-app="EkiaHome" mv-bar="status edit save clear logout" mv-storage="https://github.com/EtunaAikido/Kanso" mv-plugins="tinymce markdown" mv-expressions="none">
+    <div mv-app="EkiaHome" mv-bar="status edit save clear logout" mv-storage="https://github.com/EtunaAikido/KansoData" mv-plugins="tinymce markdown">
+        <!--  mv-expressions="none" -->
         <div class="ui centered grid">
             <div class="ui one column">
                 <div class="ui container">
-                    <div class="ui tiny secondary top stackable menu">
-                        <div class="item">
-                            <h2>Eskilstuna ki-aikido</h2>
-                        </div>
-                        <div class="item">
-                            <a class="ui active red basic button">
-                                START
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a class="ui red button">
-                                BÖRJA TRÄNA
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a class="ui red button">
-                                VILKA ÄR VI
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a class="ui red button">
-                                VANLIGA FRÅGOR
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a class="ui red button">
-                                NYHETER
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="https://calendar.google.com/calendar/embed?src=etuna.aikido%40gmail.com&ctz=Europe/Stockholm"><i class="circular inverted red calendar icon"></i></a>
-                            <a href="https://goo.gl/maps/xrVzPPVFW3n"><i class="circular inverted red marker icon"></i></a>
-                            <a href="https://sv-se.facebook.com/EskilstunaKiAikido/"><i class="circular inverted red facebook icon"></i></a>
-                            <a href="https://www.instagram.com/etuna.aikido/"><i class="circular inverted red instagram icon"></i></a>
-                        </div>
+                    <div id="navBar" class="ui tiny secondary top stackable menu">
                     </div>
                 </div>
             </div>
@@ -162,278 +48,249 @@
         <img class="ui fluid image" src="images/banner_new.jpg">
         <div class="ui hidden divider"></div>
         <div class="ui text container">
-            <h1 class="ui center aligned header" property="WelcomeHeader">
-                Välkommen till den fredliga kampsporten aikido
+            <h1 class="ui center aligned header" property="welcomeHeader">
             </h1>
         </div>
-            <div class="ui hidden divider"></div>
+        <div class="ui hidden divider"></div>
 
-            <div class="ui four stackable equal height centered grid">
-                <div class="ui cards">
-                    <div class="ui raised card">
-                        <div class="content">
-                            <div class="ui fluid image">
-                                <div class="ui orange ribbon label">
-                                    <i class="users icon"></i> 3-6 år
-                                </div>
-                                <a href="#"><img src="images/pics_new.jpg" alt=""></a>
-                            </div>
-                            <div class="header ui container">
-                                <span class="subtitle markdown editable" property="Promo1Text"></span>
-                            </div>
-                        </div>
-                        <div class="ui bottom attached red button">
-                            <span class="ui secondary">FÖRÄLDRAR &amp; SMÅTTINGAR</span>
-                        </div>
-                    </div>
-                    <div class="ui raised card">
-                        <div class="content">
-                            <div class="ui fluid image">
-                                <div class="ui green ribbon label">
-                                    <i class="child icon"></i> 7-11 år
-                                </div>
-                                <a href="#"><img src="images/pics_new2.jpg" alt=""></a>
-                            </div>
-                            <div class="header ui container">
-                                <span class="subtitle markdown editable" property="Promo2Text"></span>
-                            </div>
-                        </div>
-                        <div class="ui bottom attached red button">
-                            <span class="ui secondary">BARN</span>
-                        </div>
-                    </div>
-                    <div class="ui raised card">
-                        <div class="content">
-                            <div class="ui fluid image">
-                                <div class="ui purple ribbon label">
-                                    <i class="student icon"></i> 12-15 år
-                                </div>
-                                <a href="#"><img src="images/pics_new3.jpg" alt=""></a>
-                            </div>
-                            <div class="header ui container">
-                                <span class="subtitle markdown editable" property="Promo3Text"></span>
-                            </div>
-                        </div>
-                        <div class="ui bottom attached red button">
-                            <span class="ui secondary">UNGDOMAR</span>
-                        </div>
-                    </div>
-                    <div class="ui raised card">
-                        <div class="content">
-                            <div class="ui fluid image">
-                                <div class="ui blue ribbon label">
-                                    <i class="user icon"></i> 15-99 år
-                                </div>
-                                <a href="#"><img src="images/pics_new4.jpg" alt=""></a>
-                            </div>
-                            <div class="header ui container">
-                                <span class="subtitle markdown editable" property="Promo4Text"></span>
-                            </div>
-                        </div>
-                        <div class="ui bottom attached red button">
-                            <span class="ui secondary">VUXNA</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="ui teal compact message">
-                    <i class="close icon"></i>
+        <div class="ui four stackable equal height centered grid">
+            <div class="ui cards">
+                <div class="ui raised card">
                     <div class="content">
-                        <div class="header">
-                            Välkommen till klubben / Welcome to the club / مرحبا بكم في نادي الأيكيدو
+                        <div class="ui fluid image">
+                            <div class="ui orange ribbon label">
+                                <i class="users icon"></i> 3-6 år
+                            </div>
+                            <a href="#"><img src="images/pics_new.jpg" alt=""></a>
                         </div>
-                        <p>Lämna dina uppgifter här! / Leave your personal information here! / عضو جديد في نادي (كي أيكيدو) إسكيلستونا</p>
+                        <div class="header ui container">
+                            <span class="subtitle markdown editable" property="promo1Text"></span>
+                        </div>
+                    </div>
+                    <div class="ui bottom attached red button">
+                        <span class="ui secondary">FÖRÄLDRAR &amp; SMÅTTINGAR</span>
+                    </div>
+                </div>
+                <div class="ui raised card">
+                    <div class="content">
+                        <div class="ui fluid image">
+                            <div class="ui green ribbon label">
+                                <i class="child icon"></i> 7-11 år
+                            </div>
+                            <a href="#"><img src="images/pics_new2.jpg" alt=""></a>
+                        </div>
+                        <div class="header ui container">
+                            <span class="subtitle markdown editable" property="promo2Text"></span>
+                        </div>
+                    </div>
+                    <div class="ui bottom attached red button">
+                        <span class="ui secondary">BARN</span>
+                    </div>
+                </div>
+                <div class="ui raised card">
+                    <div class="content">
+                        <div class="ui fluid image">
+                            <div class="ui purple ribbon label">
+                                <i class="student icon"></i> 12-15 år
+                            </div>
+                            <a href="#"><img src="images/pics_new3.jpg" alt=""></a>
+                        </div>
+                        <div class="header ui container">
+                            <span class="subtitle markdown editable" property="promo3Text"></span>
+                        </div>
+                    </div>
+                    <div class="ui bottom attached red button">
+                        <span class="ui secondary">UNGDOMAR</span>
+                    </div>
+                </div>
+                <div class="ui raised card">
+                    <div class="content">
+                        <div class="ui fluid image">
+                            <div class="ui blue ribbon label">
+                                <i class="user icon"></i> 15-99 år
+                            </div>
+                            <a href="#"><img src="images/pics_new4.jpg" alt=""></a>
+                        </div>
+                        <div class="header ui container">
+                            <span class="subtitle markdown editable" property="promo4Text"></span>
+                        </div>
+                    </div>
+                    <div class="ui bottom attached red button">
+                        <span class="ui secondary">VUXNA</span>
                     </div>
                 </div>
             </div>
-
-            <!--<div class="ui basic segment" style="left:200px; width:900px;">-->
-            <div class="ui two column stackable centered grid">
-
-                <div class="ui eight wide column">
-                    <div class="ui segment">
-                        <div class="ui teal bottom left attached label">
-                            13 juni 2017
-                        </div>
-                        <header>
-                            <h2>LÄGER MED CORKY QUAKENBUSH 27-28 MAJ</h2>
-                            <span class="byline">2 DAGAR MED AIKI-LAB</span>
-                        </header>
-                        <p>Sed etiam vestibulum velit, euismod lacinia quam nisl id lorem. Quisque erat. Vestibulum pellentesque, justo mollis pretium suscipit, justo nulla blandit libero, in blandit augue justo quis nisl. Fusce mattis viverra elit. Fusce quis tortor. Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget lorem ipsum dolor. Donec placerat odio vel elit. Nullam ante orci, pellentesque eget, tempus quis, ultrices in, est. Curabitur sit amet nulla. Nam in massa. Sed vel tellus. Curabitur sem urna, consequat. Sed etiam vestibulum velit, euismod lacinia quam nisl id lorem. Quisque erat.</p>
-                        <p>Sed etiam vestibulum velit, euismod lacinia quam nisl id lorem. Quisque erat. Vestibulum pellentesque, justo mollis pretium suscipit, justo nulla blandit libero, in blandit augue justo quis nisl. Fusce mattis viverra elit. Fusce quis tortor. Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget lorem ipsum dolor. Donec placerat odio vel elit. Nullam ante orci, pellentesque eget, tempus quis, ultrices in, est. Curabitur sit amet nulla. Nam in massa. Sed vel tellus. Curabitur sem urna, consequat. Sed etiam vestibulum velit, euismod lacinia quam nisl id lorem. Quisque erat.</p>
+            <div class="ui teal compact message">
+                <i class="close icon"></i>
+                <div class="content">
+                    <div class="header">
+                        Välkommen till klubben / Welcome to the club / مرحبا بكم في نادي الأيكيدو
                     </div>
-                    <div class="ui segment">
-                        <div class="ui teal bottom left attached label">1 september 2016</div>
-                        <header>
-                            <h2>INVIGNINGSLÄGER 20-21 AUGUSTI</h2>
-                            <span class="byline">MED PETER &amp; ANNA SPANGFORT</span>
-                        </header>
-                        <p>Sed etiam vestibulum velit, euismod lacinia quam nisl id lorem. Quisque erat. Vestibulum pellentesque, justo mollis pretium suscipit, justo nulla blandit libero, in blandit augue justo quis nisl. Fusce mattis viverra elit. Fusce quis tortor. Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget lorem ipsum dolor. Donec placerat odio vel elit. Nullam ante orci, pellentesque eget, tempus quis, ultrices in, est. Curabitur sit amet nulla. Nam in massa. Sed vel tellus. Curabitur sem urna, consequat. Sed etiam vestibulum velit, euismod lacinia quam nisl id lorem. Quisque erat.</p>
-                        <p>Sed etiam vestibulum velit, euismod lacinia quam nisl id lorem. Quisque erat. Vestibulum pellentesque, justo mollis pretium suscipit, justo nulla blandit libero, in blandit augue justo quis nisl. Fusce mattis viverra elit. Fusce quis tortor. Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget lorem ipsum dolor. Donec placerat odio vel elit. Nullam ante orci, pellentesque eget, tempus quis, ultrices in, est. Curabitur sit amet nulla. Nam in massa. Sed vel tellus. Curabitur sem urna, consequat. Sed etiam vestibulum velit, euismod lacinia quam nisl id lorem. Quisque erat.</p>
-                    </div>
-                    <div class="ui container">
-                        <i class="ui small red button">FLER NYHETER</i>
-                    </div>
-
-                    <h3 class="ui center aligned horizontal header divider">
-                        VILKA ÄR VI
-                    </h3>
-
-                    <div class="ui link three stackable cards">
-                        <div class="ui card">
-                            <div class="ui fluid image">
-                                <img src="images/elliot.jpg">
-                            </div>
-                            <div class="content">
-                                <div class="header">Mattias Levin</div>
-                                <div class="meta">
-                                    <a>Huvudinstruktör</a>
-                                </div>
-                                <div class="description">
-                                    Klubbens huvudinstruktör, bor i Stockholm.
-                                </div>
-                            </div>
-                            <div class="extra content">
-                                <span class="right floated">
-                                    Tränat sen 1990
-                                </span>
-                                <span>
-                                    <i class="student icon"></i>
-                                    Nidan
-                                </span>
-                            </div>
-                        </div>
-                        <div class="ui card">
-                            <div class="ui fluid image">
-                                <img src="images/daniel.jpg">
-                            </div>
-                            <div class="content">
-                                <div class="header">Johan Ahlberg</div>
-                                <div class="meta">
-                                    <span class="date">Dojoansvarig</span>
-                                </div>
-                                <div class="description">
-                                    Ansvarar för att dojon fungerar och är instruktör för både barn och vuxna.
-                                </div>
-                            </div>
-                            <div class="extra content">
-                                <span class="right floated">
-                                    Tränat sen 2003
-                                </span>
-                                <span>
-                                    <i class="student icon"></i>
-                                    Chuden
-                                </span>
-                            </div>
-                        </div>
-                        <div class="ui card">
-                            <div class="ui fluid image">
-                                <img src="images/matthew.png">
-                            </div>
-                            <div class="content">
-                                <div class="header">Thomas Rydell</div>
-                                <div class="meta">
-                                    <a>Vuxeninstruktör</a>
-                                </div>
-                                <div class="description">
-                                    Har tränat flera olika aikidostilar, är instruktör för vuxna.
-                                </div>
-                            </div>
-                            <div class="extra content">
-                                <span class="right floated">
-                                    Tränat sen 2001
-                                </span>
-                                <span>
-                                    <i class="student icon"></i>
-                                    Shodan
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="ui three wide column">
-                    <div class="ui segment">
-                        <h3>
-                            VANLIGA FRÅGOR
-                        </h3>
-                        <div class="ui middle aligned divided list">
-                            <div class="item">
-                                <div class="content">
-                                    <a class="header">När kan jag börja träna?</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="content">
-                                    <a class="header">Hur betalar jag terminsavgiften?</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="content">
-                                    <a class="header">Hur gör jag för att beställa dräkt?</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="content">
-                                    <a class="header">Är aikido bra självförsvar?</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="content">
-                                    <a class="header">Hur räknar man på japanska?</a>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#"><div class="ui tiny red button">VISA ALLA</div></a>
-
-                    </div>
-                    <div class="ui basic segment">
-                        <h3 class="ui center aligned horizontal header divider">
-                            KALENDER
-                        </h3>
-                        <div>
-                            <div class="ui feed" id="kalender">
-                            </div>
-                        </div>
-                        <!--<iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=500&amp;wkst=2&amp;hl=sv&amp;bgcolor=%23FFFFFF&amp;src=etuna.aikido%40gmail.com&amp;color=%23B1365F&amp;ctz=Europe%2FStockholm" style="border-width:0" width="250" height="500" frameborder="0" scrolling="no"></iframe>-->
-                    </div>
+                    <p>Lämna dina uppgifter här! / Leave your personal information here! / عضو جديد في نادي (كي أيكيدو) إسكيلستونا</p>
                 </div>
             </div>
+        </div>
 
-            <div class="ui hidden divider">
-            </div>
+        <!--<div class="ui basic segment" style="left:200px; width:900px;">-->
+        <div class="ui two column stackable centered grid">
 
-            <div class="ui inverted vertical footer segment">
+            <div class="ui eight wide column">
+                <div class="ui segment" mv-multiple property="news" mv-order="desc" style="display: [iff(featured, block, none)]">
+                    <div class="ui teal bottom left attached label" property="date"></div>
+                    <header>
+                        <h2 property="title"></h2>
+                        <span class="byline" property="subtitle"></span>
+                    </header>
+                    <p property="text"></p>
+                </div>
                 <div class="ui container">
-                    <div class="ui stackable inverted divided equal height stackable grid">
-                        <div class="three wide column">
-                            <div class="image">
-                                <img class="ui small centered image" src="images/logo2014vit.png">
+                    <i class="ui small red button">FLER NYHETER</i>
+                </div>
+
+
+                <h3 class="ui center aligned horizontal header divider">
+                    VILKA ÄR VI
+                </h3>
+
+                <div class="ui link three stackable cards">
+                    <div class="ui segment" mv-multiple property="news" mv-order="desc" style="display: [iff(featured, block, none)]">
+                        <div class="ui teal bottom left attached label" property="date"></div>
+                        <header>
+                            <h2 property="title"></h2>
+                            <span class="byline" property="subtitle"></span>
+                        </header>
+                        <p property="text"></p>
+                    </div>
+
+
+                    <div class="ui card" mv-multiple property="instructors" mv-order="desc" style="display: [iff(featured, block, none)]">
+                        <div class="ui fluid image">
+                            <img src="[image]">
+                        </div>
+                        <div class="content">
+                            <div class="header" property="name"></div>
+                            <div class="meta">
+                                <p property="position"></p>
+                            </div>
+                            <div class="description" property="description">
                             </div>
                         </div>
-                        <div class="nine wide column">
-                            <h4 class="ui inverted header">Om Oss</h4>
-                            <p>
-                                Eskilstuna Ki-Aikidoklubb grundades 14 mars 1991, och firade för ett tag sedan 25-årsjubileum. Genom åren har det varit huvudsakligen vuxna och ungdomar som har tränat, men 31 augusti 2008 startade vi även en barngrupp. Vi är en ideell förening som drivs utan vinstsyfte. Våra instruktörer ställer upp utan ersättning, och våra avgifter går enbart till hyra av vår lokal, diverse avgifter samt inköp och underhåll av material.
-                            </p>
+                        <div class="extra content">
+                            <span class="right floated" property="since">
+                            </span>
+                            <span>
+                                <i class="student icon"></i>
+                                <span property="rank"></span>
+                            </span>
                         </div>
-                        <div class="four wide column">
-                            <h4 class="ui inverted header">Eskilstuna Ki-Aikido</h4>
-                            <p><a href="https://goo.gl/maps/xrVzPPVFW3n">Munktellarenan, Eskilstuna</a></p>
-                            <p><a href="mailto:etuna.aikido@gmail.com">etuna.aikido@gmail.com</a></p>
-                            <p><a href="tel:0706816183">070-681 61 83</a></p>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="ui three wide column">
+                <div class="ui segment">
+                    <h3>
+                        VANLIGA FRÅGOR
+                    </h3>
+                    <div class="ui middle aligned divided list">
+                        <div class="item">
+                            <div class="content">
+                                <a class="header">När kan jag börja träna?</a>
+                            </div>
                         </div>
+                        <div class="item">
+                            <div class="content">
+                                <a class="header">Hur betalar jag terminsavgiften?</a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="content">
+                                <a class="header">Hur gör jag för att beställa dräkt?</a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="content">
+                                <a class="header">Är aikido bra självförsvar?</a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="content">
+                                <a class="header">Hur räknar man på japanska?</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#"><div class="ui tiny red button">VISA ALLA</div></a>
+
+                </div>
+                <div class="ui basic segment">
+                    <h3 class="ui center aligned horizontal header divider">
+                        KALENDER
+                    </h3>
+                    <div>
+                        <div class="ui feed" id="kalender">
+                        </div>
+                    </div>
+                    <!--<iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=500&amp;wkst=2&amp;hl=sv&amp;bgcolor=%23FFFFFF&amp;src=etuna.aikido%40gmail.com&amp;color=%23B1365F&amp;ctz=Europe%2FStockholm" style="border-width:0" width="250" height="500" frameborder="0" scrolling="no"></iframe>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="ui hidden divider">
+        </div>
+
+        <div class="ui inverted vertical footer segment">
+            <div class="ui container">
+                <div class="ui stackable inverted divided equal height stackable grid">
+                    <div class="three wide column">
+                        <div class="image">
+                            <img class="ui small centered image" src="images/logo2014vit.png">
+                        </div>
+                    </div>
+                    <div class="nine wide column">
+                        <h4 class="ui inverted header">Om Oss</h4>
+                        <p>
+                            Eskilstuna Ki-Aikidoklubb grundades 14 mars 1991, och firade för ett tag sedan 25-årsjubileum. Genom åren har det varit huvudsakligen vuxna och ungdomar som har tränat, men 31 augusti 2008 startade vi även en barngrupp. Vi är en ideell förening som drivs utan vinstsyfte. Våra instruktörer ställer upp utan ersättning, och våra avgifter går enbart till hyra av vår lokal, diverse avgifter samt inköp och underhåll av material.
+                        </p>
+                    </div>
+                    <div class="four wide column">
+                        <h4 class="ui inverted header">Eskilstuna Ki-Aikido</h4>
+                        <p><a href="https://goo.gl/maps/xrVzPPVFW3n">Munktellarenan, Eskilstuna</a></p>
+                        <p><a href="mailto:etuna.aikido@gmail.com">etuna.aikido@gmail.com</a></p>
+                        <p><a href="tel:0706816183">070-681 61 83</a></p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js" integrity="sha256-iaqfO5ue0VbSGcEiQn+OeXxnxAMK2+QgHXIDA5bWtGI=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" integrity="sha256-1hjUhpc44NwiNg8OwMu2QzJXhD8kcj+sJA3aCQZoUjg=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/sv.js" integrity="sha256-YSdluXfvQ4IfDgU3mcs/TSxtVLkuE4tiauwsICjb4Fg=" crossorigin="anonymous"></script>
-    <script src="js/format-google-calendar.js"></script>
     <script>
         $.noConflict();
+
+        jQuery.get('templates.html', function (templates) {
+            html = jQuery('<div/>').html(templates).contents();
+            jQuery('head').append(html);
+
+            var template = jQuery('#mallNavigation').html();
+            Mustache.parse(template);   // optional, speeds up future uses
+            var rendered = Mustache.render(template,
+                { "items": [{ "name": "START", "url": "index.html", "state": "basic" },
+                    { "name": "BÖRJA TRÄNA", "url": "begin.html", "state": "" },
+                    { "name": "VILKA ÄR VI", "url": "presentation.html", "state": "" },
+                    { "name": "VANLIGA FRÅGOR", "url": "faq.html", "state": "" },
+                    { "name": "NYHETER", "url": "news.html", "state": "" }
+                ]
+            });
+            jQuery('#navBar').append(rendered);
+        });
+    </script>
+    
+    <script src="js/format-google-calendar.js"></script>
+    <script>
 
         formatGoogleCalendar.init({
             calendarUrl: 'https://www.googleapis.com/calendar/v3/calendars/etuna.aikido@gmail.com/events?key=AIzaSyDbRaukZGBDmTZZ6Ku81X-rIZOvCVBT0_4',
