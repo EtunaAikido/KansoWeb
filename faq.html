@@ -52,103 +52,23 @@
         </div>
         <div class="ui hidden divider"></div>
 
-        <div class="ui four stackable equal height centered grid">
-            <div class="ui cards">
-                <div class="ui raised card">
-                    <div class="content">
-                        <div class="ui fluid image">
-                            <div class="ui orange ribbon label">
-                                <i class="users icon"></i> 3-6 år
-                            </div>
-                            <a href="#"><img src="images/pics_new.jpg" alt=""></a>
-                        </div>
-                        <div class="header ui container">
-                            <span class="subtitle markdown editable" property="promo1Text"></span>
-                        </div>
-                    </div>
-                    <div class="ui bottom attached red button">
-                        <span class="ui secondary">FÖRÄLDRAR &amp; SMÅTTINGAR</span>
-                    </div>
-                </div>
-                <div class="ui raised card">
-                    <div class="content">
-                        <div class="ui fluid image">
-                            <div class="ui green ribbon label">
-                                <i class="child icon"></i> 7-11 år
-                            </div>
-                            <a href="#"><img src="images/pics_new2.jpg" alt=""></a>
-                        </div>
-                        <div class="header ui container">
-                            <span class="subtitle markdown editable" property="promo2Text"></span>
-                        </div>
-                    </div>
-                    <div class="ui bottom attached red button">
-                        <span class="ui secondary">BARN</span>
-                    </div>
-                </div>
-                <div class="ui raised card">
-                    <div class="content">
-                        <div class="ui fluid image">
-                            <div class="ui purple ribbon label">
-                                <i class="student icon"></i> 12-15 år
-                            </div>
-                            <a href="#"><img src="images/pics_new3.jpg" alt=""></a>
-                        </div>
-                        <div class="header ui container">
-                            <span class="subtitle markdown editable" property="promo3Text"></span>
-                        </div>
-                    </div>
-                    <div class="ui bottom attached red button">
-                        <span class="ui secondary">UNGDOMAR</span>
-                    </div>
-                </div>
-                <div class="ui raised card">
-                    <div class="content">
-                        <div class="ui fluid image">
-                            <div class="ui blue ribbon label">
-                                <i class="user icon"></i> 15-99 år
-                            </div>
-                            <a href="#"><img src="images/pics_new4.jpg" alt=""></a>
-                        </div>
-                        <div class="header ui container">
-                            <span class="subtitle markdown editable" property="promo4Text"></span>
-                        </div>
-                    </div>
-                    <div class="ui bottom attached red button">
-                        <span class="ui secondary">VUXNA</span>
-                    </div>
-                </div>
-            </div>
-            <div class="ui row">
-                <div class="ui teal compact message">
-                    <i class="close icon"></i>
-                    <div class="content">
-                        <div class="header">
-                            Välkommen till klubben / Welcome to the club / مرحبا بكم في نادي الأيكيدو
-                        </div>
-                        <p>Lämna dina uppgifter här! / Leave your personal information here! / عضو جديد في نادي (كي أيكيدو) إسكيلستونا</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!--<div class="ui basic segment" style="left:200px; width:900px;">-->
         <div class="ui two column stackable centered grid">
 
             <div class="ui eight wide column">
-                <div class="ui segment" mv-multiple property="news" mv-order="desc" mv-if="$index < 2">
-                    <div class="ui teal bottom left attached label" property="date"></div>
-                    <header>
-                        <h2 property="title"></h2>
-                        <span class="byline" property="subtitle"></span>
-                    </header>
-                    <p property="text"></p>
-                </div>
                 <div class="ui container">
-                    <i class="ui small red button">FLER NYHETER</i>
+                    <div class="ui styled fluid accordion">
+                        <div mv-multiple property="faq" mv-order="desc">
+                            <div class="title" id="q[$index]">
+                                <i class="dropdown icon"></i>
+                                [question]
+                            </div>
+                            <div class="content">
+                                <p class="transition visible" style="display: block !important;" property="answer"></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-
+                
                 <h3 class="ui center aligned horizontal header divider">
                     VILKA ÄR VI
                 </h3>
@@ -179,21 +99,10 @@
                 </div>
             </div>
 
-            <div class="ui three wide column">
-                <div class="ui segment">
-                    <h3>
-                        VANLIGA FRÅGOR
-                    </h3>
-                    <div class="ui middle aligned divided list">
-                        <div class="item" mv-multiple property="faq" mv-order="desc">
-                            <div class="content">
-                                <a class="header" href="faq.html#q[$index]">[question]</a>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="faq.html"><div class="ui tiny red button">VISA ALLA</div></a>
 
-                </div>
+
+
+            <div class="ui three wide column">
                 <div class="ui basic segment">
                     <h3 class="ui center aligned horizontal header divider">
                         KALENDER
@@ -234,11 +143,12 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="https://get.mavo.io/mavo.min.js"></script>
+    <script type="text/javascript" src="https://get.mavo.io/mavo.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js" integrity="sha256-iaqfO5ue0VbSGcEiQn+OeXxnxAMK2+QgHXIDA5bWtGI=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" integrity="sha256-1hjUhpc44NwiNg8OwMu2QzJXhD8kcj+sJA3aCQZoUjg=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/sv.js" integrity="sha256-YSdluXfvQ4IfDgU3mcs/TSxtVLkuE4tiauwsICjb4Fg=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js" integrity="sha256-97Q90i72uoJfYtVnO2lQcLjbjBySZjLHx50DYhCBuJo=" crossorigin="anonymous"></script>
     <script>
         $.noConflict();
 
@@ -261,15 +171,22 @@
 
         var hasRun = false;
         document.documentElement.addEventListener("mavo:load", evt => {
-            if (!hasRun) {
-                var senseis = jQuery("div.senseis");
-                //alert(senseis.length);
-                var divs = senseis.get().sort(function () {
-                    return Math.round(Math.random()) - 0.5; //so we get the right +/- combo
-                }).slice(0, 3);
-                jQuery(divs).show();
-                hasRun = true;
-            }
+            //if (!hasRun) {
+            jQuery('.ui.accordion').accordion();
+            var senseis = jQuery("div.senseis");
+            //alert(senseis.length);
+            var divs = senseis.get().sort(function () {
+                return Math.round(Math.random()) - 0.5; //so we get the right +/- combo
+            }).slice(0, 3);
+            jQuery(divs).show();
+
+            var hash = Number(window.location.hash.substring(2));
+            var element_to_scroll_to = jQuery('#q' + hash);
+            element_to_scroll_to.scrollIntoView();
+
+            jQuery('.ui.accordion').accordion('open', hash);
+            hasRun = true;
+            //}
         });
         
     </script>
@@ -299,6 +216,5 @@
             ]
         });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js" integrity="sha256-97Q90i72uoJfYtVnO2lQcLjbjBySZjLHx50DYhCBuJo=" crossorigin="anonymous"></script>
 </body>
 </html>
