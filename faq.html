@@ -46,11 +46,6 @@
 
         <img class="ui fluid image" src="images/banner_new.jpg">
         <div class="ui hidden divider"></div>
-        <div class="ui text container">
-            <h1 class="ui center aligned header" property="welcomeHeader">
-            </h1>
-        </div>
-        <div class="ui hidden divider"></div>
 
         <div class="ui two column stackable centered grid">
 
@@ -69,34 +64,6 @@
                     </div>
                 </div>
                 
-                <h3 class="ui center aligned horizontal header divider">
-                    VILKA ÄR VI
-                </h3>
-
-                <div class="ui link three stackable cards">
-                    <div class="ui card senseis" mv-multiple property="instructors" mv-order="desc" style="display:none">
-                        <div class="ui fluid image">
-                            <img src="[image]" property="image">
-                        </div>
-                        <div class="content">
-                            <div class="header" property="name"></div>
-                            <div class="meta">
-                                <p property="position"></p>
-                            </div>
-                            <div class="description" property="description">
-                            </div>
-                        </div>
-                        <div class="extra content">
-                            <span class="right floated" property="since">
-                            </span>
-                            <span>
-                                <i class="student icon"></i>
-                                <span property="rank"></span>
-                            </span>
-                        </div>
-                    </div>
-                    
-                </div>
             </div>
 
 
@@ -159,10 +126,10 @@
             var template = jQuery('#mallNavigation').html();
             Mustache.parse(template);   // optional, speeds up future uses
             var rendered = Mustache.render(template,
-                { "items": [{ "name": "START", "url": "index.html", "state": "basic" },
+                { "items": [{ "name": "START", "url": "index.html", "state": "" },
                     { "name": "BÖRJA TRÄNA", "url": "begin.html", "state": "" },
                     { "name": "VILKA ÄR VI", "url": "presentation.html", "state": "" },
-                    { "name": "VANLIGA FRÅGOR", "url": "faq.html", "state": "" },
+                    { "name": "VANLIGA FRÅGOR", "url": "faq.html", "state": "basic" },
                     { "name": "NYHETER", "url": "news.html", "state": "" }
                 ]
             });

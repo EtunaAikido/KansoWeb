@@ -136,48 +136,49 @@
         <div class="ui two column stackable centered grid">
 
             <div class="ui eight wide column">
-                <div class="ui segment" mv-multiple property="news" mv-order="desc" mv-if="$index < 2">
+                <div class="ui raised segment" mv-multiple property="news" mv-order="desc" mv-if="$index < 2">
                     <div class="ui teal bottom left attached label" property="date"></div>
                     <header>
-                        <h2 property="title"></h2>
-                        <span class="byline" property="subtitle"></span>
+                        <h1 class="ui dividing header" property="title"></h1>
                     </header>
-                    <p property="text"></p>
-                </div>
-                <div class="ui container">
-                    <i class="ui small red button">FLER NYHETER</i>
+                    <div class="ui hidden divider"></div>
+                        <p property="text"></p>
                 </div>
 
-
-                <h3 class="ui center aligned horizontal header divider">
-                    VILKA ÄR VI
-                </h3>
-
-                <div class="ui link three stackable cards">
-                    <div class="ui card senseis" mv-multiple property="instructors" mv-order="desc" style="display:none">
-                        <div class="ui fluid image">
-                            <img src="[image]" property="image">
-                        </div>
-                        <div class="content">
-                            <div class="header" property="name"></div>
-                            <div class="meta">
-                                <p property="position"></p>
-                            </div>
-                            <div class="description" property="description">
-                            </div>
-                        </div>
-                        <div class="extra content">
-                            <span class="right floated" property="since">
-                            </span>
-                            <span>
-                                <i class="student icon"></i>
-                                <span property="rank"></span>
-                            </span>
-                        </div>
+                    <div class="ui container">
+                        <i class="ui small red button">FLER NYHETER</i>
                     </div>
-                    
+
+
+                    <h3 class="ui center aligned horizontal header divider">
+                        VILKA ÄR VI
+                    </h3>
+
+                    <div class="ui link three stackable cards">
+                        <div class="ui card senseis" mv-multiple property="instructors" mv-order="desc" style="display:none">
+                            <div class="ui fluid image">
+                                <img src="[image]" property="image">
+                            </div>
+                            <div class="content">
+                                <div class="header" property="name"></div>
+                                <div class="meta">
+                                    <p property="position"></p>
+                                </div>
+                                <div class="description" property="description">
+                                </div>
+                            </div>
+                            <div class="extra content">
+                                <span class="right floated" property="since">
+                                </span>
+                                <span>
+                                    <i class="student icon"></i>
+                                    <span property="rank"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
 
             <div class="ui three wide column">
                 <div class="ui segment">

@@ -149,8 +149,8 @@
             var template = jQuery('#mallNavigation').html();
             Mustache.parse(template);   // optional, speeds up future uses
             var rendered = Mustache.render(template,
-                { "items": [{ "name": "START", "url": "index.html", "state": "basic" },
-                    { "name": "BÖRJA TRÄNA", "url": "begin.html", "state": "" },
+                { "items": [{ "name": "START", "url": "index.html", "state": "" },
+                    { "name": "BÖRJA TRÄNA", "url": "begin.html", "state": "basic" },
                     { "name": "VILKA ÄR VI", "url": "presentation.html", "state": "" },
                     { "name": "VANLIGA FRÅGOR", "url": "faq.html", "state": "" },
                     { "name": "NYHETER", "url": "news.html", "state": "" }
