@@ -258,9 +258,9 @@ var formatGoogleCalendar = (function() {
 		}));
 
     	if (description)
-    		metaTemplate = Mustache.render(jQuery('#metaBeskrivning').html(), {
+            metaTemplate = metaTemplate.concat(Mustache.render(jQuery('#metaBeskrivning').html(), {
     				description: description
-    	});
+    	}));
 
     	if (kalenderTemplate)
     	{
