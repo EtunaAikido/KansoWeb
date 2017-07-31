@@ -50,28 +50,24 @@
         <div class="ui two column stackable centered grid">
             <div class="ui eight wide column">
                 <div class="ui raised segment">
-                    <div class="ui bottom attached label">
-                        <a class="ui big image teal label">
-                            <img src="images/johana_small.png">
-                            Johan
-                        </a>
-                        <a class="ui big image teal label">
-                            <img src="images/kasper_small.png">
-                            Kasper
-                        </a>
-                    </div>
                         <img src="images/banner_new.jpg" class="ui fluid image">
                         <h1 class="ui header">Föräldrar & småttingar
                             <div class="sub header">Aikido för de minsta tillsammans med en eller fler föräldrar/vuxen</div>
                         </h1>
                     <div class="ui container">Sed etiam vestibulum velit, euismod lacinia quam nisl id lorem. Quisque erat. Vestibulum pellentesque, justo mollis pretium suscipit, justo nulla blandit libero, in blandit augue justo quis nisl. Fusce mattis viverra elit. Fusce quis tortor. Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget lorem ipsum dolor. Donec placerat odio vel elit. Nullam ante orci, pellentesque eget, tempus quis, ultrices in, est. Curabitur sit amet nulla. Nam in massa. Sed vel tellus. Curabitur sem urna, consequat. Sed etiam vestibulum velit, euismod lacinia quam nisl id lorem. Quisque erat. Sed etiam vestibulum velit, euismod lacinia quam nisl id lorem. Quisque erat. Vestibulum pellentesque, justo mollis pretium suscipit, justo nulla blandit libero, in blandit augue justo quis nisl. Fusce mattis viverra elit. Fusce quis tortor. Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget lorem ipsum dolor. Donec placerat odio vel elit. Nullam ante orci, pellentesque eget, tempus quis, ultrices in, est. Curabitur sit amet nulla. Nam in massa. Sed vel tellus. Curabitur sem urna, consequat. Sed etiam vestibulum velit, euismod lacinia quam nisl id </div>
                     <div class="ui divider"></div>
-                    <div class="ui container">
-                            <a class="ui large green label"><i class="child icon"></i>Torsdag 17/8 17:30</a>
-                             <a class="ui large green label"><i class="child icon"></i>Söndag 20/8 10:00</a>
-                    </div>
-                    <div class="ui hidden divider"></div>
-                    <div class="ui hidden divider"></div>
+                    <p>
+                        <a class="ui basic medium image label">
+                            <img src="images/kasper_small.png">
+                            Kasper
+                        </a>
+                        <a class="ui basic medium image label">
+                            <img src="images/johana_small.png">
+                            Johan
+                        </a>
+                    </p>
+                            <div class="ui large green label" style="margin-top:2px;"><i class="child icon"></i>Torsdag 17 augusti 17:30</div>
+                             <div class="ui large green label" style="margin-top:2px;"><i class="child icon"></i>Söndag 20 augusti 10:00</div>
                 </div>
                 
             </div>
@@ -152,7 +148,7 @@
             var rendered = Mustache.render(template,
                 { "items": [{ "name": "START", "url": "index.html", "state": "" },
                     { "name": "BÖRJA TRÄNA", "url": "begin.html", "state": "basic" },
-                    { "name": "VILKA ÄR VI", "url": "presentation.html", "state": "" },
+                    { "name": "VILKA ÄR VI", "url": "people.html", "state": "" },
                     { "name": "VANLIGA FRÅGOR", "url": "faq.html", "state": "" },
                     { "name": "NYHETER", "url": "news.html", "state": "" }
                 ]

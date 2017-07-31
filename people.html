@@ -46,30 +46,71 @@
 
         <img class="ui fluid image" src="images/banner_new.jpg">
         <div class="ui hidden divider"></div>
+        
 
+        <!--<div class="ui basic segment" style="left:200px; width:900px;">-->
         <div class="ui two column stackable centered grid">
 
             <div class="ui eight wide column">
-                <div class="ui container">
-                    <div class="ui styled fluid accordion">
-                        <div mv-multiple property="faq" mv-order="desc">
-                            <div class="title" id="q[$index]">
-                                <i class="dropdown icon"></i>
-                                [question]
+
+
+                    <h3 class="ui center aligned horizontal header divider">
+                        INSTRUKTÖRERNA
+                    </h3>
+
+                    <div class="ui two stackable cards">
+                        <div class="ui card" mv-multiple property="instructors" mv-order="desc">
+                            <div class="ui slide masked reveal fluid image">
+                                <img src="[image]" property="image" class="visible content">
+                                <img src="images/action.png" class="hidden content" />
                             </div>
                             <div class="content">
-                                <p class="transition visible" style="display: block !important;" property="answer"></p>
+                                <div class="header" property="name"></div>
+                                <div class="meta">
+                                    <p property="position"></p>
+                                </div>
+                                <div class="description" property="description">
+                                </div>
+                            </div>
+                            <div class="extra content">
+                                <div>
+                                    <i class="student icon"></i>
+                                    <span property="rank"></span>
+                                </div>
+                                <div>
+                                    <span>
+                                        <i class="checked calendar icon"></i>
+                                        <span property="since"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="extra content">
+                                <div>
+                                    <a href="https://m.me/[facebook]" target="_blank"><i class="big red comments outline icon"></i></a>
+                                    <a href="mailto:[mail]" target="_blank"><i class="big red mail outline icon"></i></a>
+                                    <a href="tel:[phone]"><i class="big red call icon"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            <div class="ui three wide column">
+                <div class="ui segment">
+                    <h3>
+                        VANLIGA FRÅGOR
+                    </h3>
+                    <div class="ui middle aligned divided list">
+                        <div class="item" mv-multiple property="faq" mv-order="desc">
+                            <div class="content">
+                                <a class="header" href="faq.html#q[$index]">[question]</a>
                             </div>
                         </div>
                     </div>
+                    <a href="faq.html"><div class="ui tiny red button">VISA ALLA</div></a>
+
                 </div>
-                
-            </div>
-
-
-
-
-            <div class="ui three wide column">
                 <div class="ui basic segment">
                     <h3 class="ui center aligned horizontal header divider">
                         KALENDER
@@ -110,12 +151,11 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="https://get.mavo.io/mavo.js"></script>
+    <script type="text/javascript" src="https://get.mavo.io/mavo.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js" integrity="sha256-iaqfO5ue0VbSGcEiQn+OeXxnxAMK2+QgHXIDA5bWtGI=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" integrity="sha256-1hjUhpc44NwiNg8OwMu2QzJXhD8kcj+sJA3aCQZoUjg=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/sv.js" integrity="sha256-YSdluXfvQ4IfDgU3mcs/TSxtVLkuE4tiauwsICjb4Fg=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js" integrity="sha256-97Q90i72uoJfYtVnO2lQcLjbjBySZjLHx50DYhCBuJo=" crossorigin="anonymous"></script>
     <script>
         $.noConflict();
 
@@ -128,8 +168,8 @@
             var rendered = Mustache.render(template,
                 { "items": [{ "name": "START", "url": "index.html", "state": "" },
                     { "name": "BÖRJA TRÄNA", "url": "begin.html", "state": "" },
-                    { "name": "VILKA ÄR VI", "url": "people.html", "state": "" },
-                    { "name": "VANLIGA FRÅGOR", "url": "faq.html", "state": "basic" },
+                    { "name": "VILKA ÄR VI", "url": "people.html", "state": "basic" },
+                    { "name": "VANLIGA FRÅGOR", "url": "faq.html", "state": "" },
                     { "name": "NYHETER", "url": "news.html", "state": "" }
                 ]
             });
@@ -138,22 +178,15 @@
 
         var hasRun = false;
         document.documentElement.addEventListener("mavo:load", evt => {
-            //if (!hasRun) {
-            jQuery('.ui.accordion').accordion();
-            var senseis = jQuery("div.senseis");
-            //alert(senseis.length);
-            var divs = senseis.get().sort(function () {
-                return Math.round(Math.random()) - 0.5; //so we get the right +/- combo
-            }).slice(0, 3);
-            jQuery(divs).show();
-
-            var hash = Number(window.location.hash.substring(2));
-            var element_to_scroll_to = jQuery('#q' + hash);
-            element_to_scroll_to.scrollIntoView();
-
-            jQuery('.ui.accordion').accordion('open', hash);
-            hasRun = true;
-            //}
+            if (!hasRun) {
+                var senseis = jQuery("div.senseis");
+                //alert(senseis.length);
+                var divs = senseis.get().sort(function () {
+                    return Math.round(Math.random()) - 0.5; //so we get the right +/- combo
+                }).slice(0, 3);
+                jQuery(divs).show();
+                hasRun = true;
+            }
         });
         
     </script>
@@ -183,5 +216,6 @@
             ]
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js" integrity="sha256-97Q90i72uoJfYtVnO2lQcLjbjBySZjLHx50DYhCBuJo=" crossorigin="anonymous"></script>
 </body>
 </html>
