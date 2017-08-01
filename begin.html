@@ -23,6 +23,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="fav/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+    <script type="text/javascript" src="https://get.mavo.io/mavo.js"></script>
     <link rel="stylesheet" href="https://get.mavo.io/mavo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" integrity="sha256-5+W3JHnvGYIJkVxUBsw+jBi9+pOlu9enPX3vZapXj5M=" crossorigin="anonymous" />
     <style type="text/css">
@@ -49,12 +50,12 @@
 
         <div class="ui two column stackable centered grid">
             <div class="ui eight wide column">
-                <div class="ui raised segment">
-                        <img src="images/banner_new.jpg" class="ui fluid image">
-                        <h1 class="ui header">Föräldrar & småttingar
-                            <div class="sub header">Aikido för de minsta tillsammans med en eller fler föräldrar/vuxen</div>
+                <div class="ui raised segment" mv-multiple property="groups" mv-order="desc" id="[calendarGroup]">
+                        <img src="[image]" class="ui fluid image">
+                        <h1 class="ui header">[title]
+                            <div class="sub header" property="subtitle"></div>
                         </h1>
-                    <div class="ui container">Sed etiam vestibulum velit, euismod lacinia quam nisl id lorem. Quisque erat. Vestibulum pellentesque, justo mollis pretium suscipit, justo nulla blandit libero, in blandit augue justo quis nisl. Fusce mattis viverra elit. Fusce quis tortor. Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget lorem ipsum dolor. Donec placerat odio vel elit. Nullam ante orci, pellentesque eget, tempus quis, ultrices in, est. Curabitur sit amet nulla. Nam in massa. Sed vel tellus. Curabitur sem urna, consequat. Sed etiam vestibulum velit, euismod lacinia quam nisl id lorem. Quisque erat. Sed etiam vestibulum velit, euismod lacinia quam nisl id lorem. Quisque erat. Vestibulum pellentesque, justo mollis pretium suscipit, justo nulla blandit libero, in blandit augue justo quis nisl. Fusce mattis viverra elit. Fusce quis tortor. Consectetuer adipiscing elit. Nam pede erat, porta eu, lobortis eget lorem ipsum dolor. Donec placerat odio vel elit. Nullam ante orci, pellentesque eget, tempus quis, ultrices in, est. Curabitur sit amet nulla. Nam in massa. Sed vel tellus. Curabitur sem urna, consequat. Sed etiam vestibulum velit, euismod lacinia quam nisl id </div>
+                    <div class="ui container markdown" property="text"></div>
                     <div class="ui divider"></div>
                     <p>
                         <a class="ui basic medium image label">
@@ -95,7 +96,6 @@
                         <div class="ui feed" id="kalender">
                         </div>
                     </div>
-                    <!--<iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=500&amp;wkst=2&amp;hl=sv&amp;bgcolor=%23FFFFFF&amp;src=etuna.aikido%40gmail.com&amp;color=%23B1365F&amp;ctz=Europe%2FStockholm" style="border-width:0" width="250" height="500" frameborder="0" scrolling="no"></iframe>-->
                 </div>
             </div>
         </div>
@@ -127,7 +127,6 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="https://get.mavo.io/mavo.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js" integrity="sha256-iaqfO5ue0VbSGcEiQn+OeXxnxAMK2+QgHXIDA5bWtGI=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" integrity="sha256-1hjUhpc44NwiNg8OwMu2QzJXhD8kcj+sJA3aCQZoUjg=" crossorigin="anonymous"></script>
@@ -156,16 +155,10 @@
             jQuery('#navBar').append(rendered);
         });
 
-        var hasRun = false;
         document.documentElement.addEventListener("mavo:load", evt => {
-            if (!hasRun) {
-                var senseis = jQuery("div.senseis");
-                //alert(senseis.length);
-                var divs = senseis.get().sort(function () {
-                    return Math.round(Math.random()) - 0.5; //so we get the right +/- combo
-                }).slice(0, 3);
-                jQuery(divs).show();
-                hasRun = true;
+            if (window.jQuery) {
+                var hash = window.location.hash.substring(1);
+                jQuery('#' + hash).scrollIntoView();
             }
         });
         
