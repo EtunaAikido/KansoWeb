@@ -70,7 +70,7 @@
                 </h4>
 
                 <div class="ui container">
-                    <div class="ui success message" id="svar" style="display:none">
+                    <div class="ui success message" id="tack" style="display:none">
                         <div class="header">Fråga mottagen</div>
                         <p>Vi svarar på din fråga så fort vi kan!</p>
                     </div>
@@ -174,12 +174,11 @@
         var hash = -1;
         var scrollTo;
 
-        contactForm
         if (window.location.hash) {
             scrollTo = document.getElementById(window.location.hash.substring(1));
 
-            if (window.location.hash == '#svar') {
-                jQuery("#svar").show();
+            if (window.location.hash == '#tack') {
+                jQuery("#tack").show();
             }
             else {
                 hash = Number(window.location.hash.substring(1));
