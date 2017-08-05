@@ -64,6 +64,47 @@
                         </div>
                     </div>
                 </div>
+                
+                <h4 class="ui horizontal divider header">
+                    <i class="help circle icon"></i>
+                </h4>
+
+                <div class="ui container">
+                    <div class="ui success message" id="svar" style="display:none">
+                        <div class="header">Fråga mottagen</div>
+                        <p>Vi svarar på din fråga så fort vi kan!</p>
+                    </div>
+                    <div class="ui form" id="contactForm">
+                        <form action="https://formspree.io/etuna.aikido@gmail.com"
+                              method="POST">
+                            <div class="fields">
+                                <div class="field">
+                                    <label>Ditt namn</label>
+                                    <input type="text" name="namn" autocomplete="off">
+                                </div>
+                                <div class="field">
+                                    <label>Din epostadress</label>
+                                    <input type="email" name="email" autocomplete="off">
+                                </div>
+                                <div class="field">
+                                    <label>Ditt telefonnummer (om du vill att vi smsar svar)</label>
+                                    <input type="text" name="telefonnr" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label>Fråga</label>
+                                <textarea name="fraga"></textarea>
+                            </div>
+
+                            <input type="hidden" name="_next" value="//ekia.net/faq.html#tack" />
+                            <input type="hidden" name="_subject" value="Fråga om aikido" />
+                            <input type="submit" class="ui submit button" value="Skicka!">
+                        </form>
+
+
+                    </div>
+                </div>
             </div>
 
             <div class="ui three wide column">
@@ -130,6 +171,24 @@
             jQuery('#navBar').append(rendered);
         });
 
+        var hash = -1;
+        var scrollTo;
+
+        contactForm
+        if (window.location.hash) {
+            scrollTo = document.getElementById(window.location.hash.substring(1));
+
+            if (window.location.hash == '#svar') {
+                jQuery("#svar").show();
+            }
+            else {
+                hash = Number(window.location.hash.substring(1));
+            }
+        } else {
+            // Fragment doesn't exist
+        }
+
+
         var hasRun = false;
         document.documentElement.addEventListener("mavo:load", evt => {
             //if (!hasRun) {
@@ -141,13 +200,18 @@
             }).slice(0, 3);
             jQuery(divs).show();
 
-            var hash = Number(window.location.hash.substring(2));
-            var element_to_scroll_to = jQuery('#q' + hash);
-            element_to_scroll_to.scrollIntoView();
-
-            jQuery('.ui.accordion').accordion('open', hash);
+            if (hash > -1) {
+                //scrollTo = jQuery('#' + hash);
+                jQuery('.ui.accordion').accordion('open', hash);
+            }
             hasRun = true;
             //}
+        });
+
+        jQuery(document).ready(function () {
+            if (scrollTo != undefined) {
+                scrollTo.scrollIntoView(true);
+            }
         });
         
     </script>
