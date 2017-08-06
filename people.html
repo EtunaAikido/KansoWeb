@@ -30,6 +30,14 @@
         [mv-mode="edit"] {
             border: 3px solid yellow;
         }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            overflow-x: hidden;
+        }
     </style>
 </head>
 <body>
@@ -60,7 +68,7 @@
                     </h3>
 
                     <div class="ui two stackable cards">
-                        <div class="ui card" mv-multiple property="instructors" mv-order="desc">
+                        <div class="ui card" mv-multiple property="instructors" mv-order="desc" title="[name]">
                             <div class="ui slide masked reveal fluid image">
                                 <img src="[image]" property="image" class="visible content">
                                 <img src="[actionimage]" class="hidden content" />
@@ -174,16 +182,17 @@
             jQuery('#navBar').append(rendered);
         });
 
-        var hasRun = false;
+        var scrollTo = '';
         document.documentElement.addEventListener("mavo:load", evt => {
-            if (!hasRun) {
-                var senseis = jQuery("div.senseis");
-                //alert(senseis.length);
-                var divs = senseis.get().sort(function () {
-                    return Math.round(Math.random()) - 0.5; //so we get the right +/- combo
-                }).slice(0, 3);
-                jQuery(divs).show();
-                hasRun = true;
+            if (window.location.hash) {
+                scrollTo = document.getElementById(window.location.hash.substring(1));
+                //scrollTo.scrollIntoView(true);
+            }
+        });
+
+        jQuery(document).ready(function () {
+            if (scrollTo != '') {
+                scrollTo.scrollIntoView(true);
             }
         });
         
