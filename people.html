@@ -1,11 +1,13 @@
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
-    <title>Eskilstuna Ki-Aikido</title>
+    <title>Vilka är vi</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
+    <meta name="author" content="Eskilstuna Ki-Aikido">
+    <meta name="keywords" content="eskilstuna, munktellarenan, munktell, aikido, aikidoklubb, ki-aikido, ki-aikidoklubb, bokken, jo, kampkonst, kampsport, budo, vapenträning, dojo, japansk, martial art, hakama, aikidoläger, läger, aikidobilder" />
+    <meta name="description" content="Eskilstuna Ki-Aikido - Aikido sedan 1991" />
+    <link rel="canonical" href="http://www.ekia.net" />
     <link rel="apple-touch-icon" sizes="57x57" href="fav/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="fav/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="fav/apple-icon-72x72.png">
@@ -20,6 +22,15 @@
     <link rel="icon" type="image/png" sizes="96x96" href="fav/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="fav/favicon-16x16.png">
     <link rel="manifest" href="fav/manifest.json">
+    <meta property="og:title" content="Eskilstuna Ki-Aikido" />
+    <meta property="og:image" content="http://www.ekia.net/images/logo2014.png" />
+    <meta property="og:url" content="http://www.ekia.net" />
+    <meta property="og:site_name" content="Ekia.net" />
+    <meta property="og:admins" content="660022871" />
+    <meta name="twitter:card" content="Aikido för alla" />
+    <meta name="twitter:title" content="Eskilstuna Ki-Aikido" />
+    <meta name="twitter:description" content="Aikido - den fredliga kampsporten" />
+    <meta name="twitter:image" content="http://www.ekia.net/images/logo2014.png" />
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="fav/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -55,7 +66,7 @@
 
         <img class="ui fluid image" src="images/banner4.png">
         <div class="ui hidden divider"></div>
-        
+
 
         <!--<div class="ui basic segment" style="left:200px; width:900px;">-->
         <div class="ui two column stackable centered grid">
@@ -63,47 +74,47 @@
             <div class="ui eight wide column">
 
 
-                    <h3 class="ui center aligned horizontal header divider">
-                        INSTRUKTÖRERNA
-                    </h3>
+                <h3 class="ui center aligned horizontal header divider">
+                    INSTRUKTÖRERNA
+                </h3>
 
-                    <div class="ui two stackable cards">
-                        <div class="ui card" mv-multiple property="instructors" mv-order="desc" title="[name]">
-                            <div class="ui slide masked reveal fluid image">
-                                <img src="[image]" property="image" class="visible content">
-                                <img src="[actionimage]" class="hidden content" />
+                <div class="ui two stackable cards">
+                    <div class="ui card" mv-multiple property="instructors" mv-order="desc" title="[name]">
+                        <div class="ui slide masked reveal fluid image">
+                            <img src="[image]" property="image" class="visible content">
+                            <img src="[actionimage]" class="hidden content" />
+                        </div>
+                        <div class="content">
+                            <div class="header" property="name"></div>
+                            <div class="meta">
+                                <p property="position"></p>
                             </div>
-                            <div class="content">
-                                <div class="header" property="name"></div>
-                                <div class="meta">
-                                    <p property="position"></p>
-                                </div>
-                                <div class="description" property="description">
-                                </div>
-                            </div>
-                            <div class="extra content">
-                                <div>
-                                    <i class="student icon"></i>
-                                    <span property="rank"></span>
-                                </div>
-                                <div>
-                                    <span>
-                                        <i class="checked calendar icon"></i>
-                                        <span property="since"></span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="extra content">
-                                <div>
-                                    <a href="https://m.me/[facebook]" target="_blank"><i class="big red comments outline icon"></i></a>
-                                    <a href="mailto:[mail]" target="_blank"><i class="big red mail outline icon"></i></a>
-                                    <a href="tel:[phone]"><i class="big red call icon"></i></a>
-                                </div>
+                            <div class="description" property="description">
                             </div>
                         </div>
-
+                        <div class="extra content">
+                            <div>
+                                <i class="student icon"></i>
+                                <span property="rank"></span>
+                            </div>
+                            <div>
+                                <span>
+                                    <i class="checked calendar icon"></i>
+                                    <span property="since"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <div>
+                                <a href="https://m.me/[facebook]" target="_blank"><i class="big red comments outline icon"></i></a>
+                                <a href="mailto:[mail]" target="_blank"><i class="big red mail outline icon"></i></a>
+                                <a href="tel:[phone]"><i class="big red call icon"></i></a>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
+            </div>
 
             <div class="ui three wide column">
                 <div class="ui segment">
@@ -172,13 +183,14 @@
             var template = jQuery('#mallNavigation').html();
             Mustache.parse(template);   // optional, speeds up future uses
             var rendered = Mustache.render(template,
-                { "items": [{ "name": "START", "url": "index.html", "state": "" },
+                {
+                    "items": [{ "name": "START", "url": "index.html", "state": "" },
                     { "name": "BÖRJA TRÄNA", "url": "begin.html", "state": "" },
                     { "name": "VILKA ÄR VI", "url": "people.html", "state": "basic" },
                     { "name": "VANLIGA FRÅGOR", "url": "faq.html", "state": "" },
                     { "name": "NYHETER", "url": "news.html", "state": "" }
-                ]
-            });
+                    ]
+                });
             jQuery('#navBar').append(rendered);
         });
 
@@ -195,9 +207,9 @@
                 scrollTo.scrollIntoView(true);
             }
         });
-        
+
     </script>
-    
+
     <script src="js/format-google-calendar.js"></script>
     <script>
 

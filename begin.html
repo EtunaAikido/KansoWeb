@@ -1,11 +1,13 @@
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
-    <title>Eskilstuna Ki-Aikido</title>
+    <title>Börja träna</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
+    <meta name="author" content="Eskilstuna Ki-Aikido">
+    <meta name="keywords" content="eskilstuna, munktellarenan, munktell, aikido, aikidoklubb, ki-aikido, ki-aikidoklubb, bokken, jo, kampkonst, kampsport, budo, vapenträning, dojo, japansk, martial art, hakama, aikidoläger, läger, aikidobilder" />
+    <meta name="description" content="Eskilstuna Ki-Aikido - Aikido sedan 1991" />
+    <link rel="canonical" href="http://www.ekia.net" />
     <link rel="apple-touch-icon" sizes="57x57" href="fav/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="fav/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="fav/apple-icon-72x72.png">
@@ -20,10 +22,19 @@
     <link rel="icon" type="image/png" sizes="96x96" href="fav/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="fav/favicon-16x16.png">
     <link rel="manifest" href="fav/manifest.json">
+    <meta property="og:title" content="Eskilstuna Ki-Aikido" />
+    <meta property="og:image" content="http://www.ekia.net/images/logo2014.png" />
+    <meta property="og:url" content="http://www.ekia.net" />
+    <meta property="og:site_name" content="Ekia.net" />
+    <meta property="og:admins" content="660022871" />
+    <meta name="twitter:card" content="Aikido för alla" />
+    <meta name="twitter:title" content="Eskilstuna Ki-Aikido" />
+    <meta name="twitter:description" content="Aikido - den fredliga kampsporten" />
+    <meta name="twitter:image" content="http://www.ekia.net/images/logo2014.png" />
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="fav/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <script type="text/javascript" src="https://get.mavo.io/mavo.js"></script>
+    <script type="text/javascript" src="https://get.mavo.io/mavo.min.js"></script>
     <link rel="stylesheet" href="https://get.mavo.io/mavo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" integrity="sha256-5+W3JHnvGYIJkVxUBsw+jBi9+pOlu9enPX3vZapXj5M=" crossorigin="anonymous" />
     <style type="text/css">
@@ -68,7 +79,7 @@
                     <div class="ui divider"></div>
                     <div>
                         <span mv-multiple property="groupInstructors">
-                            <a href="people.html" class="ui basic medium image label">
+                            <a href="people.html#[name]" class="ui basic medium image label">
                                 <img src="[image]">
                                 [name]
                             </a>
@@ -151,13 +162,14 @@
             var template = jQuery('#mallNavigation').html();
             Mustache.parse(template);   // optional, speeds up future uses
             var rendered = Mustache.render(template,
-                { "items": [{ "name": "START", "url": "index.html", "state": "" },
+                {
+                    "items": [{ "name": "START", "url": "index.html", "state": "" },
                     { "name": "BÖRJA TRÄNA", "url": "begin.html", "state": "basic" },
                     { "name": "VILKA ÄR VI", "url": "people.html", "state": "" },
                     { "name": "VANLIGA FRÅGOR", "url": "faq.html", "state": "" },
                     { "name": "NYHETER", "url": "news.html", "state": "" }
-                ]
-            });
+                    ]
+                });
             jQuery('#navBar').append(rendered);
         });
 
@@ -167,9 +179,9 @@
                 jQuery('#' + hash).scrollIntoView();
             }
         });
-        
+
     </script>
-    
+
     <script src="js/format-google-calendar.js"></script>
     <script>
 
