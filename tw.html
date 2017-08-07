@@ -4,7 +4,23 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- Android mobile -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="shortcut icon" sizes="192x192" href="/fav/logoBW192x.png">
+    <link rel="shortcut icon" sizes="128x128" href="/fav/logoBW128x.png">
+    <link rel="manifest" href="manifest_tw.json">
+    <!-- iPhone mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/fav/logoBW128x.png">
+    <link rel="apple-touch-startup-image" href="/fav/logoBW128x.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="/fav/logoBW128x.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/fav/logoBW76x.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/fav/logoBW120x.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/fav/logoBW152x.png.png">
+
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <title>Tsuzukiwazas</title>
@@ -12,17 +28,91 @@
     <!-- Bootstrap Core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-
-    <!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
-    <link href="css/custom.css" rel="stylesheet">
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        body {
+            padding-top: 30px;
+        }
 
+        .jumbotron {
+            background-color: #ffffff !important;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: black;
+        }
+
+        .article-intro {
+            margin-bottom: 25px;
+        }
+
+        .footer-blurb-item {
+            padding: 10px 10px 10px 20px;
+        }
+
+        .small-print {
+            background-color: #000000;
+            padding: 30px 0;
+        }
+
+        .navbar-collapse.collapse {
+            display: none !important;
+        }
+
+            .navbar-collapse.collapse.in {
+                display: block !important;
+            }
+
+        .navbar-header .collapse, .navbar-toggle {
+            display: block !important;
+        }
+
+        .navbar-header {
+            float: none;
+        }
+
+        .glyphicon-refresh-animate {
+            -animation: spin .7s infinite linear;
+            -ms-animation: spin .7s infinite linear;
+            -webkit-animation: spinw .7s infinite linear;
+            -moz-animation: spinm .7s infinite linear;
+        }
+
+        @keyframes spin {
+            from {
+                transform: scale(1) rotate(0deg);
+            }
+
+            to {
+                transform: scale(1) rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes spinw {
+            from {
+                -webkit-transform: rotate(0deg);
+            }
+
+            to {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @-moz-keyframes spinm {
+            from {
+                -moz-transform: rotate(0deg);
+            }
+
+            to {
+                -moz-transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -31,7 +121,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Logo and responsive toggle -->
-            <div class="navbar-header" style="float:left">
+            <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
@@ -52,6 +142,11 @@
 
 	<div class="jumbotron feature">
 		<div class="container">
+            <div class="form-group" id="loader">
+                <div class="col-md-12 text-center">
+                    <span style="font-size:10em;" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                </div>
+            </div>
 			<p id="topic"></p>
 			<p><ul id="description"></ul></p>
 			<p id="Yoshimovie"></p>
@@ -59,7 +154,7 @@
 	</div>
 
     <!-- Content -->
-    <div class="container">
+    <div class="container" id="moviesDiv" style="display:none">
 
         <!-- Feature Row -->
         <div class="row" id="movies">
@@ -70,7 +165,7 @@
     </div>
     <!-- /.container -->
 	
-	<footer>
+	<footer style="display:none" id="footerDiv">
 		<div class="footer-blurb">
 			<div class="container">
 				<div class="row">
@@ -78,7 +173,7 @@
 						<h3><span class="glyphicon glyphicon-fire"></span> Klassificering</h3>
 						<p id="Klassificering"></p>
 					</div>
-					<div class="col-sm-8 footer-blurb-item">
+					<div class="col-sm-4 footer-blurb-item">
 						<h3><span class="glyphicon glyphicon-cloud-upload"></span> Ordlista</h3>
 						<p id="Ordlista"></p>
 					</div>
@@ -92,7 +187,7 @@
 	
     <!-- jQuery -->
     <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- Bootstrap Core JavaScript -->
     <!--<script src="js/bootstrap.min.js"></script>-->
 	
@@ -120,42 +215,6 @@ if (query == undefined) {
 	query = "1";
 }
 
-
-
-    function resize() {
-        // Find all YouTube videos
-        var $allVideos = $("iframe[src^='//www.youtube.com']"),
-
-            // The element that is fluid width
-            $fluidEl = $("body");
-
-        // Figure out and save aspect ratio for each video
-        $allVideos.each(function () {
-
-            $(this)
-                .data('aspectRatio', this.height / this.width)
-
-                // and remove the hard coded width/height
-                .removeAttr('height')
-                .removeAttr('width');
-
-        });
-
-        // When the window is resized
-        $(window).resize(function () {
-            var newWidth = $fluidEl.width();
-            // Resize all videos according to their own aspect ratio
-            $allVideos.each(function () {
-                var $el = $(this);
-                $el
-                    .width(newWidth)
-                    .height(newWidth * $el.data('aspectRatio'));
-            });
-            // Kick off one resize to fix all videos on page load
-        }).resize();
-
-    };
-
 $.getJSON( "https://spreadsheets.google.com/feeds/list/1DBGA8wHPPVc_gbpIlMmUIwHSdHqCg_ZnKzwoYfDX2B4/oyb1mi3/public/values?gid=2074401521&alt=json",
 //$.getJSON( "https://spreadsheets.google.com/feeds/list/0Ak0qDiMLT3XddHlNempadUs1djdkQ0tFLWF6ci1rUUE/od6/public/values?alt=json",
 	function (data) {	
@@ -165,8 +224,11 @@ $.getJSON( "https://spreadsheets.google.com/feeds/list/1DBGA8wHPPVc_gbpIlMmUIwHS
 		$.each(data.feed.entry, function(i,entry) {
 		    var nr = entry.gsx$nummer.$t;
 			
-			if (query == nr) {
-				numbers += '<li class="active"><a href="?nr=' + nr + '">TW ' + nr + '</a></li>';
+            if (query == nr) {
+                $('#loader').hide();
+                $('#moviesDiv').show();
+                $('#footerDiv').show();
+                numbers += '<li class="active"><a href="?nr=' + nr + '">TW ' + nr + ' ' + entry.gsx$attack.$t + '</a></li>';
 
 			$('p#topic').append('<h3>Tsuzukiwaza ' + nr + '</h3><h1>' + entry.gsx$attack.$t + '</h1>');
 			
@@ -191,11 +253,12 @@ $.getJSON( "https://spreadsheets.google.com/feeds/list/1DBGA8wHPPVc_gbpIlMmUIwHS
 			{
 				if (eval('entry.gsx$film' + x) != undefined && eval('entry.gsx$film' + x + '.$t') != "") {
 					var movie = '<article class="col-md-8 article-intro">';
-					movie += '<iframe width="854" height="480" src="https://www.youtube.com/embed/' + eval('entry.gsx$film' + x +'.$t').substring(32) +'" frameborder="0" allowfullscreen></iframe>';
+                    movie += '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/' + eval('entry.gsx$film' + x +'.$t').substring(32) +'" frameborder="0" allowfullscreen></iframe></div>';
 					movie += '</article>';
 					$('div#movies').append(movie);
 				}
             }
+
 			if (finder.length > 0)
 			{
             	$.getJSON( "https://spreadsheets.google.com/feeds/list/1DBGA8wHPPVc_gbpIlMmUIwHSdHqCg_ZnKzwoYfDX2B4/oitqgfe/public/values?gid=1138334576&alt=json",
@@ -215,12 +278,11 @@ $.getJSON( "https://spreadsheets.google.com/feeds/list/1DBGA8wHPPVc_gbpIlMmUIwHS
 			
 			}
 		    else {
-				numbers += '<li><a href="?nr=' + nr + '">TW ' + nr + '</a></li>';
+                numbers += '<li><a href="?nr=' + nr + '">TW ' + nr + ' ' + entry.gsx$attack.$t + '</a></li>';
 			}					
 			
 		});
         $('ul#navul').append(numbers);
-        resize();
 	  });
 	});
 	

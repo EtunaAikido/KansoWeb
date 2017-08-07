@@ -1,36 +1,27 @@
 body {
-	padding-top: 50px;
-	color: #959595;
-	}
+    padding-top: 30px;
+}
+
+.jumbotron {
+    background-color: #ffffff !important;
+}
 	
 h1, h2, h3, h4, h5, h6 {
-	color: black;
-	}
-	
-.feature {
-	background-color: yellowgreen;
 	color: black;
 	}
 	
 .article-intro {
     margin-bottom: 25px;
 }
-
-.footer-blurb {
-    padding: 30px 0;
-    background-color: goldenrod;
-    color: black;
-}
     
 .footer-blurb-item {
-    padding: 30px;
+    padding: 10px 10px 10px 20px;
     }
  
 .small-print {
-	background-color: #fff;
+	background-color: #000000;
 	padding: 30px 0;
 }
-
 
     .navbar-collapse.collapse {
         display: none !important;
@@ -46,57 +37,46 @@ h1, h2, h3, h4, h5, h6 {
     }
 
 
-/* -------------------------------------------------------------------
-// markItUp!
-// By Jay Salvat - http://markitup.jaysalvat.com/
-// ------------------------------------------------------------------*/
-.markdown .markItUpButton1 a {
-	background-image:url(images/h1.png); 
-}
-.markdown .markItUpButton2 a {
-	background-image:url(images/h2.png); 
-}
-.markdown .markItUpButton3 a {
-	background-image:url(images/h3.png); 
-}
-.markdown .markItUpButton4 a {
-	background-image:url(images/h4.png); 
-}
-.markdown .markItUpButton5 a {
-	background-image:url(images/h5.png); 
-}
-.markdown .markItUpButton6 a {
-	background-image:url(images/h6.png); 
+
+/*
+    Original version: http://www.bootply.com/128062
+    
+    This version adds support for IE 10+ and Firefox.
+*/
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -ms-animation: spin .7s infinite linear;
+    -webkit-animation: spinw .7s infinite linear;
+    -moz-animation: spinm .7s infinite linear;
 }
 
-.markdown .markItUpButton7 a {
-	background-image:url(images/bold.png);
-}
-.markdown .markItUpButton8 a {
-	background-image:url(images/italic.png);
+@keyframes spin {
+    from {
+        transform: scale(1) rotate(0deg);
+    }
+
+    to {
+        transform: scale(1) rotate(360deg);
+    }
 }
 
-.markdown .markItUpButton9 a {
-	background-image:url(images/list-bullet.png);
-}
-.markdown .markItUpButton10 a {
-	background-image:url(images/list-numeric.png);
+@-webkit-keyframes spinw {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+    }
 }
 
-.markdown .markItUpButton11 a {
-	background-image:url(images/picture.png); 
-}
-.markdown .markItUpButton12 a {
-	background-image:url(images/link.png);
-}
+@-moz-keyframes spinm {
+    from {
+        -moz-transform: rotate(0deg);
+    }
 
-.markdown .markItUpButton13 a	{
-	background-image:url(images/quotes.png);
-}
-.markdown .markItUpButton14 a	{
-	background-image:url(images/code.png);
-}
-
-.markdown .preview a {
-	background-image:url(images/preview.png);
+    to {
+        -moz-transform: rotate(360deg);
+    }
 }
