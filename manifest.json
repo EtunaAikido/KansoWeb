@@ -1,8 +1,8 @@
 {
-  "name": "Tsuzukiwazas",
+  "name": "Närvaroregistrering",
   "display": "standalone",
   "background_color": "#fff",
-  "description": "Filmer och information om Tsuzukiwazas.",
+  "description": "Registrera närvarande medlemmar för Eskilstuna Ki-Aikido.",
   "orientation": "portrait-primary",  
   "icons": [
     {
