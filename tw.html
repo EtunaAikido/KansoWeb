@@ -1,0 +1,244 @@
+﻿<!DOCTYPE html>
+<!-- Template by Quackit.com -->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Tsuzukiwazas</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+
+    <!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Logo and responsive toggle -->
+            <div class="navbar-header" style="float:left">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul id="navul" class="nav navbar-nav">
+  
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+	<div class="jumbotron feature">
+		<div class="container">
+			<p id="topic"></p>
+			<p><ul id="description"></ul></p>
+			<p id="Yoshimovie"></p>
+		</div>
+	</div>
+
+    <!-- Content -->
+    <div class="container">
+
+        <!-- Feature Row -->
+        <div class="row" id="movies">
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+	
+	<footer>
+		<div class="footer-blurb">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4 footer-blurb-item">
+						<h3><span class="glyphicon glyphicon-fire"></span> Klassificering</h3>
+						<p id="Klassificering"></p>
+					</div>
+					<div class="col-sm-8 footer-blurb-item">
+						<h3><span class="glyphicon glyphicon-cloud-upload"></span> Ordlista</h3>
+						<p id="Ordlista"></p>
+					</div>
+				</div>
+				<!-- /.row -->	
+			</div>
+        </div>
+        
+	</footer>
+
+	
+    <!-- jQuery -->
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <!--<script src="js/bootstrap.min.js"></script>-->
+	
+	<!--IE10 viewport bug workaround -->
+	<!--<script src="js/ie10-viewport-bug-workaround.js"></script>-->
+	
+	<!-- Placeholder Images -->
+	<!--<script src="js/holder.min.js"></script>-->
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js" integrity="sha256-mJAzKDq6kSoKqZKnA6UNLtPaIj8zT2mFnWu/GSouhgQ=" crossorigin="anonymous"></script>
+	
+<script type="text/javascript"> 
+function querystring(key) {
+   var re=new RegExp('(?:\\?|&)'+key+'=(.*?)(?=&|$)','gi');
+   var r=[], m;
+   while ((m=re.exec(document.location.search)) != null) r.push(m[1]);
+   return r;
+}
+
+$(document).ready(function() {	
+//source file is https://docs.google.com/spreadsheet/ccc?key=0Ak0qDiMLT3XddHlNempadUs1djdkQ0tFLWF6ci1rUUE	
+$(function listBooks() {
+var query = querystring('nr')[0];
+if (query == undefined) {
+	query = "1";
+}
+
+
+
+    function resize() {
+        // Find all YouTube videos
+        var $allVideos = $("iframe[src^='//www.youtube.com']"),
+
+            // The element that is fluid width
+            $fluidEl = $("body");
+
+        // Figure out and save aspect ratio for each video
+        $allVideos.each(function () {
+
+            $(this)
+                .data('aspectRatio', this.height / this.width)
+
+                // and remove the hard coded width/height
+                .removeAttr('height')
+                .removeAttr('width');
+
+        });
+
+        // When the window is resized
+        $(window).resize(function () {
+            var newWidth = $fluidEl.width();
+            // Resize all videos according to their own aspect ratio
+            $allVideos.each(function () {
+                var $el = $(this);
+                $el
+                    .width(newWidth)
+                    .height(newWidth * $el.data('aspectRatio'));
+            });
+            // Kick off one resize to fix all videos on page load
+        }).resize();
+
+    };
+
+$.getJSON( "https://spreadsheets.google.com/feeds/list/1DBGA8wHPPVc_gbpIlMmUIwHSdHqCg_ZnKzwoYfDX2B4/oyb1mi3/public/values?gid=2074401521&alt=json",
+//$.getJSON( "https://spreadsheets.google.com/feeds/list/0Ak0qDiMLT3XddHlNempadUs1djdkQ0tFLWF6ci1rUUE/od6/public/values?alt=json",
+	function (data) {	
+		$('div#book-list').append('<ul class="items"></ul>');
+		var numbers = "";
+		
+		$.each(data.feed.entry, function(i,entry) {
+		    var nr = entry.gsx$nummer.$t;
+			
+			if (query == nr) {
+				numbers += '<li class="active"><a href="?nr=' + nr + '">TW ' + nr + '</a></li>';
+
+			$('p#topic').append('<h3>Tsuzukiwaza ' + nr + '</h3><h1>' + entry.gsx$attack.$t + '</h1>');
+			
+			$('p#Yoshimovie').append('<a href="' + entry.gsx$filmyoshigasaki.$t + '">Yoshigasakis film (ekia2012)</a>')
+			
+            var item = "";
+
+			for (x = 1; x < 15; x++)
+			{
+				if (eval('entry.gsx$teknik' + x) != undefined && eval('entry.gsx$teknik' + x + '.$t') != "") {
+					item += '<li>' + eval('entry.gsx$teknik' + x + '.$t') + '</li>' 
+				}
+			}	
+			
+			$('ul#description').append(item);			
+
+            var finder = entry.gsx$ordlista.$t.split(';');
+
+			$('#Klassificering').append(marked(entry.gsx$klassificering.$t));
+
+			for (x = 1; x < 11; x++)
+			{
+				if (eval('entry.gsx$film' + x) != undefined && eval('entry.gsx$film' + x + '.$t') != "") {
+					var movie = '<article class="col-md-8 article-intro">';
+					movie += '<iframe width="854" height="480" src="https://www.youtube.com/embed/' + eval('entry.gsx$film' + x +'.$t').substring(32) +'" frameborder="0" allowfullscreen></iframe>';
+					movie += '</article>';
+					$('div#movies').append(movie);
+				}
+            }
+			if (finder.length > 0)
+			{
+            	$.getJSON( "https://spreadsheets.google.com/feeds/list/1DBGA8wHPPVc_gbpIlMmUIwHSdHqCg_ZnKzwoYfDX2B4/oitqgfe/public/values?gid=1138334576&alt=json",
+            	function (dict) {	
+            	   	       var words = ""; 
+            	    $.each(dict.feed.entry, function(x,desc) {
+            	   
+            	       if ($.inArray(desc.gsx$nummer.$t, finder) != -1)
+                        {
+                          words += '<li>' + desc.gsx$word.$t + ' - ' + desc.gsx$description.$t + '</li>' 
+                        }
+            	    });
+            	    $('p#Ordlista').append(words);
+            	   
+            	});
+			}
+			
+			}
+		    else {
+				numbers += '<li><a href="?nr=' + nr + '">TW ' + nr + '</a></li>';
+			}					
+			
+		});
+        $('ul#navul').append(numbers);
+        resize();
+	  });
+	});
+	
+
+	
+});
+
+            //<article class="col-md-4 article-intro">
+
+//                    <img class="img-responsive img-rounded" src="holder.js/700x300" alt="">
+
+	//		</article>
+
+			//item += '<div><object style="width:100%;height:100%;width: 640px; height: 390px; float: none; clear: both; margin: 2px auto;" data="http://www.youtube.com/embed/' + youtube +'"></object></div>';
+
+</script>	
+	
+	
+</body>
+
+</html>

@@ -80,13 +80,13 @@
                             <div class="ui orange ribbon label">
                                 <i class="users icon"></i> 3-6 år
                             </div>
-                            <a href="begin.html#Aikidolek"><img src="images/preschool_small.png" alt=""></a>
+                            <a href="training#Aikidolek"><img src="images/preschool_small.png" alt=""></a>
                         </div>
                         <div class="header ui container">
                             <span class="subtitle markdown editable" property="promo1Text"></span>
                         </div>
                     </div>
-                    <a href="begin.html#Aikidolek">
+                    <a href="training#Aikidolek">
                     <div class="ui bottom attached red button">
                         <span class="ui secondary">FÖRÄLDRAR &amp; SMÅTTINGAR</span>
                     </div>
@@ -98,13 +98,13 @@
                             <div class="ui green ribbon label">
                                 <i class="child icon"></i> 7-11 år
                             </div>
-                            <a href="begin.html#Barn"><img src="images/kids_small.png" alt=""></a>
+                            <a href="training#Barn"><img src="images/kids_small.png" alt=""></a>
                         </div>
                         <div class="header ui container">
                             <span class="subtitle markdown editable" property="promo2Text"></span>
                         </div>
                     </div>
-                    <a href="begin.html#Barn">
+                    <a href="training#Barn">
                         <div class="ui bottom attached red button">
                             <span class="ui secondary">BARN</span>
                         </div>
@@ -116,13 +116,13 @@
                             <div class="ui purple ribbon label">
                                 <i class="student icon"></i> 12-15 år
                             </div>
-                            <a href="begin.html#Ungdomar"><img src="images/youths_small.png" alt=""></a>
+                            <a href="training#Ungdomar"><img src="images/youths_small.png" alt=""></a>
                         </div>
                         <div class="header ui container">
                             <span class="subtitle markdown editable" property="promo3Text"></span>
                         </div>
                     </div>
-                    <a href="begin.html#Ungdomar">
+                    <a href="training#Ungdomar">
                         <div class="ui bottom attached red button">
                             <span class="ui secondary">UNGDOMAR</span>
                         </div>
@@ -134,7 +134,7 @@
                             <div class="ui blue ribbon label">
                                 <i class="user icon"></i> 15-99 år
                             </div>
-                            <a href="begin.html#Vuxna">
+                            <a href="training#Vuxna">
                                 <img src="images/adults_small.png" alt="">
                             </a>
                         </div>
@@ -142,7 +142,7 @@
                             <span class="subtitle markdown editable" property="promo4Text"></span>
                         </div>
                     </div>
-                    <a href="begin.html#Ungdomar">
+                    <a href="training#Vuxna">
 
                         <div class="ui bottom attached red button">
                             <span class="ui secondary">VUXNA</span>
@@ -192,7 +192,7 @@
                     <div class="ui link three doubling stackable cards">
                         <div class="ui card senseis" mv-multiple property="instructors" mv-order="desc" style="display:none !important;">
                             <div class="ui fluid image">
-                                <a href="people.html#[name]"><img src="[image]" property="image"></a>
+                                <a href="people#[name]"><img src="[image]" property="image"></a>
                             </div>
                             <div class="content">
                                 <div class="header" property="name"></div>
@@ -220,11 +220,11 @@
                     <div class="ui middle aligned divided list">
                         <div class="item" mv-multiple property="faq" mv-order="desc">
                             <div class="content">
-                                <a class="header" href="faq.html#[$index]">[question]</a>
+                                <a class="header" href="answers#[$index]">[question]</a>
                             </div>
                         </div>
                     </div>
-                    <a href="faq.html"><div class="ui tiny red button">VISA ALLA</div></a>
+                    <a href="answers"><div class="ui tiny red button">VISA ALLA</div></a>
 
                 </div>
                 <div class="ui basic segment">
@@ -279,11 +279,11 @@
             var template = jQuery('#mallNavigation').html();
             Mustache.parse(template);   // optional, speeds up future uses
             var rendered = Mustache.render(template,
-                { "items": [{ "name": "START", "url": "index.html", "state": "basic" },
-                    { "name": "BÖRJA TRÄNA", "url": "begin.html", "state": "" },
-                    { "name": "VILKA ÄR VI", "url": "people.html", "state": "" },
-                    { "name": "VANLIGA FRÅGOR", "url": "faq.html", "state": "" },
-                    { "name": "NYHETER", "url": "news.html", "state": "" }
+                { "items": [{ "name": "START", "url": "index", "state": "basic" },
+                    { "name": "BÖRJA TRÄNA", "url": "training", "state": "" },
+                    { "name": "VILKA ÄR VI", "url": "people", "state": "" },
+                    { "name": "VANLIGA FRÅGOR", "url": "answers", "state": "" },
+                    { "name": "NYHETER", "url": "news", "state": "" }
                 ]
             });
             jQuery('#navBar').append(rendered);

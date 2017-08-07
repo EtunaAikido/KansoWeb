@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
-    <title>Vanliga frågor</title>
+    <title>Börja träna</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="author" content="Eskilstuna Ki-Aikido">
@@ -64,69 +64,49 @@
             </div>
         </div>
 
-        <img class="ui fluid image" src="images/banner3.png">
+        <img class="ui fluid image" src="images/banner2.png">
         <div class="ui hidden divider"></div>
 
         <div class="ui two column stackable centered grid">
-
             <div class="ui eight wide column">
-                <div class="ui container">
-                    <div class="ui styled fluid accordion">
-                        <div mv-multiple property="faq" mv-order="desc">
-                            <div class="title" id="q[$index]">
-                                <i class="dropdown icon"></i>
-                                [question]
-                            </div>
-                            <div class="content">
-                                <p class="transition visible markdown" style="display: block !important;" property="answer"></p>
-                            </div>
-                        </div>
+                <div class="ui raised segment" mv-multiple property="groups" mv-order="desc" id="[calendarGroup]">
+                    <img src="[groupImage]" class="ui fluid image">
+                    <h1 class="ui header">
+                        [title]
+                        <div class="sub header" property="subtitle"></div>
+                    </h1>
+                    <div class="ui container markdown" property="text"></div>
+                    <div class="ui divider"></div>
+                    <div>
+                        <span mv-multiple property="groupInstructors">
+                            <a href="people#[name]" class="ui basic medium image label">
+                                <img src="[image]">
+                                [name]
+                            </a>
+                        </span>
+                    </div>
+                    <div>
+                        <div mv-multiple property="groupSchedule" class="ui large [color] label" style="margin-top:2px;"><i class="[icon] icon"></i>[time]</div>
                     </div>
                 </div>
 
-                <h4 class="ui horizontal divider header">
-                    <i class="help circle icon"></i>
-                </h4>
-
-                <div class="ui container">
-                    <div class="ui success message" id="tack" style="display:none">
-                        <div class="header">Fråga mottagen</div>
-                        <p>Vi svarar på din fråga så fort vi kan!</p>
-                    </div>
-                    <div class="ui form" id="contactForm">
-                        <form action="https://formspree.io/etuna.aikido@gmail.com"
-                              method="POST">
-                            <div class="fields">
-                                <div class="field">
-                                    <label>Ditt namn</label>
-                                    <input type="text" name="namn" autocomplete="off">
-                                </div>
-                                <div class="field">
-                                    <label>Din epostadress</label>
-                                    <input type="email" name="email" autocomplete="off">
-                                </div>
-                                <div class="field">
-                                    <label>Ditt telefonnummer (om du vill att vi smsar svar)</label>
-                                    <input type="text" name="telefonnr" autocomplete="off">
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label>Fråga</label>
-                                <textarea name="fraga"></textarea>
-                            </div>
-
-                            <input type="hidden" name="_next" value="//ekia.net/faq.html#tack" />
-                            <input type="hidden" name="_subject" value="Fråga om aikido" />
-                            <input type="submit" class="ui submit button" value="Skicka!">
-                        </form>
-
-
-                    </div>
-                </div>
             </div>
 
             <div class="ui three wide column">
+                <div class="ui segment">
+                    <h3>
+                        VANLIGA FRÅGOR
+                    </h3>
+                    <div class="ui middle aligned divided list">
+                        <div class="item" mv-multiple property="faq" mv-order="desc">
+                            <div class="content">
+                                <a class="header" href="begin#[$index]">[question]</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="faq"><div class="ui tiny red button">VISA ALLA</div></a>
+
+                </div>
                 <div class="ui basic segment">
                     <h3 class="ui center aligned horizontal header divider">
                         KALENDER
@@ -135,7 +115,6 @@
                         <div class="ui feed" id="kalender">
                         </div>
                     </div>
-                    <!--<iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=500&amp;wkst=2&amp;hl=sv&amp;bgcolor=%23FFFFFF&amp;src=etuna.aikido%40gmail.com&amp;color=%23B1365F&amp;ctz=Europe%2FStockholm" style="border-width:0" width="250" height="500" frameborder="0" scrolling="no"></iframe>-->
                 </div>
             </div>
         </div>
@@ -173,6 +152,9 @@
     <script>
         $.noConflict();
 
+        var hash = Number(window.location.hash.substring(2));
+        jQuery('.ui.accordion').accordion(); //('open', hash);
+
         jQuery.get('templates.html', function (templates) {
             html = jQuery('<div/>').html(templates).contents();
             jQuery('head').append(html);
@@ -181,55 +163,20 @@
             Mustache.parse(template);   // optional, speeds up future uses
             var rendered = Mustache.render(template,
                 {
-                    "items": [{ "name": "START", "url": "index.html", "state": "" },
-                    { "name": "BÖRJA TRÄNA", "url": "begin.html", "state": "" },
-                    { "name": "VILKA ÄR VI", "url": "people.html", "state": "" },
-                    { "name": "VANLIGA FRÅGOR", "url": "faq.html", "state": "basic" },
-                    { "name": "NYHETER", "url": "news.html", "state": "" }
+                    "items": [{ "name": "START", "url": "index", "state": "" },
+                    { "name": "BÖRJA TRÄNA", "url": "training", "state": "basic" },
+                    { "name": "VILKA ÄR VI", "url": "people", "state": "" },
+                    { "name": "VANLIGA FRÅGOR", "url": "answers", "state": "" },
+                    { "name": "NYHETER", "url": "news", "state": "" }
                     ]
                 });
             jQuery('#navBar').append(rendered);
         });
 
-        var hash = -1;
-        var scrollTo;
-
-        if (window.location.hash) {
-            scrollTo = document.getElementById(window.location.hash.substring(1));
-
-            if (window.location.hash == '#tack') {
-                jQuery("#tack").show();
-            }
-            else {
-                hash = Number(window.location.hash.substring(1));
-            }
-        } else {
-            // Fragment doesn't exist
-        }
-
-
-        var hasRun = false;
         document.documentElement.addEventListener("mavo:load", evt => {
-            //if (!hasRun) {
-            jQuery('.ui.accordion').accordion();
-            var senseis = jQuery("div.senseis");
-            //alert(senseis.length);
-            var divs = senseis.get().sort(function () {
-                return Math.round(Math.random()) - 0.5; //so we get the right +/- combo
-            }).slice(0, 3);
-            jQuery(divs).show();
-
-            if (hash > -1) {
-                //scrollTo = jQuery('#' + hash);
-                jQuery('.ui.accordion').accordion('open', hash);
-            }
-            hasRun = true;
-            //}
-        });
-
-        jQuery(document).ready(function () {
-            if (scrollTo != undefined) {
-                scrollTo.scrollIntoView(true);
+            if (window.jQuery) {
+                var hash = window.location.hash.substring(1);
+                jQuery('#' + hash).scrollIntoView();
             }
         });
 

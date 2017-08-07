@@ -124,11 +124,11 @@
                     <div class="ui middle aligned divided list">
                         <div class="item" mv-multiple property="faq" mv-order="desc">
                             <div class="content">
-                                <a class="header" href="faq.html#[$index]">[question]</a>
+                                <a class="header" href="answers#[$index]">[question]</a>
                             </div>
                         </div>
                     </div>
-                    <a href="faq.html"><div class="ui tiny red button">VISA ALLA</div></a>
+                    <a href="answers"><div class="ui tiny red button">VISA ALLA</div></a>
 
                 </div>
                 <div class="ui basic segment">
@@ -184,11 +184,11 @@
             Mustache.parse(template);   // optional, speeds up future uses
             var rendered = Mustache.render(template,
                 {
-                    "items": [{ "name": "START", "url": "index.html", "state": "" },
-                    { "name": "BÖRJA TRÄNA", "url": "begin.html", "state": "" },
-                    { "name": "VILKA ÄR VI", "url": "people.html", "state": "basic" },
-                    { "name": "VANLIGA FRÅGOR", "url": "faq.html", "state": "" },
-                    { "name": "NYHETER", "url": "news.html", "state": "" }
+                    "items": [{ "name": "START", "url": "index", "state": "" },
+                    { "name": "BÖRJA TRÄNA", "url": "training", "state": "" },
+                    { "name": "VILKA ÄR VI", "url": "people", "state": "basic" },
+                    { "name": "VANLIGA FRÅGOR", "url": "answers", "state": "" },
+                    { "name": "NYHETER", "url": "news", "state": "" }
                     ]
                 });
             jQuery('#navBar').append(rendered);

@@ -11,19 +11,19 @@
   <changefreq>weekly</changefreq>
 </url>
 <url>
-  <loc>http://www.ekia.net/news.html</loc>
+  <loc>http://www.ekia.net/news</loc>
   <changefreq>weekly</changefreq>
 </url>
 <url>
-  <loc>http://www.ekia.net/begin.html</loc>
+  <loc>http://www.ekia.net/training</loc>
   <changefreq>monthly</changefreq>
 </url>
 <url>
-  <loc>http://www.ekia.net/faq.html</loc>
+  <loc>http://www.ekia.net/answers</loc>
   <changefreq>monthly</changefreq>
 </url>
 <url>
-  <loc>http://www.ekia.net/people.html</loc>
+  <loc>http://www.ekia.net/people</loc>
   <changefreq>monthly</changefreq>
 </url>
 </urlset>
