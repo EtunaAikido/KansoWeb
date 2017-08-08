@@ -70,10 +70,10 @@
         <div class="ui two column stackable centered grid">
 
             <div class="ui eight wide column">
-                <div class="ui container">
+                <div class="ui container" id="scrollHere">
                     <div class="ui styled fluid accordion">
                         <div mv-multiple property="faq" mv-order="desc">
-                            <div class="title" id="q[$index]">
+                            <div class="title" id="[$index]">
                                 <i class="dropdown icon"></i>
                                 [question]
                             </div>
@@ -118,7 +118,8 @@
 
                             <input type="hidden" name="_next" value="//ekia.net/answers#tack" />
                             <input type="hidden" name="_subject" value="Fråga om aikido" />
-                            <input type="submit" class="ui submit button" value="Skicka!">
+                            <input type="hidden" name="_language" value="sv" />
+                            <input type="submit" class="ui submit red button" value="Skicka!">
                         </form>
 
 
@@ -247,9 +248,20 @@
             }
             hasRun = true;
             //}
+
+            jQuery('.title').click(function () {
+                var hashId = '#' + jQuery(this).attr('id');
+                if (history.replaceState) {
+                    history.replaceState(null, null, hashId);
+                }
+                //else {
+                //    location.hash = hashId;
+                //}
+            });
         });
 
         jQuery(document).ready(function () {
+            scrollTo = document.getElementById("scrollHere");
             if (scrollTo != undefined) {
                 scrollTo.scrollIntoView(true);
             }
