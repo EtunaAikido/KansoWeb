@@ -8,18 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!-- Android mobile -->
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="shortcut icon" sizes="192x192" href="/fav/logoBW192x.png">
-    <link rel="shortcut icon" sizes="128x128" href="/fav/logoBW128x.png">
+    <link rel="shortcut icon" sizes="192x192" href="/fav/logoWB192x.png">
+    <link rel="shortcut icon" sizes="128x128" href="/fav/logoWB128x.png">
     <link rel="manifest" href="manifest_tw.json">
     <!-- iPhone mobile -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="apple-touch-icon" href="/fav/logoBW128x.png">
-    <link rel="apple-touch-startup-image" href="/fav/logoBW128x.png">
-    <link rel="apple-touch-icon" sizes="128x128" href="/fav/logoBW128x.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/fav/logoBW76x.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/fav/logoBW120x.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/fav/logoBW152x.png.png">
+    <link rel="apple-touch-icon" href="/fav/logoWB128x.png">
+    <link rel="apple-touch-startup-image" href="/fav/logoWB128x.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="/fav/logoWB128x.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/fav/logoWB76x.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/fav/logoWB120x.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/fav/logoWB152x.png.png">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="https://cdn.rawgit.com/Daugilas/lazyYT/a52252c3/lazyYT.css" rel="stylesheet">
     <style>
@@ -157,8 +157,6 @@
     <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js" integrity="sha256-mJAzKDq6kSoKqZKnA6UNLtPaIj8zT2mFnWu/GSouhgQ=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.5/jquery.lazy.min.js" integrity="sha256-opvlG8wDn5P0ucYqP3f1ErB4FUlPxu78ufGDpTuQ4LU=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.5/plugins/jquery.lazy.youtube.min.js" integrity="sha256-YhLhaWvN6+KcEQqaHgRiPRHAjb62m/i8xaky7A7i1JM=" crossorigin="anonymous"></script>
     <script src="https://cdn.rawgit.com/Daugilas/lazyYT/a52252c3/lazyYT.js"></script>
 	
 <script type="text/javascript"> 
@@ -183,6 +181,7 @@ $(document).ready(function() {
                 function (data) {
                     $.getJSON("https://spreadsheets.google.com/feeds/list/1DBGA8wHPPVc_gbpIlMmUIwHSdHqCg_ZnKzwoYfDX2B4/oitqgfe/public/values?gid=1138334576&alt=json",
                         function (dict) {
+                            //localstorage expires every monday
                             localStorage.clear();
                             localStorage.setObject('twDatavecka' + weekNumber, data);
                             localStorage.setObject('twDictvecka' + weekNumber, dict);

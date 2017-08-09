@@ -4,13 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	
+    <title>Närvaroregistrering</title>
     <!-- Android mobile -->
 	<meta name="mobile-web-app-capable" content="yes">
     <link rel="shortcut icon" sizes="192x192" href="/fav/logoBW192x.png">
     <link rel="shortcut icon" sizes="128x128" href="/fav/logoBW128x.png">
 	<link rel="manifest" href="manifest.json">
-
 	<!-- iPhone mobile -->
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -20,14 +19,79 @@
 	<link rel="apple-touch-icon" sizes="76x76" href="/fav/logoBW76x.png">
 	<link rel="apple-touch-icon" sizes="120x120" href="/fav/logoBW120x.png">
 	<link rel="apple-touch-icon" sizes="152x152" href="/fav/logoBW152x.png.png">
-
 	<!-- Styles.  -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" integrity="sha256-rDWX6XrmRttWyVBePhmrpHnnZ1EPmM6WQRQl6h0h7J8=" crossorigin="anonymous" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.min.css" integrity="sha256-nFp4rgCvFsMQweFQwabbKfjrBwlaebbLkE29VFR0K40=" crossorigin="anonymous" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" integrity="sha256-gBxd65TVOCRCDC48+AXN6hhg3I/fZqE/BnwgKwdzJG4=" crossorigin="anonymous" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            GetPeople();
+        });
 
-	<title>Närvaroregistrering</title>
+        function GetPeople() {
+            $('#laddar').show();
+
+            var today = new Date();
+            var dd = today.getDate();
+            var localData = localStorage.getObject('narvaroDatadag' + dd);
+
+            if (localData === null) {
+                $.getJSON("https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/od6/public/values?alt=json",
+                    function (data) {
+                        localStorage.clear();
+                        localStorage.setObject('narvaroDatadag' + dd, data);
+                        ProcessData(data);
+                    });
+            }
+            else {
+                ProcessData(localData);
+            }
+
+            function ProcessData(data) {
+                $('div#namesHere').empty();
+                var grupp = $('input[name=groupRadio]:checked').val();
+                var margin = '';
+
+                $.each(data.feed.entry, function (i, entry) {
+                    //Name				  Count	Age	Sex	Adults	Kids
+                    //Nils Karlsson	5			35	MAN	JA			JA
+
+                    var id = entry.gsx$name.$t.replace(/ /g, '_');
+                    var person = '<div class="form-group"' + margin + '>' +
+                        '<div class="col-xs-3">' +
+                        '<input type="checkbox" class="switch form-control" id="' + id + '" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger">' +
+                        '</div><h4><label for="' + id + '" class="col-xs-8 control-label">' + entry.gsx$name.$t + '</label></h4></span></div>';
+
+                    if (grupp === "Barn" && entry.gsx$kids.$t === 'JA') {
+                        $('div#namesHere').append(person);
+                    }
+                    else if (grupp === "Vuxna" && entry.gsx$adults.$t === 'JA') {
+                        $('div#namesHere').append(person);
+                    }
+                    // Fix this later with right classification
+                    else if (grupp === "Ungdomar" && entry.gsx$kids.$t === 'JA') {
+                        $('div#namesHere').append(person);
+                    }
+                    margin = ' style="margin-top:-5px"';
+                });
+
+                $('.switch').bootstrapToggle();
+                $('#laddar').hide();
+            };
+        }
+
+        Storage.prototype.setObject = function (key, value) {
+            this.setItem(key, JSON.stringify(value));
+        }
+
+        Storage.prototype.getObject = function (key) {
+            var value = this.getItem(key);
+            return value && JSON.parse(value);
+        }
+    </script>
+
 
 		<style>
 			.glyphicon.spinning {
@@ -108,137 +172,91 @@
   </div>
 </div>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
-<!--script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script-->
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>	
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js" integrity="sha256-eZNgBgutLI47rKzpfUji/dD9t6LRs2gI3YqXKdoDOmo=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js" integrity="sha256-De/cgZoAkgvqoxL9yJpJzPHyozUETFnSv7EQGfQWQ4o=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js" integrity="sha256-urCxMaTtyuE8UK5XeVYuQbm/MhnXflqZ/B9AOkyTguo=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.sv.min.js" integrity="sha256-o1x9u/P0PClG4V6tKmrCqEjtfnsAyVeaO7xukabPVRM=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js" integrity="sha256-IxYUmOOk74FUrcx5FEMOHVmTJDb7ZAwnC/ivo/OQGxg=" crossorigin="anonymous"></script>
-<!--script type="text/javascript" src="https://raw.githubusercontent.com/ryanseddon/H5F/master/h5f.min.js"></script-->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.22/polyfill.min.js" integrity="sha256-l1ITH+FkedkRS129jMQ/Ou0OS52L8fFl+RcOlNokraI=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
-//H5F.setup(document.getElementById("formValidateme"));
+        $(document).ready(function () {
+            $('#datePickme input').datepicker({
+                format: "DD d M",
+                endDate: '+0d',
+                weekStart: 1,
+                maxViewMode: 0,
+                language: "sv",
+                keyboardNavigation: false,
+                forceParse: false,
+                daysOfWeekDisabled: "1,3,5,6",
+                daysOfWeekHighlighted: "0,2,4",
+                calendarWeeks: true,
+                autoclose: true,
+                todayHighlight: true
+            });
 
-$(document).ready(function() 
-{
+            $('#formValidateme').on('submit', function (e) {
+                e.preventDefault();  //prevent form from submitting
+                var datum = $('#classDate').data('datepicker').getFormattedDate('DD d M');
+                if (!datum || datum === "")
+                    return;
 
+                postToGoogle();
+            });
 
-		$('#datePickme input').datepicker({
-					format: "DD d M",
-					endDate: '+0d',		
-					weekStart: 1,
-					maxViewMode: 0,
-					language: "sv",
-					keyboardNavigation: false,
-					forceParse: false,
-					daysOfWeekDisabled: "1,3,5,6",
-					daysOfWeekHighlighted: "0,2,4",
-					calendarWeeks: true,
-					autoclose: true,
-					todayHighlight: true
-		});
+            $('input[type=radio][name=groupRadio]').change(
+                function () {
+                    GetPeople();
+                    $('#submitForm').text('Skicka in!');
 
-       function postToGoogle() {
-                        var grupp = $('input[name=groupRadio]:checked').val();
-						
-						var datum = $('#classDate').data('datepicker').getFormattedDate('DD d M');
-						var personer = "";
-						var endline = "";
-						
-						$('.switch:checkbox:checked').each(function() {
-							var name = $('label[for="' + this.id + '"]').text();
-							personer += endline + name;
-							endline = '\n';
-						});
-                        personer += '\n' + 'Nya: ' + $('#nyaPersoner').val();
-                        personer += '\n' + 'Anteckning: ' + $('#anteckning').val();
+                });
 
-            $.ajax({
+        });
+
+    function postToGoogle() {
+        var grupp = $('input[name=groupRadio]:checked').val();
+
+        var datum = $('#classDate').data('datepicker').getFormattedDate('DD d M');
+        var personer = "";
+        var endline = "";
+
+        $('.switch:checkbox:checked').each(function () {
+            var name = $('label[for="' + this.id + '"]').text();
+            personer += endline + name;
+            endline = '\n';
+        });
+        personer += '\n' + 'Nya: ' + $('#nyaPersoner').val();
+        personer += '\n' + 'Anteckning: ' + $('#anteckning').val();
+
+        $.ajax({
             url: "https://docs.google.com/forms/d/e/1FAIpQLSe48Dap5E_C1ooZnHexeTccOpvLu3Yd1cxjEsWpEjG1S1zpQQ/formResponse",
-            data: {"entry.518054362": grupp, 
-						"entry.1084298548": datum, 
-						"entry.918407859": personer},
+            data: {
+                "entry.518054362": grupp,
+                "entry.1084298548": datum,
+                "entry.918407859": personer
+            },
             type: "POST",
             dataType: "xml",
             statusCode: {
-                0: function() {
+                0: function () {
                     //Success message
-										//GetPeople();
-					$('#submitForm').text('Inskickat!');
-					$('div#namesHere').empty();
+                    //GetPeople();
+                    $('#submitForm').text('Inskickat!');
+                    $('div#namesHere').empty();
                     $('#nyaPersoner').val('');
                 },
-                200: function() {
-										//GetPeople();
+                200: function () {
+                    //GetPeople();
                     //Success Message
-					$('#submitForm').text('Inskickat!');
-					$('div#namesHere').empty();
+                    $('#submitForm').text('Inskickat!');
+                    $('div#namesHere').empty();
                     $('#nyaPersoner').val('');
                 }
             }
         });
-			 }		
-
-	  $('#formValidateme').on('submit', function(e) {
-        e.preventDefault();  //prevent form from submitting
-		var datum = $('#classDate').data('datepicker').getFormattedDate('DD d M');
-		if (!datum || datum === "")
-			return;
-
-		postToGoogle();
-    });
-
-      $('input[type=radio][name=groupRadio]').change(
-	function(){
-		GetPeople();
-		$('#submitForm').text('Skicka in!');
-});
- 
-GetPeople();
-
-function GetPeople()
-{
- 	$('#laddar').show();
-	
-	$.getJSON( "https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/od6/public/values?alt=json",
-		function (data) {	
-            $('div#namesHere').empty();			
-            var grupp = $('input[name=groupRadio]:checked').val();
-			var margin = '';
-			
-			$.each(data.feed.entry, function(i,entry) {
-					//Name				  Count	Age	Sex	Adults	Kids
-					//Nils Karlsson	5			35	MAN	JA			JA
-				
-					var id = entry.gsx$name.$t.replace(/ /g, '_');
-					var person = '<div class="form-group"' + margin + '>' +
-										'<div class="col-xs-3">' +
-										'<input type="checkbox" class="switch form-control" id="' + id + '" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger">' +
-										'</div><h4><label for="'+ id + '" class="col-xs-8 control-label">' + entry.gsx$name.$t + '</label></h4></span></div>';
-				
-					if (grupp === "Barn" && entry.gsx$kids.$t === 'JA')
-					{
-						$('div#namesHere').append(person);
-					}
-					else if (grupp === "Vuxna" && entry.gsx$adults.$t === 'JA')
-					{
-						$('div#namesHere').append(person);
-                    }
-                    // Fix this later with right classification
-                    else if (grupp === "Ungdomar" && entry.gsx$kids.$t === 'JA') {
-                        $('div#namesHere').append(person);
-                    }
-					margin = ' style="margin-top:-5px"';
-			});
-			
-			$('.switch').bootstrapToggle();
-			$('#laddar').hide();
-		});
-	}
-});
+    }
 
 </script>	
 </body>
