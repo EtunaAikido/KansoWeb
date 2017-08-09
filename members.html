@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
-    <title>Börja träna</title>
+    <title>Medlemmar</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="author" content="Eskilstuna Ki-Aikido">
@@ -64,85 +64,31 @@
             </div>
         </div>
 
-        <img class="ui fluid image" src="images/banner2.png">
+        <img class="ui fluid image" src="images/banner1.png">
         <div class="ui hidden divider"></div>
 
+
+        <!--<div class="ui basic segment" style="left:200px; width:900px;">-->
         <div class="ui two column stackable centered grid">
+
             <div class="ui eight wide column">
-                <div class="ui raised segment" mv-multiple property="groups" mv-order="desc" id="[calendarGroup]">
-                    <img src="[groupImage]" class="ui fluid image">
-                    <h1 class="ui header">
-                        [title]
-                        <div class="sub header" property="subtitle"></div>
-                    </h1>
-                    <div class="ui container markdown" property="text"></div>
-                    <div class="ui divider"></div>
-                    <div>
-                        <span mv-multiple property="groupInstructors">
-                            <a href="people#[name]" class="ui basic medium image label">
-                                <img src="[image]">
-                                [name]
-                            </a>
-                        </span>
-                    </div>
-                    <div>
-                        <div mv-multiple property="groupSchedule" class="ui large [color] label" style="margin-top:2px;"><i class="[icon] icon"></i>[time]</div>
-                    </div>
+                <div class="ui raised segment" mv-multiple property="news" mv-order="desc">
+                    <div class="ui teal bottom left attached label" property="date"></div>
+                    <h1 class="ui dividing header" property="title"></h1>
+                    <i><div class="sub header" property="subtitle"></div></i>
+
+                    <div class="ui hidden divider"></div>
+                    <p property="text"></p>
                 </div>
+
 
             </div>
 
-            <div class="ui three wide column">
-                <div class="ui segment">
-                    <h3>
-                        VANLIGA FRÅGOR
-                    </h3>
-                    <div class="ui middle aligned divided list">
-                        <div class="item" mv-multiple property="faq" mv-order="desc">
-                            <div class="content">
-                                <a class="header" href="begin#[$index]">[question]</a>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="faq"><div class="ui tiny red button">VISA ALLA</div></a>
-
-                </div>
-                <div class="ui basic segment">
-                    <h3 class="ui center aligned horizontal header divider">
-                        KALENDER
-                    </h3>
-                    <div>
-                        <div class="ui feed" id="kalender">
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="ui hidden divider">
         </div>
 
-        <div class="ui inverted vertical footer segment">
-            <div class="ui container">
-                <div class="ui stackable inverted divided equal height stackable grid">
-                    <div class="three wide column">
-                        <div class="image">
-                            <img class="ui small centered image" src="[footerImage]">
-                        </div>
-                    </div>
-                    <div class="nine wide column">
-                        <h4 class="ui inverted header">Om Oss</h4>
-                        <p class="markdown" property="footerText"></p>
-                    </div>
-                    <div class="four wide column">
-                        <h4 class="ui inverted header">Eskilstuna Ki-Aikido</h4>
-                        <p><a href="https://goo.gl/maps/xrVzPPVFW3n">Munktellarenan, Eskilstuna</a></p>
-                        <p><a href="mailto:etuna.aikido@gmail.com">etuna.aikido@gmail.com</a></p>
-                        <p><a href="tel:0706816183">070-681 61 83</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js" integrity="sha256-iaqfO5ue0VbSGcEiQn+OeXxnxAMK2+QgHXIDA5bWtGI=" crossorigin="anonymous"></script>
@@ -152,9 +98,6 @@
     <script>
         $.noConflict();
 
-        var hash = Number(window.location.hash.substring(2));
-        jQuery('.ui.accordion').accordion(); //('open', hash);
-
         jQuery.get('templates.html', function (templates) {
             html = jQuery('<div/>').html(templates).contents();
             jQuery('head').append(html);
@@ -163,10 +106,11 @@
             var rendered = Mustache.render(template,
                 {
                     "items": [{ "name": "START", "url": "index", "state": "" },
-                    { "name": "BÖRJA TRÄNA", "url": "training", "state": "basic" },
+                    { "name": "BÖRJA TRÄNA", "url": "training", "state": "" },
                     { "name": "VILKA ÄR VI", "url": "people", "state": "" },
                     { "name": "VANLIGA FRÅGOR", "url": "answers", "state": "" },
-                    { "name": "NYHETER", "url": "news", "state": "" }
+                    { "name": "NYHETER", "url": "news", "state": "" },
+                    { "name": "MEDLEM", "url": "members", "state": "basic" }
                     ]
                 });
             jQuery('#navBar').append(rendered);
@@ -194,10 +138,16 @@
             });
         });
 
+        var hasRun = false;
         document.documentElement.addEventListener("mavo:load", evt => {
-            if (window.jQuery) {
-                var hash = window.location.hash.substring(1);
-                jQuery('#' + hash).scrollIntoView();
+            if (!hasRun) {
+                var senseis = jQuery("div.senseis");
+                //alert(senseis.length);
+                var divs = senseis.get().sort(function () {
+                    return Math.round(Math.random()) - 0.5; //so we get the right +/- combo
+                }).slice(0, 3);
+                jQuery(divs).show();
+                hasRun = true;
             }
         });
 

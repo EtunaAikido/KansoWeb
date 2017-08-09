@@ -27,6 +27,8 @@ var formatGoogleCalendar = (function() {
                 sameElse: 'dddd D MMMM'
             }
         });
+		
+		
 
         if (settings.recurringEvents) finalURL = finalURL.concat("&singleEvents=true");
         if (!settings.past) finalURL = finalURL.concat("&orderBy=startTime&timeMin=" + (moment().startOf('day').toISOString()));

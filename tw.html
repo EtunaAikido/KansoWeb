@@ -2,10 +2,10 @@
 <!-- Template by Quackit.com -->
 <html lang="en">
 <head>
+    <title>Tsuzukiwazas</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
     <!-- Android mobile -->
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="shortcut icon" sizes="192x192" href="/fav/logoBW192x.png">
@@ -20,20 +20,8 @@
     <link rel="apple-touch-icon" sizes="76x76" href="/fav/logoBW76x.png">
     <link rel="apple-touch-icon" sizes="120x120" href="/fav/logoBW120x.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/fav/logoBW152x.png.png">
-
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-    <title>Tsuzukiwazas</title>
-
-    <!-- Bootstrap Core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <link href="https://cdn.rawgit.com/Daugilas/lazyYT/a52252c3/lazyYT.css" rel="stylesheet">
     <style>
         body {
             padding-top: 30px;
@@ -116,11 +104,8 @@
 </head>
 
 <body>
-
-    <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
-            <!-- Logo and responsive toggle -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
                     <span class="sr-only">Toggle navigation</span>
@@ -129,15 +114,11 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
-            <!-- Navbar links -->
             <div class="collapse navbar-collapse" id="navbar">
                 <ul id="navul" class="nav navbar-nav">
-  
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container -->
     </nav>
 
 	<div class="jumbotron feature">
@@ -152,19 +133,10 @@
 			<p id="Yoshimovie"></p>
 		</div>
 	</div>
-
-    <!-- Content -->
     <div class="container" id="moviesDiv" style="display:none">
-
-        <!-- Feature Row -->
         <div class="row" id="movies">
-
         </div>
-        <!-- /.row -->
-
     </div>
-    <!-- /.container -->
-	
 	<footer style="display:none" id="footerDiv">
 		<div class="footer-blurb">
 			<div class="container">
@@ -181,23 +153,13 @@
 				<!-- /.row -->	
 			</div>
         </div>
-        
 	</footer>
-
-	
-    <!-- jQuery -->
     <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <!--<script src="js/bootstrap.min.js"></script>-->
-	
-	<!--IE10 viewport bug workaround -->
-	<!--<script src="js/ie10-viewport-bug-workaround.js"></script>-->
-	
-	<!-- Placeholder Images -->
-	<!--<script src="js/holder.min.js"></script>-->
-	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js" integrity="sha256-mJAzKDq6kSoKqZKnA6UNLtPaIj8zT2mFnWu/GSouhgQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.5/jquery.lazy.min.js" integrity="sha256-opvlG8wDn5P0ucYqP3f1ErB4FUlPxu78ufGDpTuQ4LU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.5/plugins/jquery.lazy.youtube.min.js" integrity="sha256-YhLhaWvN6+KcEQqaHgRiPRHAjb62m/i8xaky7A7i1JM=" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/Daugilas/lazyYT/a52252c3/lazyYT.js"></script>
 	
 <script type="text/javascript"> 
 function querystring(key) {
@@ -209,98 +171,112 @@ function querystring(key) {
 
 $(document).ready(function() {	
 //source file is https://docs.google.com/spreadsheet/ccc?key=0Ak0qDiMLT3XddHlNempadUs1djdkQ0tFLWF6ci1rUUE	
-$(function listBooks() {
-var query = querystring('nr')[0];
-if (query == undefined) {
-	query = "1";
-}
-
-$.getJSON( "https://spreadsheets.google.com/feeds/list/1DBGA8wHPPVc_gbpIlMmUIwHSdHqCg_ZnKzwoYfDX2B4/oyb1mi3/public/values?gid=2074401521&alt=json",
 //$.getJSON( "https://spreadsheets.google.com/feeds/list/0Ak0qDiMLT3XddHlNempadUs1djdkQ0tFLWF6ci1rUUE/od6/public/values?alt=json",
-	function (data) {	
-		$('div#book-list').append('<ul class="items"></ul>');
-		var numbers = "";
-		
-		$.each(data.feed.entry, function(i,entry) {
-		    var nr = entry.gsx$nummer.$t;
-			
+    
+    $(function listBooks() {
+        var weekNumber = (new Date()).getWeek();
+        var localData = localStorage.getObject('twDatavecka' + weekNumber);
+        var localDict = localStorage.getObject('twDictvecka' + weekNumber);
+
+        if (localData === null) {
+            $.getJSON("https://spreadsheets.google.com/feeds/list/1DBGA8wHPPVc_gbpIlMmUIwHSdHqCg_ZnKzwoYfDX2B4/oyb1mi3/public/values?gid=2074401521&alt=json",
+                function (data) {
+                    $.getJSON("https://spreadsheets.google.com/feeds/list/1DBGA8wHPPVc_gbpIlMmUIwHSdHqCg_ZnKzwoYfDX2B4/oitqgfe/public/values?gid=1138334576&alt=json",
+                        function (dict) {
+                            localStorage.clear();
+                            localStorage.setObject('twDatavecka' + weekNumber, data);
+                            localStorage.setObject('twDictvecka' + weekNumber, dict);
+                            ProcessData(data, dict);
+                        });
+                });
+        }
+        else
+        {
+            ProcessData(localData, localDict);
+        }
+    });
+
+    Storage.prototype.setObject = function (key, value) {
+        this.setItem(key, JSON.stringify(value));
+    }
+
+    Storage.prototype.getObject = function (key) {
+        var value = this.getItem(key);
+        return value && JSON.parse(value);
+    }
+
+    Date.prototype.getWeek = function () {
+        var onejan = new Date(this.getFullYear(), 0, 1);
+        return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+    }
+
+    function ProcessData(data, dict) {
+        var query = querystring('nr')[0];
+        if (query == undefined) {
+            query = "1";
+        }
+
+        $('div#book-list').append('<ul class="items"></ul>');
+        var numbers = "";
+
+        $.each(data.feed.entry, function (i, entry) {
+            var nr = entry.gsx$nummer.$t;
+
             if (query == nr) {
                 $('#loader').hide();
                 $('#moviesDiv').show();
                 $('#footerDiv').show();
                 numbers += '<li class="active"><a href="?nr=' + nr + '">TW ' + nr + ' ' + entry.gsx$attack.$t + '</a></li>';
 
-			$('p#topic').append('<h3>Tsuzukiwaza ' + nr + '</h3><h1>' + entry.gsx$attack.$t + '</h1>');
-			
-			$('p#Yoshimovie').append('<a href="' + entry.gsx$filmyoshigasaki.$t + '">Yoshigasakis film (ekia2012)</a>')
-			
-            var item = "";
+                $('p#topic').append('<h3>Tsuzukiwaza ' + nr + '</h3><h1>' + entry.gsx$attack.$t + '</h1>');
 
-			for (x = 1; x < 15; x++)
-			{
-				if (eval('entry.gsx$teknik' + x) != undefined && eval('entry.gsx$teknik' + x + '.$t') != "") {
-					item += '<li>' + eval('entry.gsx$teknik' + x + '.$t') + '</li>' 
-				}
-			}	
-			
-			$('ul#description').append(item);			
+                $('p#Yoshimovie').append('<a href="' + entry.gsx$filmyoshigasaki.$t + '">Yoshigasakis film (ekia2012)</a>')
 
-            var finder = entry.gsx$ordlista.$t.split(';');
+                var item = "";
 
-			$('#Klassificering').append(marked(entry.gsx$klassificering.$t));
+                for (x = 1; x < 15; x++) {
+                    if (eval('entry.gsx$teknik' + x) != undefined && eval('entry.gsx$teknik' + x + '.$t') != "") {
+                        item += '<li>' + eval('entry.gsx$teknik' + x + '.$t') + '</li>'
+                    }
+                }
 
-			for (x = 1; x < 11; x++)
-			{
-				if (eval('entry.gsx$film' + x) != undefined && eval('entry.gsx$film' + x + '.$t') != "") {
-					var movie = '<article class="col-md-8 article-intro">';
-                    movie += '<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/' + eval('entry.gsx$film' + x +'.$t').substring(32) +'" frameborder="0" allowfullscreen></iframe></div>';
-					movie += '</article>';
-					$('div#movies').append(movie);
-				}
-            }
+                $('ul#description').append(item);
 
-			if (finder.length > 0)
-			{
-            	$.getJSON( "https://spreadsheets.google.com/feeds/list/1DBGA8wHPPVc_gbpIlMmUIwHSdHqCg_ZnKzwoYfDX2B4/oitqgfe/public/values?gid=1138334576&alt=json",
-            	function (dict) {	
-            	   	       var words = ""; 
-            	    $.each(dict.feed.entry, function(x,desc) {
-            	   
-            	       if ($.inArray(desc.gsx$nummer.$t, finder) != -1)
-                        {
-                          words += '<li>' + desc.gsx$word.$t + ' - ' + desc.gsx$description.$t + '</li>' 
+                var finder = entry.gsx$ordlista.$t.split(';');
+
+                $('#Klassificering').append(marked(entry.gsx$klassificering.$t));
+
+                for (x = 1; x < 11; x++) {
+                    if (eval('entry.gsx$film' + x) != undefined && eval('entry.gsx$film' + x + '.$t') != "") {
+                        var movie = '<article class="col-md-8 article-intro">';
+                        //movie += '<div class="embed-responsive embed-responsive-16by9"><iframe data-loader="youtube" class="embed-responsive-item" src="https://www.youtube.com/embed/' + eval('entry.gsx$film' + x + '.$t').substring(32) + '" frameborder="0" allowfullscreen></iframe></div>';
+                        movie += '<div class="embed-responsive embed-responsive-16by9"><div class="lazyYT" data-youtube-id="'+ eval('entry.gsx$film' + x + '.$t').substring(32) +'">Klicka mig</div></div>'
+                        movie += '</article>';
+                        $('div#movies').append(movie);
+                    }
+                }
+
+                $('.lazyYT').lazyYT('AIzaSyC911J-UtcGPB8SIWUm-_Her-fXBusUdwI');
+
+                if (finder.length > 0) {
+                    var words = "";
+                    $.each(dict.feed.entry, function (x, desc) {
+
+                        if ($.inArray(desc.gsx$nummer.$t, finder) != -1) {
+                            words += '<li>' + desc.gsx$word.$t + ' - ' + desc.gsx$description.$t + '</li>'
                         }
-            	    });
-            	    $('p#Ordlista').append(words);
-            	   
-            	});
-			}
-			
-			}
-		    else {
+                    });
+                    $('p#Ordlista').append(words);
+                }
+            }
+            else {
                 numbers += '<li><a href="?nr=' + nr + '">TW ' + nr + ' ' + entry.gsx$attack.$t + '</a></li>';
-			}					
-			
-		});
+            }
+        });
         $('ul#navul').append(numbers);
-	  });
-	});
-	
-
-	
+    };
 });
 
-            //<article class="col-md-4 article-intro">
-
-//                    <img class="img-responsive img-rounded" src="holder.js/700x300" alt="">
-
-	//		</article>
-
-			//item += '<div><object style="width:100%;height:100%;width: 640px; height: 390px; float: none; clear: both; margin: 2px auto;" data="http://www.youtube.com/embed/' + youtube +'"></object></div>';
-
 </script>	
-	
-	
 </body>
-
 </html>
