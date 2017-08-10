@@ -11,15 +11,15 @@ Tanken är att webbsidan så långt det är möjligt ska hållas ren från onöd
 
 Webbprojektet ligger här under KansoWeb. Innehållet (främst texter) ligger under KansoData, https://github.com/EtunaAikido/KansoData, i json-format. Innehållet läses in på webbsidorna genom javascriptbiblioteket Mavo, https://mavo.io/, som genom att identifiera taggar i html-koden kan fylla dessa med information från json-filerna direkt från github. 
 
-Redigering av innehållet kan göras direkt i json-filerna eller genom ett webbgränssnitt som Mavo tillhandahåller direkt på webbsidan. Det går att nå genom att lägga till ?login efter url-en, dvs http://nya.ekia.net/index.html?login exempelvis. Detta är för att det ska gå att redigera innehållet av vem som helst utan html-kunskaper och för att separera presentation och innehåll på ett bra sätt.
+Redigering av innehållet kan göras direkt i json-filerna eller genom ett webbgränssnitt som Mavo tillhandahåller direkt på webbsidan. Det går att nå genom att lägga till ?login efter url-en, dvs http://ekia.net/index?login exempelvis. Detta är för att det ska gå att redigera innehållet av vem som helst utan html-kunskaper och för att separera presentation och innehåll på ett bra sätt.
 
 # CSS & JS
 
 Själva webbsidorna är uppbyggda med hjälp av css-biblioteket Semantic UI https://semantic-ui.com/ som hanterar all layout och styling. Det finns väldigt många bra exempel där på hur man gör snygg styling.
 
-Kalendern kommer direkt från Google Calendar, med hjälp av ett js-bibliotek som jag har modifierat kraftigt. Händelser stylas sedan med hjälp av mallar som körs genom templatemotorn Mustache.js. Även tidsbiblioteket Moment.js används för att få ordning på dag och tid i händelserna. I stort sett alla js-bibliotek använder sig även av jQuery.js. Försök så långt det är möjligt att undvika lokala kopior av css/js-bibliotek, länka alltid till ett CDN istället. Det blir mycket lättare att köra sidorna lokalt då och de laddas även snabbare.
+Kalendern kommer direkt från Google Calendar, med hjälp av ett js-bibliotek som jag har modifierat kraftigt. Händelser stylas sedan med hjälp av mallar som körs genom templatemotorn Mustache.js. Även tidsbiblioteket Moment.js används för att få ordning på dag och tid i händelserna. I stort sett alla js-bibliotek använder sig även av jQuery.js. Försök så långt det är möjligt att undvika lokala kopior av css/js-bibliotek, länka alltid till ett CDN istället (en hostingtjänst för exempelvis js-bibliotek). Det blir mycket lättare att köra sidorna lokalt då och de laddas även snabbare.
 
-När kod checkas in i KansoWeb så byggs den automatiskt till http://nya.ekia.net (kommer att ändras till skarpa webben när den lanseras) genom https://ftploy.com/, så tänk på vad du checkar in.
+När kod checkas in i KansoWeb så byggs den automatiskt till http://ekia.net genom https://ftploy.com/, så tänk på vad du checkar in.
 
 # Vad kan du hjälpa till med?
 
