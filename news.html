@@ -76,9 +76,9 @@
                     <div class="ui teal bottom left attached label" property="date"></div>
                     <h1 class="ui dividing header" property="title"></h1>
                     <i><div class="sub header" property="subtitle"></div></i>
-
                     <div class="ui hidden divider"></div>
-                    <p property="text"></p>
+                    <span property="text" class="markdown"></span>
+                    <div class="ui hidden divider"></div>
                 </div>
 
 
@@ -92,7 +92,7 @@
                     <div class="ui middle aligned divided list">
                         <div class="item" mv-multiple property="faq" mv-order="desc">
                             <div class="content">
-                                <a class="header" href="answers#[$index]">[question]</a>
+                                <a class="header" href="answers#[$index]"><span property="question"></span></a>
                             </div>
                         </div>
                     </div>
@@ -120,7 +120,7 @@
                 <div class="ui stackable inverted divided equal height stackable grid">
                     <div class="three wide column">
                         <div class="image">
-                            <img class="ui small centered image" src="[footerImage]">
+                            <img class="ui small centered image" property="footerImage">
                         </div>
                     </div>
                     <div class="nine wide column">

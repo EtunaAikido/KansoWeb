@@ -70,9 +70,9 @@
         <div class="ui two column stackable centered grid">
             <div class="ui eight wide column">
                 <div class="ui raised segment" mv-multiple property="groups" mv-order="desc" id="[calendarGroup]">
-                    <img src="[groupImage]" class="ui fluid image">
+                    <img property="groupImage" class="ui fluid image">
                     <h1 class="ui header">
-                        [title]
+                        <span property="title"></span>
                         <div class="sub header" property="subtitle"></div>
                     </h1>
                     <div class="ui container markdown" property="text"></div>
@@ -80,13 +80,16 @@
                     <div>
                         <span mv-multiple property="groupInstructors">
                             <a href="people#[name]" class="ui basic medium image label">
-                                <img src="[image]">
-                                [name]
+                                <img property="image">
+                                <span property="name"></span>
                             </a>
                         </span>
                     </div>
                     <div>
-                        <div mv-multiple property="groupSchedule" class="ui large [color] label" style="margin-top:2px;"><i class="[icon] icon"></i>[time]</div>
+                        <div mv-multiple property="groupSchedule" class="ui large [color] label" style="margin-top:2px;">
+                            <i class="[icon] icon"></i>
+                            <span property="time"></span>
+                        </div>
                     </div>
                 </div>
 
@@ -100,7 +103,7 @@
                     <div class="ui middle aligned divided list">
                         <div class="item" mv-multiple property="faq" mv-order="desc">
                             <div class="content">
-                                <a class="header" href="answers#[$index]">[question]</a>
+                                <a class="header" href="answers#[$index]"><span property="question"></span></a>
                             </div>
                         </div>
                     </div>
@@ -127,18 +130,18 @@
                 <div class="ui stackable inverted divided equal height stackable grid">
                     <div class="three wide column">
                         <div class="image">
-                            <img class="ui small centered image" src="[footerImage]">
+                            <img class="ui small centered image" property="footerImage">
                         </div>
                     </div>
                     <div class="nine wide column">
                         <h4 class="ui inverted header">Om Oss</h4>
-                        <p class="markdown" property="footerText"></p>
+                        <span class="markdown" property="footerText"></span>
                     </div>
                     <div class="four wide column">
                         <h4 class="ui inverted header">Eskilstuna Ki-Aikido</h4>
-                        <p><a href="https://goo.gl/maps/xrVzPPVFW3n">Munktellarenan, Eskilstuna</a></p>
-                        <p><a href="mailto:etuna.aikido@gmail.com">etuna.aikido@gmail.com</a></p>
-                        <p><a href="tel:0706816183">070-681 61 83</a></p>
+                        <span><a href="https://goo.gl/maps/xrVzPPVFW3n">Munktellarenan, Eskilstuna</a></span>
+                        <span><a href="mailto:etuna.aikido@gmail.com">etuna.aikido@gmail.com</a></span>
+                        <span><a href="tel:0706816183">070-681 61 83</a></span>
                     </div>
                 </div>
             </div>

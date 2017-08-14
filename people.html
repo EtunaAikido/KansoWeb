@@ -81,8 +81,8 @@
                 <div class="ui two stackable cards">
                     <div class="ui card" mv-multiple property="instructors" mv-order="desc" title="[name]">
                         <div class="ui slide masked reveal fluid image">
-                            <img src="[image]" property="image" class="visible content">
-                            <img src="[actionimage]" class="hidden content" />
+                            <img property="image" class="visible content">
+                            <img property="actionimage" class="hidden content" />
                         </div>
                         <div class="content">
                             <div class="header" property="name"></div>
@@ -124,7 +124,7 @@
                     <div class="ui middle aligned divided list">
                         <div class="item" mv-multiple property="faq" mv-order="desc">
                             <div class="content">
-                                <a class="header" href="answers#[$index]">[question]</a>
+                                <a class="header" href="answers#[$index]"><span property="question"></span></a>
                             </div>
                         </div>
                     </div>
@@ -152,7 +152,7 @@
                 <div class="ui stackable inverted divided equal height stackable grid">
                     <div class="three wide column">
                         <div class="image">
-                            <img class="ui small centered image" src="[footerImage]">
+                            <img class="ui small centered image" property="footerImage">
                         </div>
                     </div>
                     <div class="nine wide column">
