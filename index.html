@@ -34,7 +34,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="fav/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <script type="text/javascript" src="https://get.mavo.io/mavo.min.js"></script>
+    <script type="text/javascript" src="https://get.mavo.io/mavo.es5.min.js"></script>
     <link rel="stylesheet" href="https://get.mavo.io/mavo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" integrity="sha256-5+W3JHnvGYIJkVxUBsw+jBi9+pOlu9enPX3vZapXj5M=" crossorigin="anonymous" />
     <style type="text/css">
@@ -53,7 +53,7 @@
 </head>
 <body>
     <!-- Header -->
-    <div mv-app="EkiaHome" mv-bar="status edit save logout" mv-storage="https://github.com/EtunaAikido/KansoData" mv-plugins="tinymce markdown">
+    <div mv-app="EkiaHome" mv-bar="status edit save logout" mv-source="local" mv-storage="https://github.com/EtunaAikido/KansoData" mv-plugins="tinymce markdown">
         <!--  mv-expressions="none" -->
         <div class="ui centered grid">
             <div class="ui one column">
@@ -274,6 +274,27 @@
     <script src="js/format-google-calendar.js"></script>
     <script>
         $.noConflict();
+
+        Storage.prototype.setObject = function (key, value) {
+            this.setItem(key, JSON.stringify(value));
+        }
+
+        Storage.prototype.getObject = function (key) {
+            var value = this.getItem(key);
+            return value && JSON.parse(value);
+        }
+
+        jQuery(document).ready(function () {
+            var localData = localStorage.getObject('EkiaHome');
+
+            if (localData === null) {
+                jQuery.getJSON("https://raw.githubusercontent.com/EtunaAikido/KansoData/master/EkiaHome.json?timestamp=1502893250394",
+                    function (data) {
+                        localStorage.clear();
+                        localStorage.setObject('EkiaHome', data);
+                    });
+            }
+        });
 
         jQuery.get('templates.html', function (templates) {
             html = jQuery('<div/>').html(templates).contents();

@@ -3,7 +3,9 @@ RewriteEngine on
 Redirect 301 /aikido http://www.ekia.net/training
 Redirect 301 /contact http://www.ekia.net/answers
 Redirect 301 /links http://www.ekia.net/answers
+Redirect 301 /faq http://www.ekia.net/answers
 Redirect 301 /about http://www.ekia.net/people
+Redirect 301 /begin http://www.ekia.net/training
 
 RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
 RewriteRule ^ /%1 [NC,L,R]
