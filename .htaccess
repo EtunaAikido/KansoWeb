@@ -1,8 +1,12 @@
 RewriteEngine on
 
+Redirect 301 /aikido http://www.ekia.net/training
+Redirect 301 /contact http://www.ekia.net/answers
+Redirect 301 /links http://www.ekia.net/answers
 
 RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
 RewriteRule ^ /%1 [NC,L,R]
 
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^ %{REQUEST_URI}.html [NC,L]
+
