@@ -34,6 +34,34 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="fav/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+    <script type="text/javascript">
+
+        window.onerror = function (message, url, lineNo, colNo, error) {
+            console.log(arguments);
+            let container = document.createElement('div');
+
+            container.style.color = 'red';
+            container.style.position = 'fixed';
+            container.style.background = '#eee';
+            container.style.padding = '2em';
+            container.style.top = '1em';
+            container.style.left = '1em';
+
+            let msg = document.createElement('pre');
+            msg.innerText = [
+                'Message: ' + message,
+                'URL: ' + url,
+                'Line: ' + lineNo,
+                'Column: ' + colNo,
+                'Stack: ' + (error && error.stack)
+            ].join('\n');
+
+            container.appendChild(msg);
+            document.body.appendChild(container);
+
+        };
+    </script>
+    <script type="text/javascript" src="https://cdn.polyfill.io/v2/polyfill.min.js?unknown=polyfill"></script>
     <script type="text/javascript" src="https://get.mavo.io/mavo.es5.min.js"></script>
     <link rel="stylesheet" href="https://get.mavo.io/mavo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" integrity="sha256-5+W3JHnvGYIJkVxUBsw+jBi9+pOlu9enPX3vZapXj5M=" crossorigin="anonymous" />
@@ -346,6 +374,7 @@
                 hasRun = true;
             }
         });
+
         
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js" integrity="sha256-97Q90i72uoJfYtVnO2lQcLjbjBySZjLHx50DYhCBuJo=" crossorigin="anonymous"></script>
