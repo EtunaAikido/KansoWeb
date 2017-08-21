@@ -1,0 +1,200 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Eskilstuna Ki-Aikido</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="author" content="Eskilstuna Ki-Aikido">
+    <meta name="keywords" content="eskilstuna, munktellarenan, munktell, aikido, aikidoklubb, ki-aikido, ki-aikidoklubb, bokken, jo, kampkonst, kampsport, budo, vapenträning, dojo, japansk, martial art, hakama, aikidoläger, läger, aikidobilder" />
+    <meta name="description" content="Eskilstuna Ki-Aikido - Aikido sedan 1991" />
+    <link rel="canonical" href="http://www.ekia.net" />
+    <link rel="apple-touch-icon" sizes="57x57" href="fav/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="fav/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="fav/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="fav/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="fav/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="fav/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="fav/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="fav/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="fav/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="fav/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="fav/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="fav/favicon-16x16.png">
+    <link rel="manifest" href="fav/manifest.json">
+    <meta property="og:title" content="Eskilstuna Ki-Aikido" />
+    <meta property="og:image" content="http://www.ekia.net/images/logo2014.png" />
+    <meta property="og:url" content="http://www.ekia.net" />
+    <meta property="og:site_name" content="Ekia.net" />
+    <meta property="og:admins" content="660022871" />
+    <meta name="twitter:card" content="Aikido för alla" />
+    <meta name="twitter:title" content="Eskilstuna Ki-Aikido" />
+    <meta name="twitter:description" content="Aikido - den fredliga kampsporten" />
+    <meta name="twitter:image" content="http://www.ekia.net/images/logo2014.png" />
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="fav/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <script type="text/javascript">
+
+        window.onerror = function (message, url, lineNo, colNo, error) {
+            console.log(arguments);
+            let container = document.createElement('div');
+
+            container.style.color = 'red';
+            container.style.position = 'fixed';
+            container.style.background = '#eee';
+            container.style.padding = '2em';
+            container.style.top = '1em';
+            container.style.left = '1em';
+
+            let msg = document.createElement('pre');
+            msg.innerText = [
+                'Message: ' + message,
+                'URL: ' + url,
+                'Line: ' + lineNo,
+                'Column: ' + colNo,
+                'Stack: ' + (error && error.stack)
+            ].join('\n');
+
+            container.appendChild(msg);
+            document.body.appendChild(container);
+
+        };
+    </script>
+    <script type="text/javascript" src="https://get.mavo.io/mavo.es5.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <div mv-app="EkiaHome" mv-bar="status edit save logout" mv-storage="https://github.com/EtunaAikido/KansoData/blob/master/EkiaHome.json" mv-plugins="tinymce markdown">
+        <!--  mv-expressions="none" -->
+        
+        <!--<div class="ui basic segment" style="left:200px; width:900px;">-->
+        <div class="ui two column stackable centered grid">
+
+            <div class="ui eight wide column">
+
+                <div class="ui three wide column">
+                    <div class="ui segment">
+                        <h3>
+                            VANLIGA FRÅGOR
+                        </h3>
+                        <div class="ui middle aligned divided list">
+                            <div class="item" mv-multiple property="faq" mv-order="desc">
+                                <div class="content">
+                                    <a class="header" href="answers#[$index]"><span property="question"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="answers"><div class="ui tiny red button">VISA ALLA</div></a>
+
+                    </div>
+                </div>
+
+                <div class="ui raised segment" mv-multiple property="news" mv-order="desc" mv-if="$index < 2">
+                    <div class="ui teal bottom left attached label" property="date"></div>
+                    <h1 class="ui dividing header" property="title"></h1>
+                    <i><div class="sub header" property="subtitle"></div></i>
+                    <div class="ui hidden divider"></div>
+                    <span property="text" class="markdown"></span>
+                    <div class="ui hidden divider"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui hidden divider">
+        </div>
+        <script type="application/ld+json">
+        {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "url": "http://www.ekia.net",
+        "logo": "http://www.ekia.net/images/logo2014.png",
+        "sameAs": [
+        "https://www.facebook.com/EskilstunaKiAikido/",
+        "https://www.instagram.com/etuna.aikido/"
+        ],
+        "contactPoint": [
+        { "@type": "ContactPoint",
+        "telephone": "+46-70-6816183",
+        "email": "etuna.aikido@gmail.com",
+        "contactType": "customer support"
+        }
+        ]
+        }
+        </script>
+        <script type="application/ld+json">
+            {
+            "@context": "http://schema.org",
+            "@type": "ItemList",
+            "itemListElement":
+            [
+            {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+            "@type": "Course",
+            "url": "http://www.ekia.net/training#Aikidolek",
+            "name": "Aikidolek",
+            "image": "http://www.ekia.net/images/preschool_small.png",
+            "description" : "Utforska motorik och rörelse på ett lekfullt sätt tillsammans med ditt barn.",
+            "provider": {
+            "@type": "Organization",
+            "name": "Eskilstuna Ki-Aikido",
+            "sameAs": "http://www.ekia.net"
+            }
+            }
+            },
+            {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+            "@type": "Course",
+            "url": "http://www.ekia.net/training#Barn",
+            "name": "Barn",
+            "image": "http://www.ekia.net/images/kids_small.png",
+            "description" : "Lek blandas med aikidotekniker och övningar som stärker motorik och balans.",
+            "provider": {
+            "@type": "Organization",
+            "name": "Eskilstuna Ki-Aikido",
+            "sameAs": "http://www.ekia.net"
+            }
+            }
+            },
+            {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+            "@type": "Course",
+            "url": "http://www.ekia.net/training#Ungdomar",
+            "name": "Ungdomar",
+            "image": "http://www.ekia.net/images/youths_small.png",
+            "description" : "Fokus på disciplin, stärkt självkänsla och att samarbeta mot samma mål.",
+            "provider": {
+            "@type": "Organization",
+            "name": "Eskilstuna Ki-Aikido",
+            "sameAs": "http://www.ekia.net"
+            }
+            }
+            },
+            {
+            "@type": "ListItem",
+            "position": 4,
+            "item": {
+            "@type": "Course",
+            "url": "http://www.ekia.net/training#Vuxna",
+            "name": "Vuxna",
+            "image": "http://www.ekia.net/images/adults_small.png",
+            "description" : "Smidighet och balans i kroppen och ökat självförtroende i konfliktsituationer.",
+            "provider": {
+            "@type": "Organization",
+            "name": "Eskilstuna Ki-Aikido",
+            "sameAs": "http://www.ekia.net"
+            }
+            }
+            }
+            ]
+            }
+        </script>
+
+</body>
+</html>
