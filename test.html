@@ -35,6 +35,13 @@
     <meta name="msapplication-TileImage" content="fav/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     <script type="text/javascript">
+
+        if (!String.prototype.trim) {
+            String.prototype.trim = function () {
+                return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+            };
+        }
+
         // Production steps of ECMA-262, Edition 6, 22.1.2.1
         if (!Array.from) {
             Array.from = (function () {
@@ -114,11 +121,6 @@
             }());
         }
 
-        if (!String.prototype.trim) {
-            String.prototype.trim = function () {
-                return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
-            };
-        }
 
     </script>
     <script src="https://dev.mavo.io/dist/mavo.es5.min.js"></script>
