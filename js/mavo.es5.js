@@ -7189,7 +7189,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     * @return If one argument, array of matching DOMExpression objects.
     *         If two arguments, the matching DOMExpression object or null
     */
-			search: function search(element, attribute) {
+            search: function search(element, attribute) {
+                if (element === null) { return; }
+
 				var all = _.elements.get(element) || [];
 
 				if (arguments.length > 1) {

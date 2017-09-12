@@ -336,7 +336,7 @@
         });
 
         var hasRun = false;
-        document.documentElement.addEventListener("mavo:load", evt => {
+        document.documentElement.addEventListener("mavo:load", function(evt) {
             if (!hasRun) {
                 var senseis = jQuery("div.senseis");
                 //alert(senseis.length);
