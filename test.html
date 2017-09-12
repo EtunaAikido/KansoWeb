@@ -77,26 +77,23 @@
             </div>
         </div>
 </div>
-
-    <script type="text/javascript">
-        //this.mode = Mavo.getStyle(this.element, "--mv-mode") || "read";
-
-        //getComputedStyle polyfill
-        window.getComputedStyle || (window.getComputedStyle = function (e, t) { return this.el = e, this.getPropertyValue = function (t) { var n = /(\-([a-z]){1})/g; return t == "float" && (t = "styleFloat"), n.test(t) && (t = t.replace(n, function () { return arguments[2].toUpperCase() })), e.currentStyle[t] ? e.currentStyle[t] : null }, this })
-
-        var elem = document.getElementById('test');
-        var huh = Test(elem, "color");
-
-        function Test(element, property) {
-            var test = window.getComputedStyle(element);
-            var test2 = test.getPropertyValue(property);
-            var test3 = test2.trim();
-            return test3;
-        }
-
-    </script>
-	<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+<!-- ?features=Array.from,Array.of,Array.prototype.fill,_mutation,Element.prototype.after&flags=always -->
+	<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Array.from,URL&unknown=polyfill"></script>
     <script type="text/javascript" src="js/mavo.es5.js"></script>
+	
+<!--  * - Array.from, License: CC0 (required by "default")
+ * - Array.of, License: MIT (required by "default")
+ * - Array.prototype.fill, License: CC0 (required by "default")
+ * - _mutation, License: CC0 (required by "Element.prototype.after", "default", "Element.prototype.append", "Element.prototype.before", "Element.prototype.prepend", "Element.prototype.replaceWith")
+ * - Element.prototype.after, License: CC0 (required by "default")
+ * - Element.prototype.append, License: CC0 (required by "default")
+ * - Element.prototype.before, License: CC0 (required by "default")
+ * - Element.prototype.closest, License: CC0 (required by "default")
+ * - Element.prototype.prepend, License: CC0 (required by "default")
+ * - Element.prototype.replaceWith, License: CC0 (required by "default")
+ * - Event.hashchange, License: CC0 (required by "default")
+ * - Object.assign, License: CC0 (required by "default")
+ * - URL, License: CC0 (required by "default") */	 -->
 
 </body>
 </html>

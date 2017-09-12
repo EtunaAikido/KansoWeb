@@ -894,7 +894,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 			}
 		});
 
-		_.dependencies.push($.ready(), _.Plugins.load(), $.include(!polyfills.length, "https://cdn.polyfill.io/v2/polyfill.js"));//?unknown=polyfill&flags=always&features=es6")); // + polyfills.join(",")
+		_.dependencies.push($.ready(), _.Plugins.load(), $.include(!polyfills.length, "https://cdn.polyfill.io/v2/polyfill.js?features=" + polyfills.join(",")));
 
 		_.inited = $.ready().then(function () {
 			$.attributes($$(_.selectors.init), { "mv-progress": "Loading" });
