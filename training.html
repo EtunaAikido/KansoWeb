@@ -34,7 +34,8 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="fav/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <script type="text/javascript" src="https://get.mavo.io/mavo.es5.min.js"></script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Array.from,URL&flags=gated&unknown=polyfill"></script>
+    <script type="text/javascript" src="js/mavo.es5.js"></script>
     <link rel="stylesheet" href="https://get.mavo.io/mavo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" integrity="sha256-5+W3JHnvGYIJkVxUBsw+jBi9+pOlu9enPX3vZapXj5M=" crossorigin="anonymous" />
     <style type="text/css">
@@ -195,7 +196,7 @@
             });
         });
 
-        document.documentElement.addEventListener("mavo:load", evt => {
+        document.documentElement.addEventListener("mavo:load", function(evt) {
             if (window.jQuery) {
                 var hash = window.location.hash;
                 //jQuery(hash).scrollIntoView();
