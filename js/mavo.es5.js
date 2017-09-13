@@ -1108,12 +1108,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 		/**
    * Get the current value of a CSS property on an element
    */
-		getStyle: function getStyle(element, property) {
-			var value = getComputedStyle(element).getPropertyValue(property);
-			if (value) {
-				return element && value.trim();
-			}
-		},
+        getStyle: function(element, property) {
+            var value = getComputedStyle(element).getPropertyValue(property);
+            if (value) {
+                return (element && value.trim());
+            }
+        },
 
 		/**
    * Get/set data on an element
@@ -7190,8 +7190,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     *         If two arguments, the matching DOMExpression object or null
     */
             search: function search(element, attribute) {
-                if (element === null) { return; }
-
+                if (element === null) {
+                    return element;
+                }
 				var all = _.elements.get(element) || [];
 
 				if (arguments.length > 1) {
