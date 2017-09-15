@@ -1,0 +1,68 @@
+{
+  "plugin": [
+    {
+      "name": "TinyMCE",
+      "id": "tinymce",
+      "description": "Edit rich text, straight from Mavo!",
+      "tag": [
+        "Editing"
+      ],
+      "author": "leaverou"
+    },
+    {
+      "name": "Mavo inspector",
+      "id": "debug",
+      "description": "Inspect the current values of properties and expressions and change them on the fly.",
+      "tag": [],
+      "author": "leaverou"
+    },
+    {
+      "id": "markdown",
+      "name": "Markdown",
+      "description": "Edit properties in Markdown and display them with HTML. Uses the popular [Showdown](http://showdownjs.github.io/demo/) library.",
+      "tag": [
+        "Editing"
+      ],
+      "github": "https://github.com/EtunaAikido/plugins/markdown",
+      "author": "leaverou"
+    },
+    {
+      "name": "Yaml",
+      "id": "yaml",
+      "description": "Store and/or read data in Yaml instead of JSON. Uses the popular [JS-Yaml](http://nodeca.github.io/js-yaml/) library.",
+      "tag": [
+        "Format"
+      ],
+      "author": "leaverou"
+    },
+    {
+      "name": "Greek Locale",
+      "id": "locale-el",
+      "description": "Translates all Mavo UI to Greek",
+      "tag": [
+        "Locale"
+      ],
+      "author": "leaverou"
+    },
+    {
+      "name": "Mavo Firebase",
+      "id": "firebase",
+      "description": "Store your data in Google Firebase. A work in progress.",
+      "tag": [
+        "backend"
+      ],
+      "repo": "lizziew/mavo-firebase",
+      "author": "lizziew"
+    },
+    {
+      "name": "PHP Backend",
+      "id": "php",
+      "description": "Use your own PHP-enabled server with Mavo",
+      "tag": [
+        "backend"
+      ],
+      "repo": "falafel65/mavo-php",
+      "author": "falafel65"
+    }
+  ]
+}

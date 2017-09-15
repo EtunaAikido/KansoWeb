@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\js"
+    "\\js",
+    "\\js\\markdown",
+    "\\js\\tinymce"
   ],
-  "SelectedNode": "\\training.html",
+  "SelectedNode": "\\index.html",
   "PreviewInSolutionExplorer": false
 }

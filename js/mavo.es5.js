@@ -894,7 +894,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 			}
 		});
 
-		_.dependencies.push($.ready(), _.Plugins.load(), $.include(!polyfills.length, "https://cdn.polyfill.io/v2/polyfill.js?features=" + polyfills.join(",")));
+		//_.dependencies.push($.ready(), _.Plugins.load(), $.include(!polyfills.length, "https://cdn.polyfill.io/v2/polyfill.js?features=" + polyfills.join(",")));
 
 		_.inited = $.ready().then(function () {
 			$.attributes($$(_.selectors.init), { "mv-progress": "Loading" });
@@ -2066,7 +2066,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 			}
 		},
 
-		url: "https://plugins.mavo.io/"
+        url: "http://192.168.186.1:8080/KansoWeb/js"
 	};
 })(Bliss);
 "use strict";
