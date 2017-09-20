@@ -1,13 +1,18 @@
-RewriteEngine on
+Options +FollowSymLinks -MultiViews
+# Turn mod_rewrite on
+RewriteEngine On
+RewriteBase /
 
-Redirect 301 /aikido http://www.ekia.net/training
-Redirect 301 /contact http://www.ekia.net/answers
-Redirect 301 /links http://www.ekia.net/answers
-Redirect 301 /faq http://www.ekia.net/answers
-Redirect 301 /about http://www.ekia.net/people
-Redirect 301 /begin http://www.ekia.net/training
-Redirect 301 /photos https://goo.gl/photos/GrneaFmHrJR1LzQ1A
-Redirect 301 /schema https://docs.google.com/spreadsheets/d/1DBGA8wHPPVc_gbpIlMmUIwHSdHqCg_ZnKzwoYfDX2B4/edit?usp=sharing
+Redirect 301 /aikido /training
+Redirect 301 /contact /answers
+Redirect 301 /links /answers
+Redirect 301 /faq /answers
+Redirect 301 /about /people
+Redirect 301 /begin /training
+
+RewriteCond %{HTTP_HOST} ^www\.ekia\.net$ [NC]
+RewriteRule ^/schema$ https://docs.google.com/spreadsheets/d/1DBGA8wHPPVc_gbpIlMmUIwHSdHqCg_ZnKzwoYfDX2B4/edit?usp=sharing [L,R=301,NC]
+RewriteRule ^/photos$ https://goo.gl/photos/GrneaFmHrJR1LzQ1A [L,R=301,NC]
 
 RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
 RewriteRule ^ /%1 [NC,L,R]
@@ -15,3 +20,12 @@ RewriteRule ^ /%1 [NC,L,R]
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^ %{REQUEST_URI}.html [NC,L]
 
+RewriteCond %{HTTPS} off
+# First rewrite to HTTPS:
+# Don't put www. here. If it is already there it will be included, if not
+# the subsequent rule will catch it.
+RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# Now, rewrite any request to the wrong domain to use www.
+# [NC] is a case-insensitive match
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule .* https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
