@@ -80,7 +80,7 @@
                                 <i class="dropdown icon"></i>
                                 <span property="question"></span>
                             </div>
-                            <div class="content">
+                            <div class="answer content">
                                 <p class="transition visible markdown" style="display: block !important;" property="answer"></p>
                             </div>
                         </div>
@@ -230,7 +230,8 @@
                 hash = Number(window.location.hash.substring(1));
             }
         } else {
-            // Fragment doesn't exist
+            // Fragment doesn't exist, open all
+            jQuery('.answer').addClass('active');
         }
 
 
@@ -238,16 +239,18 @@
         document.documentElement.addEventListener("mavo:load", function(evt) {
             //if (!hasRun) {
             jQuery('.ui.accordion').accordion();
-            var senseis = jQuery("div.senseis");
-            //alert(senseis.length);
-            var divs = senseis.get().sort(function () {
-                return Math.round(Math.random()) - 0.5; //so we get the right +/- combo
-            }).slice(0, 3);
-            jQuery(divs).show();
 
             if (hash > -1) {
                 //scrollTo = jQuery('#' + hash);
                 jQuery('.ui.accordion').accordion('open', hash);
+            }
+            else
+            {
+                jQuery('.ui.accordion')
+                    .accordion({
+                        exclusive: false
+                    })
+                    ;
             }
             hasRun = true;
             //}
