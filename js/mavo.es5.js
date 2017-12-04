@@ -333,13 +333,13 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 			} else {
 				// No storage or source
 				requestAnimationFrame(function () {
-					$.fire(_this.element, "mavo:load");
+					$.fire(_this.element, "mv-load");
 				});
 			}
 
 			this.permissions.can("save", function () {
 				if (_this.autoSave) {
-					_this.element.addEventListener("mavo:load.mavo:autosave", function (evt) {
+					_this.element.addEventListener("mv-load.mavo:autosave", function (evt) {
 						var debouncedSave = _.debounce(function () {
 							_this.save();
 						}, _this.autoSaveDelay);
@@ -629,7 +629,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 				return _this4.render(data);
 			}).then(function () {
 				_this4.inProgress = false;
-				$.fire(_this4.element, "mavo:load");
+				$.fire(_this4.element, "mv-load");
 			});
 		},
 
