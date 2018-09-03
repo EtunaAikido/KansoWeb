@@ -7,23 +7,23 @@
 <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
 <url>
-  <loc>http://www.ekia.net/</loc>
+  <loc>https://www.ekia.net/</loc>
   <changefreq>weekly</changefreq>
 </url>
 <url>
-  <loc>http://www.ekia.net/news</loc>
+  <loc>https://www.ekia.net/news</loc>
   <changefreq>weekly</changefreq>
 </url>
 <url>
-  <loc>http://www.ekia.net/training</loc>
+  <loc>https://www.ekia.net/training</loc>
   <changefreq>monthly</changefreq>
 </url>
 <url>
-  <loc>http://www.ekia.net/answers</loc>
+  <loc>https://www.ekia.net/answers</loc>
   <changefreq>monthly</changefreq>
 </url>
 <url>
-  <loc>http://www.ekia.net/people</loc>
+  <loc>https://www.ekia.net/people</loc>
   <changefreq>monthly</changefreq>
 </url>
 </urlset>
