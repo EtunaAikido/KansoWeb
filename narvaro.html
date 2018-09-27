@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -22,12 +22,35 @@
 	<!-- Styles.  -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" integrity="sha256-rDWX6XrmRttWyVBePhmrpHnnZ1EPmM6WQRQl6h0h7J8=" crossorigin="anonymous" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.min.css" integrity="sha256-nFp4rgCvFsMQweFQwabbKfjrBwlaebbLkE29VFR0K40=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" integrity="sha256-JDBcnYeV19J14isGd3EtnsCQK05d8PczJ5+fvEvBJvI=" crossorigin="anonymous" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" integrity="sha256-gBxd65TVOCRCDC48+AXN6hhg3I/fZqE/BnwgKwdzJG4=" crossorigin="anonymous" />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
     <script>
+        var doneDates = [];
+        var missingDates = [];
+
         $(document).ready(function () {
             GetPeople();
+
+            $('#formValidateme').on('submit', function (e) {
+                e.preventDefault();  //prevent form from submitting
+                var datum = $('#classDate').data('datepicker').getFormattedDate('DD d M');
+                if (!datum || datum === "")
+                    return;
+
+                localStorage.clear();
+                postToGoogle();
+            });
+
+            $('input[type=radio][name=groupRadio]').change(
+                function () {
+                    var sensei = $('#InputWho').val();
+                    if (sensei !== undefined)
+                        localStorage.setObject('sensei', sensei);
+
+                    GetPeople();
+                    $('#submitForm').text('Skicka in!');
+                });
         });
 
         function GetPeople() {
@@ -36,25 +59,34 @@
 			
             var today = new Date();
             var dd = today.getDate();
-            var localData = null; //localStorage.getObject('narvaroDatadag' + dd);
+            var localDate = localStorage.getObject('localDate');
+            var localData = localStorage.getObject('localData');
+            var localNewPeeps = localStorage.getObject('localNewPeeps');
 
-            if (localData === null) {
+            dateFormat = moment(today).format('YYYY-MM-DD');
+
+            if (localDate === dateFormat) {
+                ProcessData(localData);
+                ProcessNewPeople(localNewPeeps);
+            }
+            else {
+                localStorage.clear();
                 $.getJSON("https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/od6/public/values?alt=json",
                     function (data) {
                         //localStorage.clear();
-                        localStorage.setObject('narvaroDatadag' + dd, data);
+                        localStorage.setObject('localDate', dateFormat);
+                        localStorage.setObject('localData', data);
                         ProcessData(data);
 						
 						$.getJSON("https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/2/public/values?alt=json",
 						function (newPeeps) {
-							ProcessNewPeople(newPeeps);
+                            ProcessNewPeople(newPeeps);
+                            localStorage.setObject('localNewPeeps', newPeeps);
 						});
                     });
 					
             }
-            else {
-                ProcessData(localData);
-            }
+
 
             function ProcessData(data) {
                 $('div#namesHere').empty();
@@ -94,30 +126,25 @@
 
                 $('.switch').bootstrapToggle();
                 $('#laddar').hide();
-            };
+            }
 			
 			function ProcessNewPeople(newPeeps)
 			{
-			    var grupp = $('input[name=groupRadio]:checked').val();
+	            var grupp = $('input[name=groupRadio]:checked').val();
                 var margin = ' style="margin-top:-5px"';
+                doneDates = [];
+                missingDates = [];
+
 				$.each(newPeeps.feed.entry, function (i, entry) {
-			        var id = entry.gsx$nynamn.$t.replace(/ /g, '_');
-					if (entry.gsx$nynamn.$t === "")
-					{
-					
-					}
-					else
+                    var id = entry.gsx$nynamn.$t.replace(/ /g, '_');
+					if (entry.gsx$nynamn.$t !== "")
 					{
 						var age = entry.gsx$ålder.$t;
 						if (age === "")
-						{
-							age = "fråga ålder!";
-						}
+                            age = "fråga ålder!";
 						else
-						{
 							age = age + ' år';
-						}
-					
+
 						var person = '<div class="form-group"' + margin + '>' +
 							'<div class="col-xs-3">' +
 							'<input type="checkbox" class="switch form-control" id="' + id + '" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger">' +
@@ -126,22 +153,83 @@
 						if (grupp === entry.gsx$grupp.$t) {
 							$('div#namesHere').append(person);
 						}
-						
-					}
+                    }
+
+                    'Johan Ahlberg\nManuel Stadelmann\nKasper Kjällström\nThomas Rydell\nLinnea Lindhé\nMikael Walldin\nFrank Kjällström\nJukka Tähkävuori\nAnteckning:'
+
+                    var peoplePresent = entry.gsx$närvarande.$t.split("\n");
+                    var peopleCount = 0;
+                    if (peoplePresent !== undefined)
+                        peopleCount = peoplePresent.length - 1;
+
+                    if (entry.gsx$grupp.$t === grupp) {
+                        doneDates.push({ date: entry.gsx$datumstämpel.$t, count: peopleCount });
+                    }
 				});
 				
-				$('.switch').bootstrapToggle();
-			};
+                $('.switch').bootstrapToggle();
+                CreateDatepicker();
+			}
+        }
+
+        function CreateDatepicker() {
+            var grupp = $('input[name=groupRadio]:checked').val();
+
+            $('#datePickme input').datepicker('destroy');
+            $('#datePickme input').datepicker({
+                format: "DD d M",
+                endDate: '+0d',
+                weekStart: 1,
+                maxViewMode: 0,
+                language: "sv",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true,
+                todayHighlight: true,
+                beforeShowDay: function (date) {
+                    dateFormat = moment(date).format('YYYY-MM-DD');
+                    var weekday = moment(date).isoWeekday();
+                    var testDate = moment();
+
+                    if (moment(moment()).isAfter(moment(date), 'day')) {
+                        if (grupp === 'Barn' || grupp === 'Vuxna') {
+                            return Weekday(4, 7, weekday, dateFormat);
+                        }
+                        else if (grupp === 'Ungdomar') {
+                            return Weekday(2, -1, weekday, dateFormat);
+                        }
+                        else if (grupp === 'Aikidolek') {
+                            return Weekday(6, -1, weekday, dateFormat);
+                        }
+                    }
+                }
+            });
+
+            function ClassPicker(doneDates, dateFormat) {
+                //if (doneDates.map(dateFormat => -1).date)
+                if (doneDates.find(x => x.date === dateFormat))
+                    return { classes: 'reported highlighted', tooltip: doneDates.find(x => x.date === dateFormat).count + ' närvarande' };
+                else
+                    return { classes: 'not-reported highlighted' };
+            }
+
+            function Weekday(firstDay, secondDay, weekDay, dateFormat) {
+                if (weekDay === firstDay || weekDay === secondDay)
+                    return ClassPicker(doneDates, dateFormat);
+                else
+                    return { classes: "disabled disabled-day" };
+            }
         }
 
         Storage.prototype.setObject = function (key, value) {
             this.setItem(key, JSON.stringify(value));
-        }
+        };
 
         Storage.prototype.getObject = function (key) {
             var value = this.getItem(key);
             return value && JSON.parse(value);
-        }
+        };
     </script>
 
 
@@ -166,6 +254,14 @@
 				width: auto !important;
 				overflow-x: hidden !important;
 			}
+
+            td.reported {
+                background: #2ecc71 !important;
+            }
+
+            td.not-reported {
+                background: #e74c3c !important;
+            }
 		</style>
 </head>
 <body>
@@ -213,10 +309,10 @@
 	<div id="namesHere">
 	</div>
 <div class="form-group" style="padding-left:5px;">
-	<div class="col-xs-11"><label for="nyaPersoner">Nya (om flera, skicka flera gånger)</label></div>
+	<div class="col-xs-11"><label for="nyaPersoner">Nya (om flera, skicka en i taget)</label></div>
 	<div style="padding-left: 5px">
 	<div>
-	<h5><input placeholder="Fullständigt namn (fråga om stavning!)" id="nyaPersonerName" for="nyaPersoner" class="col-xs-10 control-label" /></h5>
+	<h5><input placeholder="BARA EN PERSON! Förnamn Efternamn (fråga om stavning!)" id="nyaPersonerName" for="nyaPersoner" class="col-xs-10 control-label" /></h5>
 	</div>
 	<div>
 	<h5><input placeholder="Födelsedatum ex 20181231" id="nyaPersonerBirth" for="nyaPersoner" class="col-xs-10 control-label" /></h5>
@@ -241,45 +337,11 @@
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>	
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js" integrity="sha256-eZNgBgutLI47rKzpfUji/dD9t6LRs2gI3YqXKdoDOmo=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js" integrity="sha256-De/cgZoAkgvqoxL9yJpJzPHyozUETFnSv7EQGfQWQ4o=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js" integrity="sha256-urCxMaTtyuE8UK5XeVYuQbm/MhnXflqZ/B9AOkyTguo=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.sv.min.js" integrity="sha256-o1x9u/P0PClG4V6tKmrCqEjtfnsAyVeaO7xukabPVRM=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js" integrity="sha256-tW5LzEC7QjhG0CiAvxlseMTs2qJS7u3DRPauDjFJ3zo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.sv.min.js" integrity="sha256-P20FBA/CkDfREfXj49fDA5zDO0kTdmh9Mls+L9xipHw=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js" integrity="sha256-IxYUmOOk74FUrcx5FEMOHVmTJDb7ZAwnC/ivo/OQGxg=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.22/polyfill.min.js" integrity="sha256-l1ITH+FkedkRS129jMQ/Ou0OS52L8fFl+RcOlNokraI=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-
-        $(document).ready(function () {
-            $('#datePickme input').datepicker({
-                format: "DD d M",
-                endDate: '+0d',
-                weekStart: 1,
-                maxViewMode: 0,
-                language: "sv",
-                keyboardNavigation: false,
-                forceParse: false,
-                daysOfWeekDisabled: "1,3,5,6",
-                daysOfWeekHighlighted: "0,2,4",
-                calendarWeeks: true,
-                autoclose: true,
-                todayHighlight: true
-            });
-
-            $('#formValidateme').on('submit', function (e) {
-                e.preventDefault();  //prevent form from submitting
-                var datum = $('#classDate').data('datepicker').getFormattedDate('DD d M');
-                if (!datum || datum === "")
-                    return;
-
-                postToGoogle();
-            });
-
-            $('input[type=radio][name=groupRadio]').change(
-                function () {
-                    GetPeople();
-                    $('#submitForm').text('Skicka in!');
-
-                });
-
-        });
 
     function postToGoogle() {
         var grupp = $('input[name=groupRadio]:checked').val();
