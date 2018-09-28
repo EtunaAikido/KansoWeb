@@ -29,6 +29,18 @@
         var doneDates = [];
         var missingDates = [];
 
+        function SetSensei() {
+            var sensei = $('#InputWho').val();
+            if (sensei !== undefined)
+                setObject('sensei', sensei);
+            else {
+                sensei = getObject('sensei');
+                $('#InputWho').val(sensei);
+            }
+
+            return sensei;
+        }
+
         $(document).ready(function () {
             GetPeople();
 
@@ -44,10 +56,7 @@
 
             $('input[type=radio][name=groupRadio]').change(
                 function () {
-                    var sensei = $('#InputWho').val();
-                    if (sensei !== undefined)
-                        localStorage.setObject('sensei', sensei);
-
+                    SetSensei();
                     GetPeople();
                     $('#submitForm').text('Skicka in!');
                 });
@@ -55,13 +64,12 @@
 
         function GetPeople() {
             $('#laddar').show();
-			$('#InputWho').val(localStorage.getObject('sensei'));
-			
+            SetSensei();
             var today = new Date();
             var dd = today.getDate();
-            var localDate = localStorage.getObject('localDate');
-            var localData = localStorage.getObject('localData');
-            var localNewPeeps = localStorage.getObject('localNewPeeps');
+            var localDate = getObject('localDate');
+            var localData = getObject('localData');
+            var localNewPeeps = getObject('localNewPeeps');
 
             dateFormat = moment(today).format('YYYY-MM-DD');
 
@@ -74,14 +82,14 @@
                 $.getJSON("https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/od6/public/values?alt=json",
                     function (data) {
                         //localStorage.clear();
-                        localStorage.setObject('localDate', dateFormat);
-                        localStorage.setObject('localData', data);
+                        setObject('localDate', dateFormat);
+                        setObject('localData', data);
                         ProcessData(data);
 						
 						$.getJSON("https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/2/public/values?alt=json",
 						function (newPeeps) {
                             ProcessNewPeople(newPeeps);
-                            localStorage.setObject('localNewPeeps', newPeeps);
+                            setObject('localNewPeeps', newPeeps);
 						});
                     });
 					
@@ -194,32 +202,52 @@
 
                     if (moment(moment()).isAfter(moment(date), 'day')) {
                         if (grupp === 'Barn' || grupp === 'Vuxna') {
-                            return Weekday(4, 7, weekday, dateFormat);
+                            return Weekday(4, 7, weekday, dateFormat, date);
                         }
                         else if (grupp === 'Ungdomar') {
-                            return Weekday(2, -1, weekday, dateFormat);
+                            return Weekday(2, -1, weekday, dateFormat, date);
                         }
                         else if (grupp === 'Aikidolek') {
-                            return Weekday(6, -1, weekday, dateFormat);
+                            return Weekday(6, -1, weekday, dateFormat, date);
                         }
                     }
                 }
             });
 
-            function ClassPicker(doneDates, dateFormat) {
+            function ClassPicker(doneDates, dateFormat, date) {
                 //if (doneDates.map(dateFormat => -1).date)
-                if (doneDates.find(x => x.date === dateFormat))
-                    return { classes: 'reported highlighted', tooltip: doneDates.find(x => x.date === dateFormat).count + ' närvarande' };
+                //if (doneDates.find(x => x.date === dateFormat))
+                var doneItem = doneDates.find(function (element) {
+                    return element.date === dateFormat;
+                });
+                if (doneItem !== undefined) {
+                    return { content: moment(date).format('DD') + '<sup style="font-size:10px; opacity:0.5">' + doneItem.count + '</sup>', classes: 'reported highlighted', tooltip: doneItem.count + ' närvarande' };
+                }
                 else
                     return { classes: 'not-reported highlighted' };
             }
 
-            function Weekday(firstDay, secondDay, weekDay, dateFormat) {
+            function Weekday(firstDay, secondDay, weekDay, dateFormat, date) {
                 if (weekDay === firstDay || weekDay === secondDay)
-                    return ClassPicker(doneDates, dateFormat);
+                    return ClassPicker(doneDates, dateFormat, date);
                 else
                     return { classes: "disabled disabled-day" };
             }
+        }
+
+        
+        if (window.performance) {
+            //console.info("window.performance works fine on this browser");
+            if (performance.navigation.type === 1) {
+                //CheckIfReload();
+            }
+        }
+
+        function setObject(key, obj) {
+            localStorage.setObject(key, obj);
+        }
+        function getObject(key) {
+            return localStorage.getObject(key);
         }
 
         Storage.prototype.setObject = function (key, value) {
@@ -351,11 +379,10 @@
 		var nynamn = $('#nyaPersonerName').val();
 		var nytelefon = $('#nyaPersonerPhone').val();
 		var nybirth = $('#nyaPersonerBirth').val();
-		var sensei = $('#InputWho').val();
         var personer = "";
         var endline = "";
 		
-		localStorage.setObject('sensei', sensei);
+        var sensei = SetSensei();
 
         $('.switch:checkbox:checked').each(function () {
             var name = $('label[for="' + this.id + '"]').data("name"); //text();
