@@ -111,9 +111,9 @@
 						age = "fråga ålder!";
 					}
                     var person = '<div class="form-group"' + margin + '>' +
-                        '<div class="col-xs-3">' +
-                        '<input type="checkbox" class="switch form-control" id="' + id + '" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger">' +
-                        '</div><h4><label for="' + id + '" class="col-xs-8 control-label" data-name="' + entry.gsx$name.$t + '">' + entry.gsx$name.$t + ' <sup>' + age + '</sup></label></h4></span></div>';
+                        '<div class="col-xs-2" style="margin-right:6px">' +
+                        '<input type="checkbox" class="switch form-control" id="' + id + '" data-size="small" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger">' +
+                        '</div><h4 style="font-size:1.2em"><label for="' + id + '" class="col-xs-8 control-label" data-name="' + entry.gsx$name.$t + '">' + entry.gsx$name.$t + ' <sup>' + age + '</sup></label></h4></span></div>';
 
                     if (grupp === "Barn" && entry.gsx$kids.$t === 'JA') {
                         $('div#namesHere').append(person);
@@ -181,7 +181,7 @@
 
         function CreateDatepicker() {
             var grupp = $('input[name=groupRadio]:checked').val();
-
+            $('#help-block').text('');
             $('#datePickme input').datepicker('clearDates');
             $('#datePickme input').datepicker('destroy');
             $('#datePickme input').datepicker({
@@ -221,7 +221,7 @@
                     if (dateItem !== undefined)
                         $('#help-block').text(dateItem.sensei + ' har registrerat ' + dateItem.count + ' deltagare.');
                     else
-                        $('#help-block').text();
+                        $('#help-block').text('');
                 });
             
             
@@ -235,7 +235,7 @@
                     return { content: moment(date).format('DD') + '<sup class="tinyNumbers">' + doneItem.count + '</sup>', classes: 'reported highlighted', tooltip: doneItem.count + ' närvarande' };
                 }
                 else
-                    return { classes: 'not-reported highlighted' };
+                    return { content: moment(date).format('DD') + '<sup class="tinyNumbers">0</sup>', classes: 'not-reported highlighted' };
             }
 
             function Weekday(firstDay, secondDay, weekDay, dateFormat, date) {
