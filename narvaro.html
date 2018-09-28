@@ -6,24 +6,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Närvaroregistrering</title>
     <!-- Android mobile -->
-	<meta name="mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <link rel="shortcut icon" sizes="192x192" href="/fav/logoBW192x.png">
     <link rel="shortcut icon" sizes="128x128" href="/fav/logoBW128x.png">
-	<link rel="manifest" href="manifest.json">
-	<!-- iPhone mobile -->
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<link rel="apple-touch-icon" href="/fav/logoBW128x.png">
-	<link rel="apple-touch-startup-image" href="/fav/logoBW128x.png">
-	<link rel="apple-touch-icon" sizes="128x128" href="/fav/logoBW128x.png">
-	<link rel="apple-touch-icon" sizes="76x76" href="/fav/logoBW76x.png">
-	<link rel="apple-touch-icon" sizes="120x120" href="/fav/logoBW120x.png">
-	<link rel="apple-touch-icon" sizes="152x152" href="/fav/logoBW152x.png.png">
-	<!-- Styles.  -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" integrity="sha256-rDWX6XrmRttWyVBePhmrpHnnZ1EPmM6WQRQl6h0h7J8=" crossorigin="anonymous" />
+    <link rel="manifest" href="manifest.json">
+    <!-- iPhone mobile -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/fav/logoBW128x.png">
+    <link rel="apple-touch-startup-image" href="/fav/logoBW128x.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="/fav/logoBW128x.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/fav/logoBW76x.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/fav/logoBW120x.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/fav/logoBW152x.png.png">
+    <!-- Styles.  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" integrity="sha256-rDWX6XrmRttWyVBePhmrpHnnZ1EPmM6WQRQl6h0h7J8=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" integrity="sha256-JDBcnYeV19J14isGd3EtnsCQK05d8PczJ5+fvEvBJvI=" crossorigin="anonymous" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" integrity="sha256-gBxd65TVOCRCDC48+AXN6hhg3I/fZqE/BnwgKwdzJG4=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" integrity="sha256-gBxd65TVOCRCDC48+AXN6hhg3I/fZqE/BnwgKwdzJG4=" crossorigin="anonymous" />
+    <style>
+        .glyphicon.spinning {
+            animation: spin 1s infinite linear;
+            -webkit-animation: spin2 1s infinite linear;
+            font-size: 1.5em;
+        }
+
+        @keyframes spin {
+            from {
+                transform: scale(1) rotate(0deg);
+            }
+
+            to {
+                transform: scale(1) rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes spin2 {
+            from {
+                -webkit-transform: rotate(0deg);
+            }
+
+            to {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        html, body {
+            width: auto !important;
+            overflow-x: hidden !important;
+        }
+
+        td.reported {
+            background: #2ecc71 !important;
+        }
+
+        td.not-reported {
+            background: #e74c3c !important;
+        }
+
+        .tinyNumbers {
+            font-size: 10px;
+            color: white;
+            opacity: 0.7;
+        }
+
+        .active {
+            background-color: #2ecc71;
+        }
+
+        .btn-success, .btn-success:hover, .btn-success:active, .btn-success:visited {
+            background-color: #2ecc71;
+            !important;
+        }
+
+        .btn-danger, .btn-danger:hover, .btn-danger:active, .btn-danger:visited {
+            background-color: #e74c3c !important;
+        }
+    </style>
+
+    <!--Scripts-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
     <script>
         var doneDates = [];
@@ -85,12 +146,12 @@
                         setObject('localDate', dateFormat);
                         setObject('localData', data);
                         ProcessData(data);
-						
-						$.getJSON("https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/2/public/values?alt=json",
-						function (newPeeps) {
-                            ProcessNewPeople(newPeeps);
-                            setObject('localNewPeeps', newPeeps);
-						});
+
+                        $.getJSON("https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/2/public/values?alt=json",
+                            function (newPeeps) {
+                                ProcessNewPeople(newPeeps);
+                                setObject('localNewPeeps', newPeeps);
+                            });
                     });
             }
 
@@ -105,15 +166,14 @@
                     //Nils Karlsson	5			35	MAN	JA			JA
 
                     var id = entry.gsx$name.$t.replace(/ /g, '_');
-					var age = entry.gsx$age.$t;
-					if (age === "")
-					{
-						age = "fråga ålder!";
-					}
+                    var age = entry.gsx$age.$t;
+                    if (age === "") {
+                        age = "fråga ålder!";
+                    }
                     var person = '<div class="form-group"' + margin + '>' +
-                        '<div class="col-xs-2" style="margin-right:6px">' +
+                        '<div class="col-xs-2">' +
                         '<input type="checkbox" class="switch form-control" id="' + id + '" data-size="small" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger">' +
-                        '</div><h4 style="font-size:1.2em"><label for="' + id + '" class="col-xs-8 control-label" data-name="' + entry.gsx$name.$t + '">' + entry.gsx$name.$t + ' <sup>' + age + '</sup></label></h4></span></div>';
+                        '</div><h4 style="font-size:1.2em"><label style="text-align: left;" for="' + id + '" class="col-xs-10 control-label" data-name="' + entry.gsx$name.$t + '">' + entry.gsx$name.$t + ' <sup>' + age + '</sup></label></h4></span></div>';
 
                     if (grupp === "Barn" && entry.gsx$kids.$t === 'JA') {
                         $('div#namesHere').append(person);
@@ -125,7 +185,7 @@
                     else if (grupp === "Ungdomar" && entry.gsx$youths.$t === 'JA') {
                         $('div#namesHere').append(person);
                     }
-					else if (grupp === "Aikidolek" && entry.gsx$play.$t === 'JA') {
+                    else if (grupp === "Aikidolek" && entry.gsx$play.$t === 'JA') {
                         $('div#namesHere').append(person);
                     }
                     margin = ' style="margin-top:-5px"';
@@ -134,10 +194,9 @@
                 $('.switch').bootstrapToggle();
                 $('#laddar').hide();
             }
-			
-			function ProcessNewPeople(newPeeps)
-			{
-	            var grupp = $('input[name=groupRadio]:checked').val();
+
+            function ProcessNewPeople(newPeeps) {
+                var grupp = $('input[name=groupRadio]:checked').val();
                 var margin = ' style="margin-top:-5px"';
                 doneDates = [];
                 missingDates = [];
@@ -145,38 +204,37 @@
                 $.each(newPeeps.feed.entry, function (i, entry) {
                     var id = entry.gsx$nynamn.$t.replace(/ /g, '_');
                     var peopleCount = 0;
-					if (entry.gsx$nynamn.$t !== "")
-                    {
+                    if (entry.gsx$nynamn.$t !== "") {
                         peopleCount += 1;
-						var age = entry.gsx$ålder.$t;
-						if (age === "")
+                        var age = entry.gsx$ålder.$t;
+                        if (age === "")
                             age = "fråga ålder!";
-						else
-							age = age + ' år';
+                        else
+                            age = age + ' år';
 
-						var person = '<div class="form-group"' + margin + '>' +
-							'<div class="col-xs-3">' +
-							'<input type="checkbox" class="switch form-control" id="' + id + '" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger">' +
-							'</div><h4><label for="' + id + '" class="col-xs-8 control-label" data-name="' + entry.gsx$nynamn.$t + '">' + entry.gsx$nynamn.$t + ' <sup>' + age + '</sup></label></h4></span></div>';
+                        var person = '<div class="form-group"' + margin + '>' +
+                            '<div class="col-xs-2">' +
+                            '<input type="checkbox" class="switch form-control" id="' + id + '" data-size="small" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger">' +
+                            '</div><h4 style="font-size:1.2em;"><label style="text-align: left;" for="' + id + '" class="col-xs-10 control-label" data-name="' + entry.gsx$nynamn.$t + '">' + entry.gsx$nynamn.$t + ' <sup>' + age + '</sup></label></h4></span></div>';
 
-						if (grupp === entry.gsx$grupp.$t) {
-							$('div#namesHere').append(person);
-						}
+                        if (grupp === entry.gsx$grupp.$t) {
+                            $('div#namesHere').append(person);
+                        }
                     }
 
                     var peoplePresent = entry.gsx$närvarande.$t.split("\n");
-                    
+
                     if (peoplePresent !== undefined)
                         peopleCount += peoplePresent.length - 1;
 
                     if (entry.gsx$grupp.$t === grupp) {
                         doneDates.push({ date: entry.gsx$datumstämpel.$t, count: peopleCount, sensei: entry.gsx$instruktör.$t });
                     }
-				});
-				
+                });
+
                 $('.switch').bootstrapToggle();
                 CreateDatepicker();
-			}
+            }
         }
 
         function CreateDatepicker() {
@@ -223,8 +281,8 @@
                     else
                         $('#help-block').text('');
                 });
-            
-            
+
+
             function ClassPicker(doneDates, dateFormat, date) {
                 //if (doneDates.map(dateFormat => -1).date)
                 //if (doneDates.find(x => x.date === dateFormat))
@@ -246,7 +304,7 @@
             }
         }
 
-        
+
         if (window.performance) {
             //console.info("window.performance works fine on this browser");
             if (performance.navigation.type === 1) {
@@ -271,43 +329,6 @@
         };
     </script>
 
-
-		<style>
-			.glyphicon.spinning {
-				animation: spin 1s infinite linear;
-				-webkit-animation: spin2 1s infinite linear;
-				font-size: 1.5em;
-			}
-
-			@keyframes spin {
-					from { transform: scale(1) rotate(0deg); }
-					to { transform: scale(1) rotate(360deg); }
-			}
-
-			@-webkit-keyframes spin2 {
-					from { -webkit-transform: rotate(0deg); }
-					to { -webkit-transform: rotate(360deg); }
-			}
-			
-			html, body {
-				width: auto !important;
-				overflow-x: hidden !important;
-			}
-
-            td.reported {
-                background: #2ecc71 !important;
-            }
-
-            td.not-reported {
-                background: #e74c3c !important;
-            }
-
-            .tinyNumbers {
-                font-size:10px;
-                color: white;
-                opacity: 0.7;
-            }
-		</style>
 </head>
 <body>
 
@@ -320,26 +341,26 @@
 		<div class="col-xs-10">
 		<!--<input type="checkbox" class="form-control" id="inputGroup" data-toggle="toggle" data-on="Vuxna" data-off="Barn" data-size="large" data-onstyle="warning" data-offstyle="info">-->
             <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-lg active">
+                <label class="btn btn-lg active" style="border:1px solid #2ecc71;  width:50%">
                     <input type="radio" name="groupRadio" id="Barn" value="Barn" autocomplete="off" checked> Barn
                 </label>
-                <label class="btn btn-lg">
+                <label class="btn btn-lg" style="border:1px solid #2ecc71; width:50%">
                     <input type="radio" name="groupRadio" id="Ungdomar" value="Ungdomar" autocomplete="off"> Ungdomar
                 </label>
-                <label class="btn btn-lg">
+                <label class="btn btn-lg" style="border:1px solid #2ecc71; width:50%">
                     <input type="radio" name="groupRadio" id="Vuxna" value="Vuxna" autocomplete="off"> Vuxna
                 </label>
-                <label class="btn btn-lg">
+                <label class="btn btn-lg" style="border:1px solid #2ecc71; width:50%">
                     <input type="radio" name="groupRadio" id="Aikidolek" value="Aikidolek" autocomplete="off"> Aikidolek
                 </label>
             </div>
 		</div>
-		<div class="col-xs-7" style="padding-top:5px;">
+		<div class="col-xs-10" style="padding-top:5px;">
 			<div id="datePickme">
-					<input type="text" id="classDate" autocomplete="off" class="form-control input-lg" placeholder="Välj datum" data-error="Du måste fylla i datum!" data-required-error="Du måste fylla i datum!" required>
+					<input type="text" id="classDate" autocomplete="off" class="form-control input-block" placeholder="Välj datum" data-error="Du måste fylla i datum!" data-required-error="Du måste fylla i datum!" required>
 			</div>
 			<div id="Who">
-					<input type="text" id="InputWho" autocomplete="off" class="form-control input-lg" placeholder="Ditt namn" data-error="Du måste fylla i ditt namn!" data-required-error="Du måste fylla i ditt namn!" required>
+					<input type="text" id="InputWho" autocomplete="off" class="form-control input-block" placeholder="Ditt namn" data-error="Du måste fylla i ditt namn!" data-required-error="Du måste fylla i ditt namn!" required>
 			</div>
 		</div>
 		<div style="margin: 5px">
