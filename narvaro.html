@@ -92,7 +92,6 @@
                             setObject('localNewPeeps', newPeeps);
 						});
                     });
-					
             }
 
 
@@ -114,7 +113,7 @@
                     var person = '<div class="form-group"' + margin + '>' +
                         '<div class="col-xs-3">' +
                         '<input type="checkbox" class="switch form-control" id="' + id + '" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger">' +
-                        '</div><h4><label for="' + id + '" class="col-xs-8 control-label" data-name="' + entry.gsx$name.$t + '">' + entry.gsx$name.$t + ' (' + age + ')</label></h4></span></div>';
+                        '</div><h4><label for="' + id + '" class="col-xs-8 control-label" data-name="' + entry.gsx$name.$t + '">' + entry.gsx$name.$t + ' <sup>' + age + '</sup></label></h4></span></div>';
 
                     if (grupp === "Barn" && entry.gsx$kids.$t === 'JA') {
                         $('div#namesHere').append(person);
@@ -143,10 +142,12 @@
                 doneDates = [];
                 missingDates = [];
 
-				$.each(newPeeps.feed.entry, function (i, entry) {
+                $.each(newPeeps.feed.entry, function (i, entry) {
                     var id = entry.gsx$nynamn.$t.replace(/ /g, '_');
+                    var peopleCount = 0;
 					if (entry.gsx$nynamn.$t !== "")
-					{
+                    {
+                        peopleCount += 1;
 						var age = entry.gsx$ålder.$t;
 						if (age === "")
                             age = "fråga ålder!";
@@ -156,22 +157,20 @@
 						var person = '<div class="form-group"' + margin + '>' +
 							'<div class="col-xs-3">' +
 							'<input type="checkbox" class="switch form-control" id="' + id + '" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger">' +
-							'</div><h4><label for="' + id + '" class="col-xs-8 control-label" data-name="' + entry.gsx$nynamn.$t + '">' + entry.gsx$nynamn.$t + ' (' + age + ')</label></h4></span></div>';
+							'</div><h4><label for="' + id + '" class="col-xs-8 control-label" data-name="' + entry.gsx$nynamn.$t + '">' + entry.gsx$nynamn.$t + ' <sup>' + age + '</sup></label></h4></span></div>';
 
 						if (grupp === entry.gsx$grupp.$t) {
 							$('div#namesHere').append(person);
 						}
                     }
 
-                    'Johan Ahlberg\nManuel Stadelmann\nKasper Kjällström\nThomas Rydell\nLinnea Lindhé\nMikael Walldin\nFrank Kjällström\nJukka Tähkävuori\nAnteckning:'
-
                     var peoplePresent = entry.gsx$närvarande.$t.split("\n");
-                    var peopleCount = 0;
+                    
                     if (peoplePresent !== undefined)
-                        peopleCount = peoplePresent.length - 1;
+                        peopleCount += peoplePresent.length - 1;
 
                     if (entry.gsx$grupp.$t === grupp) {
-                        doneDates.push({ date: entry.gsx$datumstämpel.$t, count: peopleCount });
+                        doneDates.push({ date: entry.gsx$datumstämpel.$t, count: peopleCount, sensei: entry.gsx$instruktör.$t });
                     }
 				});
 				
@@ -183,6 +182,7 @@
         function CreateDatepicker() {
             var grupp = $('input[name=groupRadio]:checked').val();
 
+            $('#datePickme input').datepicker('clearDates');
             $('#datePickme input').datepicker('destroy');
             $('#datePickme input').datepicker({
                 format: "DD d M",
@@ -200,7 +200,7 @@
                     var weekday = moment(date).isoWeekday();
                     var testDate = moment();
 
-                    if (moment(moment()).isAfter(moment(date), 'day')) {
+                    if (moment(moment()).isSameOrAfter(moment(date), 'day')) {
                         if (grupp === 'Barn' || grupp === 'Vuxna') {
                             return Weekday(4, 7, weekday, dateFormat, date);
                         }
@@ -212,8 +212,19 @@
                         }
                     }
                 }
-            });
-
+            })
+                .on('changeDate', function (e) {
+                    var dateFormat = e.format('yyyy-mm-dd');
+                    var dateItem = doneDates.find(function (element) {
+                        return element.date === dateFormat;
+                    });
+                    if (dateItem !== undefined)
+                        $('#help-block').text(dateItem.sensei + ' har registrerat ' + dateItem.count + ' deltagare.');
+                    else
+                        $('#help-block').text();
+                });
+            
+            
             function ClassPicker(doneDates, dateFormat, date) {
                 //if (doneDates.map(dateFormat => -1).date)
                 //if (doneDates.find(x => x.date === dateFormat))
@@ -221,7 +232,7 @@
                     return element.date === dateFormat;
                 });
                 if (doneItem !== undefined) {
-                    return { content: moment(date).format('DD') + '<sup style="font-size:10px; opacity:0.5">' + doneItem.count + '</sup>', classes: 'reported highlighted', tooltip: doneItem.count + ' närvarande' };
+                    return { content: moment(date).format('DD') + '<sup class="tinyNumbers">' + doneItem.count + '</sup>', classes: 'reported highlighted', tooltip: doneItem.count + ' närvarande' };
                 }
                 else
                     return { classes: 'not-reported highlighted' };
@@ -290,6 +301,12 @@
             td.not-reported {
                 background: #e74c3c !important;
             }
+
+            .tinyNumbers {
+                font-size:10px;
+                color: white;
+                opacity: 0.7;
+            }
 		</style>
 </head>
 <body>
@@ -329,9 +346,10 @@
 	  <span id="laddar" class="glyphicon glyphicon-refresh spinning"></span>
  	  </div>
 	<div class="col-xs-4"></div>
-	<div class="col-xs-7">	   
-	<div class="help-block with-errors"></div>
-	</div>			
+    <div class="col-xs-7">
+        <div id="help-block"></div>
+        <div class="help-block with-errors"></div>
+    </div>			
 	</div>	
 		
 	<div id="namesHere">
