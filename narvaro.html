@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
     <title>Närvaroregistrering</title>
     <!-- Android mobile -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -20,12 +20,14 @@
     <link rel="apple-touch-icon" sizes="120x120" href="/fav/logoBW120x.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/fav/logoBW152x.png.png">
     <!-- Styles.  -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" integrity="sha256-rDWX6XrmRttWyVBePhmrpHnnZ1EPmM6WQRQl6h0h7J8=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" integrity="sha256-JDBcnYeV19J14isGd3EtnsCQK05d8PczJ5+fvEvBJvI=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" integrity="sha256-gBxd65TVOCRCDC48+AXN6hhg3I/fZqE/BnwgKwdzJG4=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <style>
-        .glyphicon.spinning {
+        /*.glyphicon.spinning {
             animation: spin 1s infinite linear;
             -webkit-animation: spin2 1s infinite linear;
             font-size: 1.5em;
@@ -39,9 +41,9 @@
             to {
                 transform: scale(1) rotate(360deg);
             }
-        }
+        }*/
 
-        @-webkit-keyframes spin2 {
+        /*@-webkit-keyframes spin2 {
             from {
                 -webkit-transform: rotate(0deg);
             }
@@ -49,7 +51,7 @@
             to {
                 -webkit-transform: rotate(360deg);
             }
-        }
+        }*/
 
         html, body {
             width: auto !important;
@@ -82,28 +84,146 @@
         .btn-danger, .btn-danger:hover, .btn-danger:active, .btn-danger:visited {
             background-color: #e74c3c !important;
         }
-    </style>
 
-    <!--Scripts-->
+        .mb-3 {
+            margin-bottom: 0.3rem !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <form id="formValidateme" class="form-horizontal" role="form" data-toggle="validator" autocomplete="off">
+                <div class="col-auto" style="padding: 10px">
+                    <div class="form-group">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label id="inputGroupSelectLabel" class="input-group-text btn" for="inputGroupSelect01" style="display:block; width: 70px;">Grupp</label>
+                                </div>
+                                <select class="custom-select" id="inputGroupSelect01" aria-describedby="inputGroupSelectLabel">
+                                    <option value="Aikidolek">Aikidolek</option>
+                                    <option selected value="Barn">Barn</option>
+                                    <option value="Ungdomar">Ungdomar</option>
+                                    <option value="Vuxna">Vuxna</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">Datum</span>
+                                </div>
+                                <input type="text" id="classDate" autocomplete="off" aria-describedby="basic-addon3" class="form-control input-lg" placeholder="Välj datum" data-error="Du måste fylla i datum!" data-required-error="Du måste fylla i datum!" required>
+                            </div>
+                            <div class="input-group mb-3 input-group-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon4">Instruktör</span>
+                                </div>
+                                <input type="text" id="InputWho" autocomplete="off" aria-describedby="basic-addon4" class="form-control input-lg" placeholder="Ditt namn" data-error="Du måste fylla i ditt namn!" data-required-error="Du måste fylla i ditt namn!" required>
+                            </div>
+                        <div>
+                            <div id="help-block"></div>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <div id="contentBlock">
+
+                        <div style="margin:20px;">
+                            <div id="namesHere" class="checkbox">
+
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-3" id="notesGroup">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="labelNotes">Anteckningar</span>
+                            </div>
+                            <textarea class="form-control" id="anteckning" aria-describedby="labelNotes"></textarea>
+                        </div>
+
+
+                        <div class="col-auto"><label for="nyaPersoner">Nya medlemmar (EN i taget)</label></div>
+                        <div class="input-group mb-3 input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="labelNewName">Namn</span>
+                            </div>
+                            <input autocomplete="off" aria-describedby="labelNewName" placeholder="Klas Klättermus" id="nyaPersonerName" for="nyaPersoner" class="form-control input-lg">
+                        </div>
+
+                        <div class="input-group mb-3 input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="labelNewBirth">Födelsedatum</span>
+                            </div>
+                            <input autocomplete="off" type="number" aria-describedby="labelNewBirth" placeholder="20180131" id="nyaPersonerBirth" for="nyaPersoner" class="form-control input-lg">
+                        </div>
+
+                        <div class="input-group mb-3 input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="labelNewPhone">Mobilnummer</span>
+                            </div>
+                            <input autocomplete="off" aria-describedby="labelNewPhone" placeholder="070-112233" id="nyaPersonerPhone" for="nyaPersoner" class="form-control input-lg">
+                        </div>
+
+                        <button id="submitForm" type="submit" class="btn btn-success btn-lg btn-block">
+                            Skicka in <span class="badge badge-light" id="sendButtonCount">4</span>
+                        </button>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js" integrity="sha256-eZNgBgutLI47rKzpfUji/dD9t6LRs2gI3YqXKdoDOmo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js" integrity="sha256-CutOzxCRucUsn6C6TcEYsauvvYilEniTXldPa6/wu0k=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js" integrity="sha256-tW5LzEC7QjhG0CiAvxlseMTs2qJS7u3DRPauDjFJ3zo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.sv.min.js" integrity="sha256-P20FBA/CkDfREfXj49fDA5zDO0kTdmh9Mls+L9xipHw=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js" integrity="sha256-dHf/YjH1A4tewEsKUSmNnV05DDbfGN3g7NMq86xgGh8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.42/polyfill.min.js" integrity="sha256-/XfEHUGimdIk42Vy7oTnNLtT8sVrO6vnhhnsQT1W1oo=" crossorigin="anonymous"></script>
     <script>
         var doneDates = [];
         var missingDates = [];
 
-        function SetSensei() {
-            var sensei = $('#InputWho').val();
-            if (sensei !== undefined)
-                setObject('sensei', sensei);
-            else {
-                sensei = getObject('sensei');
-                $('#InputWho').val(sensei);
+        $(document).ready(function () {
+            function SetSensei() {
+                var sensei = $('#InputWho').val();
+                if (sensei !== undefined && sensei !== '')
+                    setObject('sensei', sensei);
+                else {
+                    sensei = getObject('sensei');
+                    $('#InputWho').val(sensei);
+                }
+
+                return sensei;
             }
 
-            return sensei;
-        }
+            function SetLoading() {
+                var label = $('#inputGroupSelectLabel');
+                if (label.text() === 'Grupp') {
+                    $('#contentBlock').hide();
+                    label.html('<i class="fa fa-spinner fa-spin"></i>');
+                }
+                else {
+                    label.text('Grupp');
+                    $('#contentBlock').show();
+                    $('#notesGroup').show();
+                    WatchCheckboxes();
+                }
+            }
 
-        $(document).ready(function () {
-            GetPeople();
+            function WatchCheckboxes() {
+                $('#sendButtonCount').text('0')
+                $('.switch:checkbox').change(function () {
+                    var selectedCount = 0;
+                    $('.switch:checkbox:checked').each(function () {
+                        selectedCount += 1;
+                        $('#sendButtonCount').text(selectedCount);
+                    });
+                });
+            }
 
             $('#formValidateme').on('submit', function (e) {
                 e.preventDefault();  //prevent form from submitting
@@ -115,202 +235,279 @@
                 postToGoogle();
             });
 
-            $('input[type=radio][name=groupRadio]').change(
+            $('#inputGroupSelect01').change(
                 function () {
                     SetSensei();
                     GetPeople();
-                    $('#submitForm').text('Skicka in!');
-                });
-        });
-
-        function GetPeople() {
-            $('#laddar').show();
-            SetSensei();
-            var today = new Date();
-            var dd = today.getDate();
-            var localDate = getObject('localDate');
-            var localData = getObject('localData');
-            var localNewPeeps = getObject('localNewPeeps');
-
-            dateFormat = moment(today).format('YYYY-MM-DD');
-
-            if (localDate === dateFormat) {
-                ProcessData(localData);
-                ProcessNewPeople(localNewPeeps);
-            }
-            else {
-                localStorage.clear();
-                $.getJSON("https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/od6/public/values?alt=json",
-                    function (data) {
-                        //localStorage.clear();
-                        setObject('localDate', dateFormat);
-                        setObject('localData', data);
-                        ProcessData(data);
-
-                        $.getJSON("https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/2/public/values?alt=json",
-                            function (newPeeps) {
-                                ProcessNewPeople(newPeeps);
-                                setObject('localNewPeeps', newPeeps);
-                            });
-                    });
-            }
-
-
-            function ProcessData(data) {
-                $('div#namesHere').empty();
-                var grupp = $('input[name=groupRadio]:checked').val();
-                var margin = '';
-
-                $.each(data.feed.entry, function (i, entry) {
-                    //Name				  Count	Age	Sex	Adults	Kids
-                    //Nils Karlsson	5			35	MAN	JA			JA
-
-                    var id = entry.gsx$name.$t.replace(/ /g, '_');
-                    var age = entry.gsx$age.$t;
-                    if (age === "") {
-                        age = "fråga ålder!";
-                    }
-                    var person = '<div class="form-group"' + margin + '>' +
-                        '<div class="col-xs-2">' +
-                        '<input type="checkbox" class="switch form-control" id="' + id + '" data-size="small" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger">' +
-                        '</div><h4 style="font-size:1.2em"><label style="text-align: left;" for="' + id + '" class="col-xs-10 control-label" data-name="' + entry.gsx$name.$t + '">' + entry.gsx$name.$t + ' <sup>' + age + '</sup></label></h4></span></div>';
-
-                    if (grupp === "Barn" && entry.gsx$kids.$t === 'JA') {
-                        $('div#namesHere').append(person);
-                    }
-                    else if (grupp === "Vuxna" && entry.gsx$adults.$t === 'JA') {
-                        $('div#namesHere').append(person);
-                    }
-                    // Fix this later with right classification
-                    else if (grupp === "Ungdomar" && entry.gsx$youths.$t === 'JA') {
-                        $('div#namesHere').append(person);
-                    }
-                    else if (grupp === "Aikidolek" && entry.gsx$play.$t === 'JA') {
-                        $('div#namesHere').append(person);
-                    }
-                    margin = ' style="margin-top:-5px"';
+                    $('#submitForm').html('Skicka in <span class="badge badge-light" id="sendButtonCount">4</span>');
                 });
 
-                $('.switch').bootstrapToggle();
-                $('#laddar').hide();
-            }
+            GetPeople();
 
-            function ProcessNewPeople(newPeeps) {
-                var grupp = $('input[name=groupRadio]:checked').val();
-                var margin = ' style="margin-top:-5px"';
-                doneDates = [];
-                missingDates = [];
+            function GetPeople() {
+                SetLoading();
+                SetSensei();
+                var today = new Date();
+                var dd = today.getDate();
+                var localDate = getObject('localDate');
+                var localData = getObject('localData');
 
-                $.each(newPeeps.feed.entry, function (i, entry) {
-                    var id = entry.gsx$nynamn.$t.replace(/ /g, '_');
-                    var peopleCount = 0;
-                    if (entry.gsx$nynamn.$t !== "") {
-                        peopleCount += 1;
-                        var age = entry.gsx$ålder.$t;
+                dateFormat = moment(today).format('YYYY-MM-DD');
+
+                if (localDate === dateFormat) {
+                    ProcessData(localData);
+
+                    $.getJSON("https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/2/public/values?alt=json",
+                        function (newPeeps) {
+                            ProcessNewPeople(newPeeps);
+                        });
+                }
+                else {
+                    localStorage.clear();
+                    $.getJSON("https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/od6/public/values?alt=json",
+                        function (data) {
+                            //localStorage.clear();
+                            setObject('localDate', dateFormat);
+                            setObject('localData', data);
+                            ProcessData(data);
+
+                            $.getJSON("https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/2/public/values?alt=json",
+                                function (newPeeps) {
+                                    ProcessNewPeople(newPeeps);
+                                });
+                        });
+                }
+
+                function CreateCheckbox(id, text, name, age) {
+                    if (text.length > 20)
+                        text = text.substr(0, 20) + '..';
+
+                    return '<div><label for="' + id + '" data-name="' + name + '"><input type="checkbox" class="switch" data-toggle="toggle" id="' + id + '">' + text + ' <sup> ' + age + '</sup></label></div>';
+                }
+
+                function ProcessData(data) {
+                    $('div#namesHere').empty();
+                    var grupp = $('#inputGroupSelect01').val();
+                    var margin = '';
+
+                    $.each(data.feed.entry, function (i, entry) {
+                        //Name				  Count	Age	Sex	Adults	Kids
+                        //Nils Karlsson	5			35	MAN	JA			JA
+
+                        var id = entry.gsx$name.$t.replace(/ /g, '_');
+                        var age = entry.gsx$age.$t;
                         if (age === "")
-                            age = "fråga ålder!";
-                        else
-                            age = age + ' år';
+                            age = "??";
 
-                        var person = '<div class="form-group"' + margin + '>' +
-                            '<div class="col-xs-2">' +
-                            '<input type="checkbox" class="switch form-control" id="' + id + '" data-size="small" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger">' +
-                            '</div><h4 style="font-size:1.2em;"><label style="text-align: left;" for="' + id + '" class="col-xs-10 control-label" data-name="' + entry.gsx$nynamn.$t + '">' + entry.gsx$nynamn.$t + ' <sup>' + age + '</sup></label></h4></span></div>';
+                        var person = CreateCheckbox(id, entry.gsx$name.$t, entry.gsx$name.$t, age);
+                        //var person = '<div class="form-group"' + margin + '>' +
+                        //    '<div class="col-xs-2">' +
+                        //    '<input type="checkbox" class="switch form-control" id="' + id + '" data-size="small" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger">' +
+                        //    '</div><h4 style="font-size:1.2em"><label style="text-align: left;" for="' + id + '" class="col-xs-10 control-label" data-name="' + entry.gsx$name.$t + '">' + entry.gsx$name.$t + ' <sup>' + age + '</sup></label></h4></span></div>';
 
-                        if (grupp === entry.gsx$grupp.$t) {
+                        if (grupp === "Barn" && entry.gsx$kids.$t === 'JA') {
                             $('div#namesHere').append(person);
                         }
-                    }
-
-                    var peoplePresent = entry.gsx$närvarande.$t.split("\n");
-
-                    if (peoplePresent !== undefined)
-                        peopleCount += peoplePresent.length - 1;
-
-                    if (entry.gsx$grupp.$t === grupp) {
-                        doneDates.push({ date: entry.gsx$datumstämpel.$t, count: peopleCount, sensei: entry.gsx$instruktör.$t });
-                    }
-                });
-
-                $('.switch').bootstrapToggle();
-                CreateDatepicker();
-            }
-        }
-
-        function CreateDatepicker() {
-            var grupp = $('input[name=groupRadio]:checked').val();
-            $('#help-block').text('');
-            $('#datePickme input').datepicker('clearDates');
-            $('#datePickme input').datepicker('destroy');
-            $('#datePickme input').datepicker({
-                format: "DD d M",
-                endDate: '+0d',
-                weekStart: 1,
-                maxViewMode: 0,
-                language: "sv",
-                keyboardNavigation: false,
-                forceParse: false,
-                calendarWeeks: true,
-                autoclose: true,
-                todayHighlight: true,
-                beforeShowDay: function (date) {
-                    dateFormat = moment(date).format('YYYY-MM-DD');
-                    var weekday = moment(date).isoWeekday();
-                    var testDate = moment();
-
-                    if (moment(moment()).isSameOrAfter(moment(date), 'day')) {
-                        if (grupp === 'Barn' || grupp === 'Vuxna') {
-                            return Weekday(4, 7, weekday, dateFormat, date);
+                        else if (grupp === "Vuxna" && entry.gsx$adults.$t === 'JA') {
+                            $('div#namesHere').append(person);
                         }
-                        else if (grupp === 'Ungdomar') {
-                            return Weekday(2, -1, weekday, dateFormat, date);
+                        // Fix this later with right classification
+                        else if (grupp === "Ungdomar" && entry.gsx$youths.$t === 'JA') {
+                            $('div#namesHere').append(person);
                         }
-                        else if (grupp === 'Aikidolek') {
-                            return Weekday(6, -1, weekday, dateFormat, date);
+                        else if (grupp === "Aikidolek" && entry.gsx$play.$t === 'JA') {
+                            $('div#namesHere').append(person);
                         }
-                    }
+                        margin = ' style="margin-top:-5px"';
+                    });
                 }
-            })
-                .on('changeDate', function (e) {
-                    var dateFormat = e.format('yyyy-mm-dd');
-                    var dateItem = doneDates.find(function (element) {
+
+                function ProcessNewPeople(newPeeps) {
+                    var grupp = $('#inputGroupSelect01').val();
+                    var margin = ' style="margin-top:-5px"';
+                    doneDates = [];
+                    missingDates = [];
+
+                    $.each(newPeeps.feed.entry, function (i, entry) {
+                        var id = entry.gsx$nynamn.$t.replace(/ /g, '_');
+                        var peopleCount = 0;
+                        if (entry.gsx$nynamn.$t !== "") {
+                            peopleCount += 1;
+                            var age = entry.gsx$ålder.$t;
+                            if (age === "")
+                                age = "?? år";
+                            else
+                                age = age + ' år';
+
+                            var person = CreateCheckbox(id, entry.gsx$nynamn.$t, entry.gsx$nynamn.$t, age);
+                            //var person = '<div class="form-group"' + margin + '>' +
+                            //    '<div class="col-xs-2">' +
+                            //    '<input type="checkbox" class="switch form-control" id="' + id + '" data-size="small" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger">' +
+                            //    '</div><h4 style="font-size:1.2em;"><label style="text-align: left;" for="' + id + '" class="col-xs-10 control-label" data-name="' + entry.gsx$nynamn.$t + '">' + entry.gsx$nynamn.$t + ' <sup>' + age + '</sup></label></h4></span></div>';
+
+                            if (grupp === entry.gsx$grupp.$t) {
+                                $('div#namesHere').append(person);
+                            }
+                        }
+
+                        var peoplePresent = entry.gsx$närvarande.$t.split("\n");
+
+                        if (peoplePresent !== undefined)
+                            peopleCount += peoplePresent.length - 1;
+
+                        if (entry.gsx$grupp.$t === grupp) {
+                            var dateItem = doneDates.find(function (element) {
+                                return element.date === entry.gsx$datumstämpel.$t;
+                            });
+                            //if (dateItem !== undefined) {
+
+                            //}
+
+                            doneDates.push({ date: entry.gsx$datumstämpel.$t, count: peopleCount, sensei: entry.gsx$instruktör.$t });
+                        }
+                    });
+
+                    $('.switch').bootstrapToggle({
+                        on: 'Ja',
+                        off: 'Nej',
+                        onstyle: 'success',
+                        offstyle: 'danger',
+                        size: 'small'
+                    });
+                    CreateDatepicker();
+                    SetLoading();
+                }
+            }
+
+            function CreateDatepicker() {
+                var grupp = $('#inputGroupSelect01').val();
+                $('#help-block').text('');
+                $('#classDate').datepicker('clearDates');
+                $('#classDate').datepicker('destroy');
+                $('#classDate').datepicker({
+                    format: "DD d M",
+                    endDate: '+0d',
+                    weekStart: 1,
+                    maxViewMode: 0,
+                    language: "sv",
+                    keyboardNavigation: false,
+                    forceParse: false,
+                    calendarWeeks: true,
+                    autoclose: true,
+                    todayHighlight: true,
+                    beforeShowDay: function (date) {
+                        dateFormat = moment(date).format('YYYY-MM-DD');
+                        var weekday = moment(date).isoWeekday();
+                        var testDate = moment();
+
+                        if (moment(moment()).isSameOrAfter(moment(date), 'day')) {
+                            if (grupp === 'Barn' || grupp === 'Vuxna') {
+                                return Weekday(4, 7, weekday, dateFormat, date);
+                            }
+                            else if (grupp === 'Ungdomar') {
+                                return Weekday(2, -1, weekday, dateFormat, date);
+                            }
+                            else if (grupp === 'Aikidolek') {
+                                return Weekday(6, -1, weekday, dateFormat, date);
+                            }
+                        }
+                    }
+                })
+                    .on('changeDate', function (e) {
+                        var dateFormat = e.format('yyyy-mm-dd');
+                        var dateItem = doneDates.find(function (element) {
+                            return element.date === dateFormat;
+                        });
+                        if (dateItem !== undefined)
+                            $('#help-block').text(dateItem.sensei + ' har registrerat ' + dateItem.count + ' deltagare.');
+                        else
+                            $('#help-block').text('');
+                    });
+
+
+                function ClassPicker(doneDates, dateFormat, date) {
+                    //if (doneDates.map(dateFormat => -1).date)
+                    //if (doneDates.find(x => x.date === dateFormat))
+                    var doneItem = doneDates.find(function (element) {
                         return element.date === dateFormat;
                     });
-                    if (dateItem !== undefined)
-                        $('#help-block').text(dateItem.sensei + ' har registrerat ' + dateItem.count + ' deltagare.');
+                    if (doneItem !== undefined) {
+                        return { content: moment(date).format('DD') + '<sup class="tinyNumbers">' + doneItem.count + '</sup>', classes: 'reported highlighted', tooltip: doneItem.count + ' närvarande' };
+                    }
                     else
-                        $('#help-block').text('');
-                });
-
-
-            function ClassPicker(doneDates, dateFormat, date) {
-                //if (doneDates.map(dateFormat => -1).date)
-                //if (doneDates.find(x => x.date === dateFormat))
-                var doneItem = doneDates.find(function (element) {
-                    return element.date === dateFormat;
-                });
-                if (doneItem !== undefined) {
-                    return { content: moment(date).format('DD') + '<sup class="tinyNumbers">' + doneItem.count + '</sup>', classes: 'reported highlighted', tooltip: doneItem.count + ' närvarande' };
+                        return { content: moment(date).format('DD') + '<sup class="tinyNumbers">0</sup>', classes: 'not-reported highlighted' };
                 }
-                else
-                    return { content: moment(date).format('DD') + '<sup class="tinyNumbers">0</sup>', classes: 'not-reported highlighted' };
+
+                function Weekday(firstDay, secondDay, weekDay, dateFormat, date) {
+                    if (weekDay === firstDay || weekDay === secondDay)
+                        return ClassPicker(doneDates, dateFormat, date);
+                    else
+                        return { classes: "disabled disabled-day" };
+                }
             }
 
-            function Weekday(firstDay, secondDay, weekDay, dateFormat, date) {
-                if (weekDay === firstDay || weekDay === secondDay)
-                    return ClassPicker(doneDates, dateFormat, date);
-                else
-                    return { classes: "disabled disabled-day" };
-            }
-        }
+            function postToGoogle() {
+                var grupp = $('#inputGroupSelect01').val();
+                var datum = $('#classDate').data('datepicker').getFormattedDate('DD d M');
+                var datestamp = $('#classDate').data('datepicker').getFormattedDate('yyyy-mm-dd');
+                var nynamn = $('#nyaPersonerName').val();
+                var nytelefon = $('#nyaPersonerPhone').val();
+                var nybirth = $('#nyaPersonerBirth').val();
+                var personer = "";
+                var endline = "";
 
+                $('#notesGroup').val('').hide();
 
-        if (window.performance) {
-            //console.info("window.performance works fine on this browser");
-            if (performance.navigation.type === 1) {
-                //CheckIfReload();
+                var sensei = SetSensei();
+
+                $('.switch:checkbox:checked').each(function () {
+                    var name = $('label[for="' + this.id + '"]').data("name"); //text();
+                    personer += endline + name;
+                    endline = '\n';
+                });
+                //personer += '\n' + 'Nya: ' + $('#nyaPersoner').val();
+                personer += '\n' + 'Anteckning: ' + $('#anteckning').val();
+
+                $.ajax({
+                    url: "https://docs.google.com/forms/d/e/1FAIpQLSe48Dap5E_C1ooZnHexeTccOpvLu3Yd1cxjEsWpEjG1S1zpQQ/formResponse",
+                    data: {
+                        "entry.518054362": grupp,
+                        "entry.1084298548": datum,
+                        "entry.918407859": personer,
+                        "entry.13933593": nynamn,
+                        "entry.84128144": nytelefon,
+                        "entry.590114014": nybirth,
+                        "entry.416881287": datestamp,
+                        "entry.444826897": sensei
+                    },
+                    type: "POST",
+                    dataType: "xml",
+                    statusCode: {
+                        0: function () {
+                            //Success message
+                            //GetPeople();
+                            $('#submitForm').text('Inskickat!');
+                            $('div#namesHere').empty();
+                            $('#nyaPersonerName').val('');
+                            $('#nyaPersonerBirth').val('');
+                            $('#nyaPersonerPhone').val('');
+                            $('#anteckning').val('');
+                        },
+                        200: function () {
+                            //GetPeople();
+                            //Success Message
+                            $('#submitForm').text('Inskickat!');
+                            $('div#namesHere').empty();
+                            $('#nyaPersonerName').val('');
+                            $('#nyaPersonerBirth').val('');
+                            $('#nyaPersonerPhone').val('');
+                            $('#anteckning').val('');
+                        }
+                    }
+                });
             }
-        }
+        });
+
 
         function setObject(key, obj) {
             localStorage.setObject(key, obj);
@@ -327,149 +524,9 @@
             var value = this.getItem(key);
             return value && JSON.parse(value);
         };
+
+        
+
     </script>
-
-</head>
-<body>
-
-<div class="container-fluid">
-  <div class="row">
-  <form id="formValidateme" class="form-horizontal" role="form" data-toggle="validator">
-
-	<div style="padding:10px;">
-	<div class="form-group">
-		<div class="col-xs-10">
-		<!--<input type="checkbox" class="form-control" id="inputGroup" data-toggle="toggle" data-on="Vuxna" data-off="Barn" data-size="large" data-onstyle="warning" data-offstyle="info">-->
-            <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-lg active" style="border:1px solid #2ecc71;  width:50%">
-                    <input type="radio" name="groupRadio" id="Barn" value="Barn" autocomplete="off" checked> Barn
-                </label>
-                <label class="btn btn-lg" style="border:1px solid #2ecc71; width:50%">
-                    <input type="radio" name="groupRadio" id="Ungdomar" value="Ungdomar" autocomplete="off"> Ungdomar
-                </label>
-                <label class="btn btn-lg" style="border:1px solid #2ecc71; width:50%">
-                    <input type="radio" name="groupRadio" id="Vuxna" value="Vuxna" autocomplete="off"> Vuxna
-                </label>
-                <label class="btn btn-lg" style="border:1px solid #2ecc71; width:50%">
-                    <input type="radio" name="groupRadio" id="Aikidolek" value="Aikidolek" autocomplete="off"> Aikidolek
-                </label>
-            </div>
-		</div>
-		<div class="col-xs-7" style="padding-top:5px;">
-			<div id="datePickme">
-                <input type="text" id="classDate" autocomplete="off" class="form-control input-lg" placeholder="Välj datum" data-error="Du måste fylla i datum!" data-required-error="Du måste fylla i datum!" required>
-			</div>
-			<div id="Who">
-				<input type="text" id="InputWho" autocomplete="off" class="form-control input-lg" placeholder="Ditt namn" data-error="Du måste fylla i ditt namn!" data-required-error="Du måste fylla i ditt namn!" required>
-			</div>
-		</div>
-		<div style="margin: 5px">
-	  <span id="laddar" class="glyphicon glyphicon-refresh spinning"></span>
- 	  </div>
-	<div class="col-xs-10"></div>
-    <div class="col-xs-10">
-        <div id="help-block"></div>
-        <div class="help-block with-errors"></div>
-    </div>			
-	</div>	
-		
-	<div id="namesHere">
-	</div>
-<div class="form-group" style="padding-left:5px;">
-	<div class="col-xs-11"><label for="nyaPersoner">Nya (om flera, skicka en i taget)</label></div>
-	<div style="padding-left: 5px">
-	<div>
-	<h5><input placeholder="BARA EN PERSON! Förnamn Efternamn (fråga om stavning!)" id="nyaPersonerName" for="nyaPersoner" class="col-xs-10 control-label" /></h5>
-	</div>
-	<div>
-	<h5><input placeholder="Födelsedatum ex 20181231" id="nyaPersonerBirth" for="nyaPersoner" class="col-xs-10 control-label" /></h5>
-	</div>
-	<div>
-	<h5><input placeholder="Telefonnummer" id="nyaPersonerPhone" for="nyaPersoner" class="col-xs-10 control-label" /></h5>
-	</div>
-	</div>
-        </div>
-        <div class="form-group">
-            <div class="col-xs-4"><label for="anteckning">Om passet:</label></div>
-            <h4><input id="anteckning" for="anteckning" class="col-xs-7 control-label" /></h4>
-        </div>
-	
-  <button id="submitForm" type="submit" class="btn btn-success btn-lg btn-block">Skicka in</button>
-  </div>
-
-  </form>
-  </div>
-</div>
-
-<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>	
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js" integrity="sha256-eZNgBgutLI47rKzpfUji/dD9t6LRs2gI3YqXKdoDOmo=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js" integrity="sha256-De/cgZoAkgvqoxL9yJpJzPHyozUETFnSv7EQGfQWQ4o=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js" integrity="sha256-tW5LzEC7QjhG0CiAvxlseMTs2qJS7u3DRPauDjFJ3zo=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.sv.min.js" integrity="sha256-P20FBA/CkDfREfXj49fDA5zDO0kTdmh9Mls+L9xipHw=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js" integrity="sha256-IxYUmOOk74FUrcx5FEMOHVmTJDb7ZAwnC/ivo/OQGxg=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.22/polyfill.min.js" integrity="sha256-l1ITH+FkedkRS129jMQ/Ou0OS52L8fFl+RcOlNokraI=" crossorigin="anonymous"></script>
-<script type="text/javascript">
-
-    function postToGoogle() {
-        var grupp = $('input[name=groupRadio]:checked').val();
-
-        var datum = $('#classDate').data('datepicker').getFormattedDate('DD d M');
-		var datestamp = $('#classDate').data('datepicker').getFormattedDate('yyyy-mm-dd');
-		var nynamn = $('#nyaPersonerName').val();
-		var nytelefon = $('#nyaPersonerPhone').val();
-		var nybirth = $('#nyaPersonerBirth').val();
-        var personer = "";
-        var endline = "";
-		
-        var sensei = SetSensei();
-
-        $('.switch:checkbox:checked').each(function () {
-            var name = $('label[for="' + this.id + '"]').data("name"); //text();
-            personer += endline + name;
-            endline = '\n';
-        });
-        //personer += '\n' + 'Nya: ' + $('#nyaPersoner').val();
-        personer += '\n' + 'Anteckning: ' + $('#anteckning').val();
-
-        $.ajax({
-            url: "https://docs.google.com/forms/d/e/1FAIpQLSe48Dap5E_C1ooZnHexeTccOpvLu3Yd1cxjEsWpEjG1S1zpQQ/formResponse",
-            data: {
-                "entry.518054362": grupp,
-                "entry.1084298548": datum,
-                "entry.918407859": personer,
-				"entry.13933593": nynamn,
-				"entry.84128144": nytelefon,
-				"entry.590114014": nybirth,
-				"entry.416881287": datestamp,
-				"entry.444826897": sensei			
-            },
-            type: "POST",
-            dataType: "xml",
-            statusCode: {
-                0: function () {
-                    //Success message
-                    //GetPeople();
-                    $('#submitForm').text('Inskickat!');
-                    $('div#namesHere').empty();
-                    $('#nyaPersonerName').val('');
-					$('#nyaPersonerBirth').val('');
-					$('#nyaPersonerPhone').val('');
-					$('#anteckning').val('');
-                },
-                200: function () {
-                    //GetPeople();
-                    //Success Message
-                    $('#submitForm').text('Inskickat!');
-                    $('div#namesHere').empty();
-                    $('#nyaPersonerName').val('');
-					$('#nyaPersonerBirth').val('');
-					$('#nyaPersonerPhone').val('');
-					$('#anteckning').val('');
-                }
-            }
-        });
-    }
-
-</script>	
 </body>
 </html>
