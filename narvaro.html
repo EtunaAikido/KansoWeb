@@ -20,11 +20,9 @@
     <link rel="apple-touch-icon" sizes="120x120" href="/fav/logoBW120x.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/fav/logoBW152x.png.png">
     <!-- Styles.  -->
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" integrity="sha256-rDWX6XrmRttWyVBePhmrpHnnZ1EPmM6WQRQl6h0h7J8=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" integrity="sha256-JDBcnYeV19J14isGd3EtnsCQK05d8PczJ5+fvEvBJvI=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" integrity="sha256-gBxd65TVOCRCDC48+AXN6hhg3I/fZqE/BnwgKwdzJG4=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <style>
         /*.glyphicon.spinning {
@@ -77,8 +75,7 @@
         }
 
         .btn-success, .btn-success:hover, .btn-success:active, .btn-success:visited {
-            background-color: #2ecc71;
-            !important;
+            background-color: #2ecc71 !important;
         }
 
         .btn-danger, .btn-danger:hover, .btn-danger:active, .btn-danger:visited {
@@ -88,42 +85,48 @@
         .mb-3 {
             margin-bottom: 0.3rem !important;
         }
+
+        .formWidth
+    {
+            width: 80px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
     <div class="container-fluid">
         <div class="row">
-            <form id="formValidateme" class="form-horizontal" role="form" data-toggle="validator" autocomplete="off">
+            <form id="formValidateme" class="form-horizontal validate-form" role="form" autocomplete="off">
                 <div class="col-auto" style="padding: 10px">
                     <div class="form-group">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label id="inputGroupSelectLabel" class="input-group-text btn" for="inputGroupSelect01" style="display:block; width: 70px;">Grupp</label>
-                                </div>
-                                <select class="custom-select" id="inputGroupSelect01" aria-describedby="inputGroupSelectLabel">
-                                    <option value="Aikidolek">Aikidolek</option>
-                                    <option selected value="Barn">Barn</option>
-                                    <option value="Ungdomar">Ungdomar</option>
-                                    <option value="Vuxna">Vuxna</option>
-                                </select>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label id="inputGroupSelectLabel" class="input-group-text formWidth" for="inputGroupSelect01">Grupp</label>
                             </div>
+                            <select class="custom-select" id="inputGroupSelect01" aria-describedby="inputGroupSelectLabel">
+                                <option value="Aikidolek">Aikidolek</option>
+                                <option selected value="Barn">Barn</option>
+                                <option value="Ungdomar">Ungdomar</option>
+                                <option value="Vuxna">Vuxna</option>
+                            </select>
+                        </div>
 
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon3">Datum</span>
-                                </div>
-                                <input type="text" id="classDate" autocomplete="off" aria-describedby="basic-addon3" class="form-control input-lg" placeholder="Välj datum" data-error="Du måste fylla i datum!" data-required-error="Du måste fylla i datum!" required>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text formWidth" id="basic-addon3">Datum</span>
                             </div>
-                            <div class="input-group mb-3 input-group-sm">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon4">Instruktör</span>
-                                </div>
-                                <input type="text" id="InputWho" autocomplete="off" aria-describedby="basic-addon4" class="form-control input-lg" placeholder="Ditt namn" data-error="Du måste fylla i ditt namn!" data-required-error="Du måste fylla i ditt namn!" required>
+                            <input type="text" disabled id="classDate" name="InputDate" autocomplete="off" aria-describedby="basic-addon3" class="form-control input-lg border-danger" placeholder="Välj datum" required>
+                        </div>
+                        <div class="input-group mb-3 input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text formWidth" id="basic-addon4">Instruktör</span>
                             </div>
+                            <input type="text" id="InputWho" name="InputName" autocomplete="off" aria-describedby="basic-addon4" class="form-control input-lg" placeholder="Ditt namn" required>
+                        </div>
                         <div>
                             <div id="help-block"></div>
-                            <div class="help-block with-errors"></div>
+                            <div class="help-block with-errors" style="color: red"></div>
                         </div>
                     </div>
 
@@ -134,8 +137,9 @@
 
                             </div>
                         </div>
-
-                        <div class="input-group mb-3" id="notesGroup">
+                    </div>
+                    <div id="notesGroup">
+                        <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="labelNotes">Anteckningar</span>
                             </div>
@@ -165,8 +169,8 @@
                             <input autocomplete="off" aria-describedby="labelNewPhone" placeholder="070-112233" id="nyaPersonerPhone" for="nyaPersoner" class="form-control input-lg">
                         </div>
 
-                        <button id="submitForm" type="submit" class="btn btn-success btn-lg btn-block">
-                            Skicka in <span class="badge badge-light" id="sendButtonCount">4</span>
+                        <button id="submitForm" type="submit" class="btn btn-danger btn-lg btn-block">
+                            Skicka in <span class="badge badge-light" id="sendButtonCount">0</span>
                         </button>
 
                     </div>
@@ -181,102 +185,140 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js" integrity="sha256-CutOzxCRucUsn6C6TcEYsauvvYilEniTXldPa6/wu0k=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js" integrity="sha256-tW5LzEC7QjhG0CiAvxlseMTs2qJS7u3DRPauDjFJ3zo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.sv.min.js" integrity="sha256-P20FBA/CkDfREfXj49fDA5zDO0kTdmh9Mls+L9xipHw=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js" integrity="sha256-dHf/YjH1A4tewEsKUSmNnV05DDbfGN3g7NMq86xgGh8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.42/polyfill.min.js" integrity="sha256-/XfEHUGimdIk42Vy7oTnNLtT8sVrO6vnhhnsQT1W1oo=" crossorigin="anonymous"></script>
+    <script src="https://www.gitcdn.xyz/repo/pamelafox/lscache/master/lscache.min.js"></script>
     <script>
         var doneDates = [];
         var missingDates = [];
+        var memberList = 'https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/od6/public/values?alt=json';
+        var narvaroList = 'https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/2/public/values?alt=json';
+
 
         $(document).ready(function () {
+
+            lscache.setExpiryMilliseconds(3600000); // minuter
+
+            function hasHtml5Validation() {
+                return typeof document.createElement('input').checkValidity === 'function';
+            }
+
+            if (hasHtml5Validation()) {
+                $('#submitForm').click(function (e) {
+                    var form = $('#formValidateme');
+                    if (!form[0].checkValidity()) {
+                        //e.preventDefault();
+                        //form.addClass('bg-danger');
+                        SetSensei();
+                    } else {
+                        //form.removeClass('bg-danger').addClass('bg-success');
+                        e.preventDefault();
+                        postToGoogle();
+                    }
+                });
+            }
+
             function SetSensei() {
                 var sensei = $('#InputWho').val();
-                if (sensei !== undefined && sensei !== '')
-                    setObject('sensei', sensei);
-                else {
+                if (sensei === null || sensei === '')
                     sensei = getObject('sensei');
-                    $('#InputWho').val(sensei);
-                }
 
+                if (sensei === null || sensei === '')
+                    $('#InputWho').addClass('border-danger');
+                else {
+                    setObject('sensei', sensei, 0);
+                    $('#InputWho').val(sensei);
+                    $('#InputWho').addClass('border-success').removeClass('border-danger');
+                }
                 return sensei;
+            }
+
+            function SetDefaultGroup() {
+                var defaultGroup = getObject('defaultGroup');
+
+                if (defaultGroup !== null) {
+                    $('#inputGroupSelect01').val(defaultGroup);
+                }
             }
 
             function SetLoading() {
                 var label = $('#inputGroupSelectLabel');
                 if (label.text() === 'Grupp') {
                     $('#contentBlock').hide();
+                    $('#notesGroup').hide();
                     label.html('<i class="fa fa-spinner fa-spin"></i>');
+                    $('#classDate').prop('disabled', true);
                 }
                 else {
                     label.text('Grupp');
                     $('#contentBlock').show();
                     $('#notesGroup').show();
-                    WatchCheckboxes();
+                    $('#classDate').prop('disabled', false);
                 }
             }
-
-            function WatchCheckboxes() {
-                $('#sendButtonCount').text('0')
-                $('.switch:checkbox').change(function () {
-                    var selectedCount = 0;
-                    $('.switch:checkbox:checked').each(function () {
-                        selectedCount += 1;
-                        $('#sendButtonCount').text(selectedCount);
-                    });
-                });
-            }
-
-            $('#formValidateme').on('submit', function (e) {
-                e.preventDefault();  //prevent form from submitting
-                var datum = $('#classDate').data('datepicker').getFormattedDate('DD d M');
-                if (!datum || datum === "")
-                    return;
-
-                localStorage.clear();
-                postToGoogle();
-            });
 
             $('#inputGroupSelect01').change(
                 function () {
                     SetSensei();
                     GetPeople();
-                    $('#submitForm').html('Skicka in <span class="badge badge-light" id="sendButtonCount">4</span>');
+                    $('#submitForm').html('Skicka in <span class="badge badge-light" id="sendButtonCount">0</span>')
+                        .removeClass('btn-success').addClass('btn-danger');
+                    setObject('defaultGroup', this.value, 0);
                 });
 
+            SetDefaultGroup();
             GetPeople();
+
+
+
+
+            //.on('core.form.invalid', function () {
+            //    $('#formValidateme').addClass('bg-error');
+            //})
+            //.on('core.form.valid', function () {
+            //    $('#formValidateme').addClass('bg-success');
+            //    postToGoogle();
+            //});
+
+            //$('#formValidateme').on('submit', function (e) {
+            //    e.preventDefault();  //prevent form from submitting
+            //    var datum = $('#classDate').data('datepicker').getFormattedDate('DD d M');
+            //    if (!datum || datum === "")
+            //        return;
+
+            //    postToGoogle();
+            //});
 
             function GetPeople() {
                 SetLoading();
                 SetSensei();
                 var today = new Date();
                 var dd = today.getDate();
-                var localDate = getObject('localDate');
                 var localData = getObject('localData');
+                var localNewData = getObject('localNewData');
 
                 dateFormat = moment(today).format('YYYY-MM-DD');
+                $('div#namesHere').empty();
 
-                if (localDate === dateFormat) {
+                if (localData !== null) {
                     ProcessData(localData);
-
-                    $.getJSON("https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/2/public/values?alt=json",
-                        function (newPeeps) {
-                            ProcessNewPeople(newPeeps);
-                        });
                 }
-                else {
-                    localStorage.clear();
-                    $.getJSON("https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/od6/public/values?alt=json",
-                        function (data) {
-                            //localStorage.clear();
-                            setObject('localDate', dateFormat);
-                            setObject('localData', data);
-                            ProcessData(data);
 
-                            $.getJSON("https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/2/public/values?alt=json",
-                                function (newPeeps) {
-                                    ProcessNewPeople(newPeeps);
-                                });
-                        });
+                if (localNewData !== null) {
+                    ProcessNewPeople(localNewData);
                 }
+
+                $.getJSON(memberList,
+                    function (data) {
+                        setObject('localData', data, 0);
+                        ProcessData(data);
+                    });
+
+                $.getJSON(narvaroList,
+                    function (newData) {
+                        setObject('localNewData', newData, 0);
+                        ProcessNewPeople(newData);
+                        SetLoading();
+                    });
 
                 function CreateCheckbox(id, text, name, age) {
                     if (text.length > 20)
@@ -286,50 +328,36 @@
                 }
 
                 function ProcessData(data) {
-                    $('div#namesHere').empty();
                     var grupp = $('#inputGroupSelect01').val();
-                    var margin = '';
 
                     $.each(data.feed.entry, function (i, entry) {
-                        //Name				  Count	Age	Sex	Adults	Kids
-                        //Nils Karlsson	5			35	MAN	JA			JA
-
-                        var id = entry.gsx$name.$t.replace(/ /g, '_');
+                        var id = entry.gsx$name.$t.replace(/[^a-zA-Z]/g, '_');
                         var age = entry.gsx$age.$t;
                         if (age === "")
                             age = "??";
 
                         var person = CreateCheckbox(id, entry.gsx$name.$t, entry.gsx$name.$t, age);
-                        //var person = '<div class="form-group"' + margin + '>' +
-                        //    '<div class="col-xs-2">' +
-                        //    '<input type="checkbox" class="switch form-control" id="' + id + '" data-size="small" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger">' +
-                        //    '</div><h4 style="font-size:1.2em"><label style="text-align: left;" for="' + id + '" class="col-xs-10 control-label" data-name="' + entry.gsx$name.$t + '">' + entry.gsx$name.$t + ' <sup>' + age + '</sup></label></h4></span></div>';
 
-                        if (grupp === "Barn" && entry.gsx$kids.$t === 'JA') {
-                            $('div#namesHere').append(person);
+                        if (!$('#' + id).length) {
+                            if (grupp === "Barn" && entry.gsx$kids.$t === 'JA'
+                                || grupp === "Vuxna" && entry.gsx$adults.$t === 'JA'
+                                || grupp === "Ungdomar" && entry.gsx$youths.$t === 'JA'
+                                || grupp === "Aikidolek" && entry.gsx$play.$t === 'JA') {
+                                $('div#namesHere').append(person);
+                            }
                         }
-                        else if (grupp === "Vuxna" && entry.gsx$adults.$t === 'JA') {
-                            $('div#namesHere').append(person);
-                        }
-                        // Fix this later with right classification
-                        else if (grupp === "Ungdomar" && entry.gsx$youths.$t === 'JA') {
-                            $('div#namesHere').append(person);
-                        }
-                        else if (grupp === "Aikidolek" && entry.gsx$play.$t === 'JA') {
-                            $('div#namesHere').append(person);
-                        }
-                        margin = ' style="margin-top:-5px"';
                     });
+                    FixSwitches();
+                    $('#contentBlock').show();
                 }
 
                 function ProcessNewPeople(newPeeps) {
                     var grupp = $('#inputGroupSelect01').val();
-                    var margin = ' style="margin-top:-5px"';
                     doneDates = [];
                     missingDates = [];
 
                     $.each(newPeeps.feed.entry, function (i, entry) {
-                        var id = entry.gsx$nynamn.$t.replace(/ /g, '_');
+                        var id = entry.gsx$nynamn.$t.replace(/[^a-zA-Z]/g, '_');
                         var peopleCount = 0;
                         if (entry.gsx$nynamn.$t !== "") {
                             peopleCount += 1;
@@ -340,13 +368,11 @@
                                 age = age + ' år';
 
                             var person = CreateCheckbox(id, entry.gsx$nynamn.$t, entry.gsx$nynamn.$t, age);
-                            //var person = '<div class="form-group"' + margin + '>' +
-                            //    '<div class="col-xs-2">' +
-                            //    '<input type="checkbox" class="switch form-control" id="' + id + '" data-size="small" data-toggle="toggle" data-on="Ja" data-off="Nej" data-onstyle="success" data-offstyle="danger">' +
-                            //    '</div><h4 style="font-size:1.2em;"><label style="text-align: left;" for="' + id + '" class="col-xs-10 control-label" data-name="' + entry.gsx$nynamn.$t + '">' + entry.gsx$nynamn.$t + ' <sup>' + age + '</sup></label></h4></span></div>';
 
-                            if (grupp === entry.gsx$grupp.$t) {
-                                $('div#namesHere').append(person);
+                            if (!$('#' + id).length) {
+                                if (grupp === entry.gsx$grupp.$t) {
+                                    $('div#namesHere').append(person);
+                                }
                             }
                         }
 
@@ -356,34 +382,45 @@
                             peopleCount += peoplePresent.length - 1;
 
                         if (entry.gsx$grupp.$t === grupp) {
-                            var dateItem = doneDates.find(function (element) {
-                                return element.date === entry.gsx$datumstämpel.$t;
-                            });
-                            //if (dateItem !== undefined) {
-
-                            //}
-
                             doneDates.push({ date: entry.gsx$datumstämpel.$t, count: peopleCount, sensei: entry.gsx$instruktör.$t });
                         }
                     });
 
-                    $('.switch').bootstrapToggle({
-                        on: 'Ja',
-                        off: 'Nej',
-                        onstyle: 'success',
-                        offstyle: 'danger',
-                        size: 'small'
-                    });
+                    FixSwitches();
                     CreateDatepicker();
-                    SetLoading();
                 }
+            }
+
+            function FixSwitches() {
+                $('.switch').bootstrapToggle({
+                    on: 'Ja',
+                    off: 'Nej',
+                    onstyle: 'success',
+                    offstyle: 'danger',
+                    size: 'small',
+                    height: 32
+                });
+
+                $('.switch:checkbox').change(function () {
+                    var selectedCount = 0;
+                    $('.switch:checkbox:checked').each(function () {
+                        selectedCount += 1;
+                    });
+                    $('#sendButtonCount').text(selectedCount);
+                    if (selectedCount > 0)
+                        $('#submitForm').addClass('btn-success').removeClass('btn-danger');
+                    else
+                        $('#submitForm').addClass('btn-danger').removeClass('btn-success');
+                });
             }
 
             function CreateDatepicker() {
                 var grupp = $('#inputGroupSelect01').val();
+                var todayIsOk = false;
                 $('#help-block').text('');
                 $('#classDate').datepicker('clearDates');
                 $('#classDate').datepicker('destroy');
+                var datum = new Date();
                 $('#classDate').datepicker({
                     format: "DD d M",
                     endDate: '+0d',
@@ -398,8 +435,7 @@
                     beforeShowDay: function (date) {
                         dateFormat = moment(date).format('YYYY-MM-DD');
                         var weekday = moment(date).isoWeekday();
-                        var testDate = moment();
-
+                        todayIsOk = false;
                         if (moment(moment()).isSameOrAfter(moment(date), 'day')) {
                             if (grupp === 'Barn' || grupp === 'Vuxna') {
                                 return Weekday(4, 7, weekday, dateFormat, date);
@@ -422,25 +458,43 @@
                             $('#help-block').text(dateItem.sensei + ' har registrerat ' + dateItem.count + ' deltagare.');
                         else
                             $('#help-block').text('');
+
+                        // Save date between groups, not good since different weekdays
+                        //if ($('#classDate').val() === '') {
+                        //    var storedDate = getObject('submittedDate');
+                        //    $('#classDate').datepicker('update', moment(storedDate).format('YYYY-DD-MM'));
+                        //}
+
+                        if ($('#classDate').val() !== '')
+                            $('#classDate').addClass('border-success').removeClass('border-danger');
+                        else
+                            $('#classDate').addClass('border-danger').removeClass('border-success');
                     });
+
 
 
                 function ClassPicker(doneDates, dateFormat, date) {
                     //if (doneDates.map(dateFormat => -1).date)
                     //if (doneDates.find(x => x.date === dateFormat))
-                    var doneItem = doneDates.find(function (element) {
-                        return element.date === dateFormat;
-                    });
-                    if (doneItem !== undefined) {
-                        return { content: moment(date).format('DD') + '<sup class="tinyNumbers">' + doneItem.count + '</sup>', classes: 'reported highlighted', tooltip: doneItem.count + ' närvarande' };
+                    todayIsOk = true;
+                    if (doneDates.length) {
+                        var doneItem = doneDates.find(function (element) {
+                            return element.date === dateFormat;
+                        });
+                        if (doneItem !== undefined) {
+                            return { content: moment(date).format('DD') + '<sup class="tinyNumbers">' + doneItem.count + '</sup>', classes: 'reported highlighted', tooltip: doneItem.count + ' närvarande' };
+                        }
+                        else
+                            return { content: moment(date).format('DD') + '<sup class="tinyNumbers">0</sup>', classes: 'not-reported highlighted' };
                     }
                     else
-                        return { content: moment(date).format('DD') + '<sup class="tinyNumbers">0</sup>', classes: 'not-reported highlighted' };
+                        return { content: moment(date).format('DD') };
                 }
 
                 function Weekday(firstDay, secondDay, weekDay, dateFormat, date) {
-                    if (weekDay === firstDay || weekDay === secondDay)
+                    if (weekDay === firstDay || weekDay === secondDay) {
                         return ClassPicker(doneDates, dateFormat, date);
+                    }
                     else
                         return { classes: "disabled disabled-day" };
                 }
@@ -455,6 +509,8 @@
                 var nybirth = $('#nyaPersonerBirth').val();
                 var personer = "";
                 var endline = "";
+
+                setObject('submittedDate', datestamp, 60);
 
                 $('#notesGroup').val('').hide();
 
@@ -486,7 +542,7 @@
                         0: function () {
                             //Success message
                             //GetPeople();
-                            $('#submitForm').text('Inskickat!');
+                            //$('#submitForm').text('Inskickat!');
                             $('div#namesHere').empty();
                             $('#nyaPersonerName').val('');
                             $('#nyaPersonerBirth').val('');
@@ -496,7 +552,7 @@
                         200: function () {
                             //GetPeople();
                             //Success Message
-                            $('#submitForm').text('Inskickat!');
+                            //$('#submitForm').text('Inskickat!');
                             $('div#namesHere').empty();
                             $('#nyaPersonerName').val('');
                             $('#nyaPersonerBirth').val('');
@@ -509,23 +565,27 @@
         });
 
 
-        function setObject(key, obj) {
-            localStorage.setObject(key, obj);
+        function setObject(key, obj, minutes) {
+            if (minutes === 0)
+                lscache.set(key, obj);
+            else
+                lscache.set(key, obj, minutes);
         }
         function getObject(key) {
-            return localStorage.getObject(key);
+            //return localStorage.getObject(key);
+            return lscache.get(key);
         }
 
-        Storage.prototype.setObject = function (key, value) {
-            this.setItem(key, JSON.stringify(value));
-        };
+        //Storage.prototype.setObject = function (key, value) {
+        //    this.setItem(key, JSON.stringify(value));
+        //};
 
-        Storage.prototype.getObject = function (key) {
-            var value = this.getItem(key);
-            return value && JSON.parse(value);
-        };
+        //Storage.prototype.getObject = function (key) {
+        //    var value = this.getItem(key);
+        //    return value && JSON.parse(value);
+        //};
 
-        
+
 
     </script>
 </body>
