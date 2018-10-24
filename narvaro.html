@@ -1,15 +1,18 @@
 ﻿<!DOCTYPE html>
-<html lang="en"><!--  manifest="/offline.appcache" -->
+<html lang="en">
+<!--  manifest="/offline.appcache" -->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
+    <meta description="Registrera närvarande medlemmar för Eskilstuna Ki-Aikido">
     <!-- Chrome, Firefox OS and Opera -->
     <meta name="theme-color" content="#fff">
     <!-- Windows Phone -->
     <meta name="msapplication-navbutton-color" content="#fff">
     <!-- iOS Safari -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="#fff">    
+    <meta name="apple-mobile-web-app-status-bar-style" content="#fff">
     <title>Närvaroregistrering</title>
     <!-- Android mobile -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -19,22 +22,17 @@
     <!-- iPhone mobile -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="dns-prefetch" href="https://bootstrapcdn.com">
+    <link rel="dns-prefetch" href="https://cloudflare.com">
+    <link rel="dns-prefetch" href="https://fontawesome.com">
+    <link rel="dns-prefetch" href="https://cssshake.surge.sh">
+    <link rel="dns-prefetch" href="gitcdn.xyz">
     <link rel="apple-touch-icon" href="/fav/logoBW128x.png">
     <link rel="apple-touch-startup-image" href="/fav/logoBW128x.png">
     <link rel="apple-touch-icon" sizes="128x128" href="/fav/logoBW128x.png">
     <link rel="apple-touch-icon" sizes="76x76" href="/fav/logoBW76x.png">
     <link rel="apple-touch-icon" sizes="120x120" href="/fav/logoBW120x.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/fav/logoBW152x.png.png">
-    <!-- Styles.  -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
-        integrity="sha256-rDWX6XrmRttWyVBePhmrpHnnZ1EPmM6WQRQl6h0h7J8=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"
-        integrity="sha256-JDBcnYeV19J14isGd3EtnsCQK05d8PczJ5+fvEvBJvI=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-        crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="https://csshake.surge.sh/csshake.min.css">
     <style>
 
         html, body {
@@ -180,6 +178,17 @@
     </div>
     </div>
 
+    <!-- Styles.  -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
+        integrity="sha256-rDWX6XrmRttWyVBePhmrpHnnZ1EPmM6WQRQl6h0h7J8=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"
+        integrity="sha256-JDBcnYeV19J14isGd3EtnsCQK05d8PczJ5+fvEvBJvI=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://csshake.surge.sh/csshake.min.css">
+    <!-- /styles -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
@@ -195,34 +204,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.42/polyfill.min.js" integrity="sha256-/XfEHUGimdIk42Vy7oTnNLtT8sVrO6vnhhnsQT1W1oo="
         crossorigin="anonymous"></script>
     <script src="https://www.gitcdn.xyz/repo/pamelafox/lscache/master/lscache.min.js"></script>
-    <script src="https://gitcdn.xyz/repo/TalAter/UpUp/master/dist/upup.min.js"></script>
+    <script src="https://www.gitcdn.xyz/repo/TalAter/UpUp/master/dist/upup.min.js"></script>
     <script src="upup.sw.min.js"></script>
 
-    
+
 
     <script>
 
-  UpUp.start({
-    'cache-version': 'v1',
-    'content-url': '/narvaro.html', // show this when the user is offline
-    'assets': [                 // define additional assets needed while offline:
-      'narvaro.html',           // such as images,
-      '/fav/logoBW192x.png',        // custom stylesheets,
-      '/fav/logoBW128x.png', // dynamic requests with data per user,
-      '/fav/logoBW76x.png',      // javascript libraries and frameworks,
-      '/fav/logoBW120x.png'          // videos,
-    ],
-    'service-worker-url': '/upup.sw.min.js'
-  });
+        UpUp.start({
+            'cache-version': 'v1',
+            'content-url': '/narvaro.html', // show this when the user is offline
+            'assets': [                 // define additional assets needed while offline:
+                'narvaro.html',           // such as images,
+                '/fav/logoBW192x.png',        // custom stylesheets,
+                '/fav/logoBW128x.png', // dynamic requests with data per user,
+                '/fav/logoBW76x.png',      // javascript libraries and frameworks,
+                '/fav/logoBW120x.png'          // videos,
+            ],
+            'service-worker-url': '/upup.sw.min.js'
+        });
 
         var doneDates = [];
         var missingDates = [];
         var memberList = 'https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/od6/public/values?alt=json';
         var narvaroList = 'https://spreadsheets.google.com/feeds/list/1TIuPOSg40X7lMrTtpZ2ws4ztBkUDLK4nL-Uh_QZm8jg/2/public/values?alt=json';
 
-    function refresh() {
-      applicationCache.update()
-    }
+        //function refresh() {
+        //  applicationCache.update()
+        //}
 
         $(document).ready(function () {
 
@@ -278,54 +287,49 @@
                         $('#notesGroup').hide();
                         label.html('<i class="fa red fa-spinner fa-spin"></i>');
                         $('#classDate').prop('disabled', true);
-                        EnableDisableButton(0);
                     }
                     else {
                         label.text('Grupp');
                         $('#contentBlock').show();
                         $('#notesGroup').show();
                         $('#classDate').prop('disabled', false);
-                        EnableDisableButton(0);
                     }
                 }
                 else {
                     label.html('<i class="fas fa-unlink shake-horizontal shake-constant text-danger"></i>');
-                    EnableDisableButton(0);
                 }
             }
 
-            function EnableDisableButton(number)
-            {
-                if (navigator && navigator.onLine === true) {              
-                    if (number > 0) {  
-                    $('#submitForm').html('Skicka in <span class="badge badge-light" id="sendButtonCount">' + number + '</span>')
-                        .addClass('btn-success')
-                        .removeClass('btn-danger')
-                        .prop('disabled', false);
+            function EnableDisableButton(number, text = '') {
+                if (navigator && navigator.onLine === true) {
+                    if (text === '')
+                        text = 'Skicka in <span class="badge badge-light" id="sendButtonCount">' + number + '</span>';
+
+                    if (number > 0) {
+                        $('#submitForm').html(text)
+                            .addClass('btn-success')
+                            .removeClass('btn-danger')
+                            .prop('disabled', false);
                     }
-                    else
-                    {
-                        $('#submitForm').html('Skicka in <span class="badge badge-light" id="sendButtonCount">0</span>')
-                        .removeClass('btn-success')
-                        .addClass('btn-danger')
-                        .prop('disabled', true);
+                    else {
+                        $('#submitForm').html(text)
+                            .removeClass('btn-success')
+                            .addClass('btn-danger')
+                            .prop('disabled', true);
                     }
-                    }
-                    else
-                    {
-                        $('#submitForm').prop('disabled', true)
+                }
+                else {
+                    $('#submitForm').prop('disabled', true)
                         .addClass('btn-danger')
                         .removeClass('btn-success')
                         .text('Du är offline :(');
-                    }
+                }
             }
 
             $('#inputGroupSelect01').change(
                 function () {
                     SetSensei();
                     GetPeople();
-                    $('#submitForm').html('Skicka in <span class="badge badge-light" id="sendButtonCount">0</span>')
-                        .removeClass('btn-success').addClass('btn-danger');
                     setObject('defaultGroup', this.value, 0);
                 });
 
@@ -351,28 +355,48 @@
                     ProcessNewPeople(localNewData);
                 }
 
-                $.getJSON(memberList,
-                    function (data) {
-                        setObject('localData', data, 0);
-                        ProcessData(data);
-                    });
+                var ajaxRest = getObject('ajaxRest');
 
-                $.getJSON(narvaroList,
-                    function (newData) {
-                        setObject('localNewData', newData, 0);
-                        ProcessNewPeople(newData);
-                        SetLoading();
-                    });
+                if (localData === null || localNewData === null || ajaxRest === null) {
+                    $.getJSON(memberList,
+                        function (data) {
+                            setObject('localData', data, 0);
+                            ProcessData(data);
+                            setObject('ajaxRest', 60);
+                        });
 
-                function CreateCheckbox(id, text, name, age) {
+                    $.getJSON(narvaroList,
+                        function (newData) {
+                            setObject('localNewData', newData, 0);
+                            ProcessNewPeople(newData);
+                            SetLoading();
+                            setObject('ajaxRest', 60);
+                        });
+                }
+                else
+                    SetLoading();
+
+                function CreateCheckbox(id, text, name, age, users = [], grupp = '') {
                     if (text.length > 20)
                         text = text.substr(0, 20) + '..';
 
-                    return '<div><label for="' + id + '" data-name="' + name + '"><input type="checkbox" class="switch" data-toggle="toggle" id="' + id + '">' + text + ' <sup> ' + age + '</sup></label></div>';
+                    if (users !== null) {
+                        var userExists = users.find(function (element) {
+                            return (element.id === id && element.grupp === grupp);
+                        });
+                    }
+
+                    if (userExists) {
+                        return '<div><label for="' + id + '" data-name="' + name + '"><input type="checkbox" class="switch" data-toggle="toggle" id="' + id + '" checked>' + text + ' <sup> ' + age + '</sup></label></div>';
+                    }
+                    else {
+                        return '<div><label for="' + id + '" data-name="' + name + '"><input type="checkbox" class="switch" data-toggle="toggle" id="' + id + '">' + text + ' <sup> ' + age + '</sup></label></div>';
+                    }
                 }
 
                 function ProcessData(data) {
                     var grupp = $('#inputGroupSelect01').val();
+                    var savedUsers = getObject('selectedUsers');
 
                     $.each(data.feed.entry, function (i, entry) {
                         var id = entry.gsx$name.$t.replace(/[^a-zA-Z]/g, '_');
@@ -380,7 +404,7 @@
                         if (age === "")
                             age = "??";
 
-                        var person = CreateCheckbox(id, entry.gsx$name.$t, entry.gsx$name.$t, age);
+                        var person = CreateCheckbox(id, entry.gsx$name.$t, entry.gsx$name.$t, age, savedUsers, grupp);
 
                         if (!$('#' + id).length) {
                             if (grupp === "Barn" && entry.gsx$kids.$t === 'JA'
@@ -393,10 +417,12 @@
                     });
                     FixSwitches();
                     $('#contentBlock').show();
+                    $('#newMembersGroup').show();
                 }
 
                 function ProcessNewPeople(newPeeps) {
                     var grupp = $('#inputGroupSelect01').val();
+                    var savedUsers = getObject('selectedUsers');
                     doneDates = [];
                     missingDates = [];
 
@@ -411,7 +437,7 @@
                             else
                                 age = age + ' år';
 
-                            var person = CreateCheckbox(id, entry.gsx$nynamn.$t, entry.gsx$nynamn.$t, age);
+                            var person = CreateCheckbox(id, entry.gsx$nynamn.$t, entry.gsx$nynamn.$t, age, savedUsers, grupp);
 
                             if (!$('#' + id).length) {
                                 if (grupp === entry.gsx$grupp.$t) {
@@ -445,13 +471,50 @@
                     height: 32
                 });
 
+                var preSelected = 0;
+                $('.switch:checkbox:checked').each(function (e) {
+                    preSelected += 1;
+                });
+                EnableDisableButton(preSelected)
+
                 $('.switch:checkbox').change(function () {
                     var selectedCount = 0;
-                    $('.switch:checkbox:checked').each(function () {
+                    var selectedUsers = [];
+                    var grupp = $('#inputGroupSelect01').val();
+                    var datestamp = '';
+
+                    //if ($('#classDate').val() !== '') {
+                    //    datestamp = $('#classDate').data('datepicker').getFormattedDate('yyyy-mm-dd');
+                    //}
+
+                    $('.switch:checkbox:checked').each(function (e) {
                         selectedCount += 1;
+                        selectedUsers.push({ id: $(this).attr('id'), grupp: grupp })
                     });
+                    CacheSelection(selectedUsers);
                     EnableDisableButton(selectedCount)
                 });
+            }
+
+            function CacheSelection(selectedUsers) {
+                // Incase we are offline or something, make sure it works as intended!
+                var existing = getObject('selectedUsers');
+                if (existing !== null)
+                    selectedUsers = existing.concat(selectedUsers);
+
+                setObject('selectedUsers', selectedUsers, 48);
+            }
+
+            function ClearCacheSelection(grupp) {
+                var existing = getObject('selectedUsers');
+                var newList = [];
+
+                existing.forEach(element => {
+                    if (element.grupp !== grupp)
+                        newList.push({ id: element.id, grupp: element.grupp })
+                });
+
+                setObject('selectedUsers', newList, 48);
             }
 
             function CreateDatepicker() {
@@ -499,12 +562,6 @@
                         else
                             $('#help-block').text('');
 
-                        // Save date between groups, not good since different weekdays
-                        //if ($('#classDate').val() === '') {
-                        //    var storedDate = getObject('submittedDate');
-                        //    $('#classDate').datepicker('update', moment(storedDate).format('YYYY-DD-MM'));
-                        //}
-
                         if ($('#classDate').val() !== '')
                             $('#classDate').addClass('border-success').removeClass('border-danger');
                         else
@@ -540,6 +597,10 @@
                 }
             }
 
+            function VerifySent() {
+
+            }
+
             function postToGoogle() {
                 var grupp = $('#inputGroupSelect01').val();
                 var datum = $('#classDate').data('datepicker').getFormattedDate('DD d M');
@@ -549,8 +610,7 @@
                 var nybirth = $('#nyaPersonerBirth').val();
                 var personer = "";
                 var endline = "";
-
-                setObject('submittedDate', datestamp, 60);
+                EnableDisableButton(0, 'Skickar...');
 
                 $('#notesGroup').hide();
                 if (!nynamn.length)
@@ -568,6 +628,19 @@
 
                 $.ajax({
                     url: "https://docs.google.com/forms/d/e/1FAIpQLSe48Dap5E_C1ooZnHexeTccOpvLu3Yd1cxjEsWpEjG1S1zpQQ/formResponse",
+                    // beforeSend: function (xhr) {
+                    //     xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+                    //     xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT');
+                    // },
+                    // headers: {
+                    //     'Access-Control-Allow-Credentials' : true,
+                    //     'Access-Control-Allow-Origin':'*',
+                    //     'Access-Control-Allow-Methods':'POST',
+                    //     'Access-Control-Allow-Headers':'application/json',
+                    // xhrFields: {
+                    //     withCredentials: true
+                    // },
+                    //crossDomain: true,
                     data: {
                         "entry.518054362": grupp,
                         "entry.1084298548": datum,
@@ -582,25 +655,32 @@
                     dataType: "xml",
                     statusCode: {
                         0: function () {
-                            //Success message
-                            //GetPeople();
-                            $('div#namesHere').empty();
-                            $('#nyaPersonerName').val('');
-                            $('#nyaPersonerBirth').val('');
-                            $('#nyaPersonerPhone').val('');
-                            $('#anteckning').val('');
+                            AfterPostToGoogle(grupp, nynamn);
                         },
                         200: function () {
-                            //GetPeople();
-                            //Success Message
-                            $('div#namesHere').empty();
-                            $('#nyaPersonerName').val('');
-                            $('#nyaPersonerBirth').val('');
-                            $('#nyaPersonerPhone').val('');
-                            $('#anteckning').val('');
+                            AfterPostToGoogle(grupp, nynamn);
                         }
                     }
                 });
+
+                function AfterPostToGoogle(grupp, nynamn) {
+                    $('div#namesHere').empty();
+                    $('#anteckning').val('');
+                    ClearCacheSelection(grupp);
+                    EnableDisableButton(0)
+                    lscache.remove('ajaxRest');
+                    VerifySent();
+
+                    if (nynamn.length)
+                    {
+                        $('#newMembersGroup').show();
+                        EnableDisableButton(1, 'Skicka flera nya');
+                    }
+
+                    $('#nyaPersonerName').val('');
+                    $('#nyaPersonerBirth').val('');
+                    $('#nyaPersonerPhone').val('');
+                }
             }
         });
 
