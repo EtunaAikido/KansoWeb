@@ -638,22 +638,22 @@
 
                 $.ajax({
                     url: "https://docs.google.com/forms/d/e/1FAIpQLSe48Dap5E_C1ooZnHexeTccOpvLu3Yd1cxjEsWpEjG1S1zpQQ/formResponse",
-                    contentType: "application/json",
-                    beforeSend: function(request) {
-                        request.setRequestHeader("Access-Control-Allow-Origin", "*");
-                        request.setRequestHeader("Access-Control-Allow-Methods", "GET, POST, PUT");
-                        request.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-                        request.setRequestHeader("Access-Control-Request-Headers", "origin, x-requested-with, accept");
-                    },
+                    contentType: "text/plain",
+                    // beforeSend: function(request) {
+                    //     request.setRequestHeader("Access-Control-Allow-Origin", "*");
+                    //     request.setRequestHeader("Access-Control-Allow-Methods", "GET, POST, PUT");
+                    //     request.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+                    //     request.setRequestHeader("Access-Control-Request-Headers", "origin, x-requested-with, accept");
+                    // },
                     // beforeSend: function (xhr) {
                     //     xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
                     //     xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT');
                     // },
                      headers: {
-                         'Access-Control-Allow-Credentials' : true,
-                         'Access-Control-Allow-Origin':'*',
+                        //  'Access-Control-Allow-Credentials' : true,
+                        //  'Access-Control-Allow-Origin':'*',
                          'Access-Control-Allow-Methods':'POST',
-                         'Access-Control-Allow-Headers':'application/json',
+                         'Access-Control-Allow-Headers':'text/plain',
                     // xhrFields: {
                     //     withCredentials: true
                     },
@@ -669,7 +669,7 @@
                         "entry.444826897": sensei
                     }),
                     type: "POST",
-                    dataType: "json",
+                    dataType: "text/plain",
                     statusCode: {
                         0: function () {
                             AfterPostToGoogle(grupp, nynamn);
