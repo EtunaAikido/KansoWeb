@@ -1,0 +1,7 @@
+[[headers]]
+  for = "/narvaro.html"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Content-Type = "application/json"
+    Access-Control-Allow-Credentials = "true"
+    Access-Control-Allow-Methods = "GET,POST,OPTIONS,DELETE,PUT"
