@@ -649,15 +649,15 @@
                     //     xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
                     //     xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT');
                     // },
-                    // headers: {
-                    //     'Access-Control-Allow-Credentials' : true,
-                    //     'Access-Control-Allow-Origin':'*',
-                    //     'Access-Control-Allow-Methods':'POST',
-                    //     'Access-Control-Allow-Headers':'application/json',
+                     headers: {
+                         'Access-Control-Allow-Credentials' : true,
+                         'Access-Control-Allow-Origin':'*',
+                         'Access-Control-Allow-Methods':'POST',
+                         'Access-Control-Allow-Headers':'application/json',
                     // xhrFields: {
                     //     withCredentials: true
-                    // },
-                    //crossDomain: true,
+                    },
+                    crossDomain: true,
                     data: JSON.stringify({
                         "entry.518054362": grupp,
                         "entry.1084298548": datum,
