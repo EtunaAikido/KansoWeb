@@ -1,5 +1,5 @@
 [[headers]]
-  for = "/narvaro.html"
+  for = "/narvaro"
   [headers.values]
     Access-Control-Allow-Origin = "*"
     Allow-Origin = "*"
@@ -8,4 +8,4 @@
     Access-Control-Allow-Methods = "GET,POST,OPTIONS,DELETE,PUT"
     Access-Control-Request-Method = "POST"
     Access-Control-Request-Headers = "origin, x-requested-with, accept"
-    Origin = "https://www.ekia.net/narvaro.html"
+    Origin = "https://www.ekia.net/narvaro"
