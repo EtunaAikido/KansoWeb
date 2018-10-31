@@ -636,29 +636,8 @@
                 //personer += '\n' + 'Nya: ' + $('#nyaPersoner').val();
                 personer += '\n' + 'Anteckning: ' + $('#anteckning').val();
 
-                $.ajax({
-                    url: "https://docs.google.com/forms/d/e/1FAIpQLSe48Dap5E_C1ooZnHexeTccOpvLu3Yd1cxjEsWpEjG1S1zpQQ/formResponse",
-                    contentType: "text/plain",
-                    // beforeSend: function(request) {
-                    //     request.setRequestHeader("Access-Control-Allow-Origin", "*");
-                    //     request.setRequestHeader("Access-Control-Allow-Methods", "GET, POST, PUT");
-                    //     request.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-                    //     request.setRequestHeader("Access-Control-Request-Headers", "origin, x-requested-with, accept");
-                    // },
-                    // beforeSend: function (xhr) {
-                    //     xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-                    //     xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET, POST, PUT');
-                    // },
-                     headers: {
-                        //  'Access-Control-Allow-Credentials' : true,
-                        //  'Access-Control-Allow-Origin':'*',
-                         'Access-Control-Allow-Methods':'POST',
-                         'Access-Control-Allow-Headers':'text/plain',
-                    // xhrFields: {
-                    //     withCredentials: true
-                    },
-                    crossDomain: true,
-                    data: JSON.stringify({
+                $.get("https://docs.google.com/forms/d/e/1FAIpQLSe48Dap5E_C1ooZnHexeTccOpvLu3Yd1cxjEsWpEjG1S1zpQQ/formResponse",
+                    {
                         "entry.518054362": grupp,
                         "entry.1084298548": datum,
                         "entry.918407859": personer,
@@ -667,18 +646,37 @@
                         "entry.590114014": nybirth,
                         "entry.416881287": datestamp,
                         "entry.444826897": sensei
-                    }),
-                    type: "POST",
-                    dataType: "text/plain",
-                    statusCode: {
-                        0: function () {
+                    }, function () {
+                        AfterPostToGoogle(grupp, nynamn);
+                    }).done(
+                        function (data) {
+                            //AfterPostToGoogle(grupp, nynamn);
+                        })
+                    .fail(
+                        function (data) {
+                            //AfterPostToGoogle(grupp, nynamn);
+                        })
+                    .always(
+                        function (data) {
                             AfterPostToGoogle(grupp, nynamn);
-                        },
-                        200: function () {
-                            AfterPostToGoogle(grupp, nynamn);
-                        }
-                    }
-                });
+                        });
+
+                // $.ajax({
+                //     type: "POST",
+                //     url: "https://docs.google.com/forms/d/e/1FAIpQLSe48Dap5E_C1ooZnHexeTccOpvLu3Yd1cxjEsWpEjG1S1zpQQ/formResponse",
+                //     data: formData,
+                //     dataType: "text",
+                //     contentType: "text/plain",
+                //     success: function () { AfterPostToGoogle(grupp, nynamn); },
+                //     statusCode: {
+                //         0: function () {
+                //             AfterPostToGoogle(grupp, nynamn);
+                //         },
+                //         200: function () {
+                //             AfterPostToGoogle(grupp, nynamn);
+                //         }
+                //     }
+                // });
 
                 function AfterPostToGoogle(grupp, nynamn) {
                     $('div#namesHere').empty();

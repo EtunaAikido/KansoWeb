@@ -1,11 +1,11 @@
-# [[headers]]
-#   for = "/narvaro"
-#   [headers.values]
-#     Access-Control-Allow-Origin = "*"
-#     Allow-Origin = "*"
-#     Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept"
-#     Access-Control-Allow-Credentials = "true"
-#     Access-Control-Allow-Methods = "GET,POST,OPTIONS,DELETE,PUT"
-#     Access-Control-Request-Method = "POST"
-#     Access-Control-Request-Headers = "origin, x-requested-with, accept"
-#     Origin = "https://www.ekia.net/narvaro"
+[[headers]]
+  for = "/narvaro"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept"
+    Access-Control-Allow-Credentials = "true"
+    Access-Control-Allow-Methods = "GET,POST,OPTIONS,DELETE,PUT"
+    Access-Control-Request-Method = "POST"
+    Access-Control-Request-Headers = "origin, x-requested-with, accept"
+    Origin = "https://www.ekia.net/narvaro"
