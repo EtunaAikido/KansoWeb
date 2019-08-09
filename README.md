@@ -5,7 +5,8 @@
 ![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m783245224-70f304c2bedc8d7236f8dfdd)
 ![Website](https://img.shields.io/website/https/www.ekia.net)
 ![GitHub repo size](https://img.shields.io/github/repo-size/EtunaAikido/KansoWeb)
-![GitHub last commit](https://img.shields.io/github/last-commit/EtunaAikido/KansoWeb)
+![GitHub WEB last commit](https://img.shields.io/github/last-commit/EtunaAikido/KansoWeb?label=last%20commit%20WEB)
+![GitHub last commit](https://img.shields.io/github/last-commit/EtunaAikido/KansoData?label=last%20commit%20DATA)
 
 Senaste versionen av webbsidan för Eskilstuna Ki-Aikido.
 
