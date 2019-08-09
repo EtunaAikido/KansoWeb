@@ -1,4 +1,7 @@
 # Kanso
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/7942d3ac-e152-4d41-899a-29b2fab34fdc/deploy-status)](https://app.netlify.com/sites/ekia/deploys)
+
 Senaste versionen av webbsidan för Eskilstuna Ki-Aikido.
 
 Projektnamnet Kanso kommer från en princip inom Zen.
@@ -19,7 +22,7 @@ Själva webbsidorna är uppbyggda med hjälp av css-biblioteket Semantic UI http
 
 Kalendern kommer direkt från Google Calendar, med hjälp av ett js-bibliotek som jag har modifierat kraftigt. Händelser stylas sedan med hjälp av mallar som körs genom templatemotorn Mustache.js. Även tidsbiblioteket Moment.js används för att få ordning på dag och tid i händelserna. I stort sett alla js-bibliotek använder sig även av jQuery.js. Försök så långt det är möjligt att undvika lokala kopior av css/js-bibliotek, länka alltid till ett CDN istället (en hostingtjänst för exempelvis js-bibliotek). Det blir mycket lättare att köra sidorna lokalt då och de laddas även snabbare.
 
-När kod checkas in i KansoWeb så byggs den automatiskt till http://ekia.net genom https://ftploy.com/, så tänk på vad du checkar in.
+När kod checkas in i KansoWeb så byggs den automatiskt till https://ekia.net genom https://www.netlify.com som också hostar siten genom sitt CDN.
 
 # Vad kan du hjälpa till med?
 
