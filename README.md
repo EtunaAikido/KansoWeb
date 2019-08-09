@@ -1,6 +1,11 @@
 # Kanso
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/7942d3ac-e152-4d41-899a-29b2fab34fdc/deploy-status)](https://app.netlify.com/sites/ekia/deploys)
+![Uptime Robot status](https://img.shields.io/uptimerobot/status/m783245224-70f304c2bedc8d7236f8dfdd)
+![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m783245224-70f304c2bedc8d7236f8dfdd)
+![Website](https://img.shields.io/website/https/www.ekia.net)
+![GitHub repo size](https://img.shields.io/github/repo-size/EtunaAikido/KansoWeb)
+![GitHub last commit](https://img.shields.io/github/last-commit/EtunaAikido/KansoWeb)
 
 Senaste versionen av webbsidan för Eskilstuna Ki-Aikido.
 
