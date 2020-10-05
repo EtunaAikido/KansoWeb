@@ -20,7 +20,31 @@ Tanken är att webbsidan så långt det är möjligt ska hållas ren från onöd
 
 Webbprojektet ligger här under KansoWeb. Innehållet (främst texter) ligger under KansoData, https://github.com/EtunaAikido/KansoData, i json-format. Innehållet läses in på webbsidorna genom javascriptbiblioteket Mavo, https://mavo.io/, som genom att identifiera taggar i html-koden kan fylla dessa med information från json-filerna direkt från github. 
 
-Redigering av innehållet kan göras direkt i json-filerna eller genom ett webbgränssnitt som Mavo tillhandahåller direkt på webbsidan. Det går att nå genom att lägga till ?login efter url-en, dvs http://ekia.net/index?login exempelvis. Detta är för att det ska gå att redigera innehållet av vem som helst utan html-kunskaper och för att separera presentation och innehåll på ett bra sätt.
+Redigering av innehållet kan göras direkt i json-filerna (helst inte) eller genom ett webbgränssnitt som Mavo tillhandahåller direkt på webbsidan. Det går att nå genom att lägga till ?login efter url-en, dvs https://ekia.net/index?login exempelvis. Detta är för att det ska gå att redigera innehållet av vem som helst utan html-kunskaper och för att separera presentation och innehåll på ett bra sätt.
+
+# Hur kan jag redigera innehållet enklast?
+
+Först behöver du ha ett Github-konto (den här sajten), så börja med att skaffa det på https://github.com/join 
+
+Nu behöver du bli tillagd som användare på KansoData-projektet. Be någon av de som redan är användare att lägga till ditt användarnamn, lista på användare finns här https://github.com/EtunaAikido/KansoData/graphs/contributors
+
+Om du ska lägga till bilder så är det smidigast att vara medlem i KansoWeb också, eftersom de flesta bilder laddas upp till https://github.com/EtunaAikido/KansoWeb/tree/master/images.
+
+Nu är du användare och inloggad i Github, nu behöver du logga in på Mavo. Gå till https://www.ekia.net/index?login, då bör du få upp den här frågan:
+
+![Mavologin](https://github.com/EtunaAikido/KansoWeb/tree/master/images/Inloggning.png)
+
+Välj Yes, log me in. Nu bör du ha följande högst upp i fönstret:
+
+![Mavologin](https://github.com/EtunaAikido/KansoWeb/tree/master/images/Redigerare.png)
+
+Om du väljer Edit så kan du redigera alla fält som är redigerbara på sidan, gäller för alla sidorna på hemsidan, /news, /faq och så vidare. Du får också upp knappar där du kan lägga till exempelvis en ny nyhet eller fråga/svar. Tänk på att det är alltid bäst att lägga till en nyhet på nyhetsidan, frågor/svar på faq-sidan och så vidare, eftersom du där oftast ser fler fält med information än på exempelvis framsidan där en del information kan vara dold (och således inte redigerbar):
+
+![Mavologin](https://github.com/EtunaAikido/KansoWeb/tree/master/images/Editing.png)
+
+När du redigerat färdigt trycker du på Save. Dina ändringar syns direkt på hemsidan. När du skriver text så kan du även formattera den genom Markdown: https://www.markdownguide.org/cheat-sheet/ - Det innebär enkelt beskrivet att om du skriver två * stjärnor före och efter en text så blir texten fetstil, och så vidare. Följ länken så hittar du alla formateringsknep.
+
+Nu är du redo att redigera www.ekia.net, lycka till.
 
 # CSS & JS
 
