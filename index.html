@@ -35,14 +35,31 @@
     <meta name="msapplication-TileImage" content="fav/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     <!-- Polyfills för safari främst -->
-    <script src="https://cdn.polyfill.io/v2/polyfill.js" type="text/javascript"></script>
-    <script src="https://cdn.polyfill.io/v2/polyfill.js?features=Intl.~locale.en" type="text/javascript"></script>
-    <script type="text/javascript" src="https://dev.mavo.io/dist/mavo.es5.js"></script>
-    <link rel="stylesheet" href="https://get.mavo.io/mavo.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" integrity="sha256-5+W3JHnvGYIJkVxUBsw+jBi9+pOlu9enPX3vZapXj5M=" crossorigin="anonymous" />
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js" type="text/javascript"></script> -->
+    <!-- <script src="https://cdn.polyfill.io/v2/polyfill.js?features=Intl.~locale.en" type="text/javascript"></script> -->
+    <!--<script type="text/javascript" src="https://dev.mavo.io/dist/mavo.es5.js"></script>
+    <link rel="stylesheet" href="https://get.mavo.io/mavo.css">-->
+    <link rel="stylesheet" href="https://get.mavo.io/stable/mavo.min.css">
+
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" integrity="sha256-5+W3JHnvGYIJkVxUBsw+jBi9+pOlu9enPX3vZapXj5M=" crossorigin="anonymous" />-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" />
     <style type="text/css">
         [mv-mode="edit"] {
-            border: 3px solid yellow;
+            background-color: lightgoldenrodyellow !important;
+            border-top: 1px solid red !important;
+            border-bottom: 1px solid red !important;
+        }
+
+        [mv-mode="edit"] .textarea {
+            background-color: lightgoldenrodyellow !important;
+            border-top: 1px solid red !important;
+            border-bottom: 1px solid red !important;
+        }
+
+        [mv-mode="edit"] .textarea .content {
+            background-color: lightgoldenrodyellow !important;
+            border-top: 1px solid red !important;
+            border-bottom: 1px solid red !important;
         }
 
         html, body {
@@ -56,7 +73,7 @@
 </head>
 <body>
     <!-- Header -->
-    <div mv-app="EkiaHome" mv-bar="status edit save logout" mv-storage="https://github.com/EtunaAikido/KansoData/blob/master/EkiaHome.json" mv-plugins="tinymce markdown">
+    <div mv-app="EkiaHome" mv-bar="status edit save logout" style="background-color: white !important;" mv-storage="https://github.com/EtunaAikido/KansoData/blob/master/EkiaHome.json" mv-plugins="markdown">
         <!--  mv-expressions="none" -->
         <div class="ui centered grid">
             <div class="ui one column">
@@ -179,7 +196,7 @@
                     <h1 class="ui dividing header" property="title"></h1>
                     <i><div class="sub header" property="subtitle"></div></i>
                     <div class="ui hidden divider"></div>
-                    <span property="text" class="markdown"></span>
+                    <span property="text" class="markdown editable"></span>
                     <div class="ui hidden divider"></div>
                 </div>
 
@@ -266,10 +283,20 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js" integrity="sha256-iaqfO5ue0VbSGcEiQn+OeXxnxAMK2+QgHXIDA5bWtGI=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" integrity="sha256-1hjUhpc44NwiNg8OwMu2QzJXhD8kcj+sJA3aCQZoUjg=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/sv.js" integrity="sha256-YSdluXfvQ4IfDgU3mcs/TSxtVLkuE4tiauwsICjb4Fg=" crossorigin="anonymous"></script>
+    <script src="https://get.mavo.io/mavo.min.js"></script>
+    <script src="/js/mavo-locale-sv.js" type="text/javascript"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script> -->
+    <script
+  src="http://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js" integrity="sha256-iaqfO5ue0VbSGcEiQn+OeXxnxAMK2+QgHXIDA5bWtGI=" crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.min.js" integrity="sha512-6AXIWogbKpsHvoZJrJtHpIYES4wP8czSj0zk7ZfwOYS8GWYFNSykwdfapt7yQc4ikZytemBu+QyVObzBHJMwYg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js" integrity="sha512-Izh34nqeeR7/nwthfeE0SI3c8uhFSnqxV0sI9TvTcXiFJkMd6fB644O64BRq2P/LA/+7eRvCw4GmLsXksyTHBg==" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" integrity="sha256-1hjUhpc44NwiNg8OwMu2QzJXhD8kcj+sJA3aCQZoUjg=" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/sv.js" integrity="sha256-YSdluXfvQ4IfDgU3mcs/TSxtVLkuE4tiauwsICjb4Fg=" crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/locale/sv.min.js" integrity="sha512-DGfo0+uPZLhfqjfMnPPveWvVTSQ7M0RP6bmlkgGgF/ATKSBPKIBzjyCtActIRL3vJ0LJRirvqQHFA0icXpCIew==" crossorigin="anonymous"></script>
     <script src="js/format-google-calendar.js"></script>
     <script>
         $.noConflict();
@@ -283,7 +310,7 @@
             return value && JSON.parse(value);
         }
 
-        jQuery(document).ready(function () {
+/*         jQuery(document).ready(function () {
             var localData = localStorage.getObject('EkiaHome');
 
             if (localData === null) {
@@ -293,7 +320,7 @@
                         localStorage.setObject('EkiaHome', data);
                     });
             }
-        });
+        }); */
 
         jQuery.get('templates.html', function (templates) {
             html = jQuery('<div />').html(templates).contents();
@@ -347,7 +374,8 @@
             }
         });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js" integrity="sha256-97Q90i72uoJfYtVnO2lQcLjbjBySZjLHx50DYhCBuJo=" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js" integrity="sha256-97Q90i72uoJfYtVnO2lQcLjbjBySZjLHx50DYhCBuJo=" crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous"></script>
     <script type="application/ld+json">
         {
         "@context": "http://schema.org",
