@@ -32,15 +32,15 @@ Om du ska lägga till bilder så är det smidigast att vara medlem i KansoWeb oc
 
 Nu är du användare och inloggad i Github, nu behöver du logga in på Mavo. Gå till https://www.ekia.net/index?login, då bör du få upp den här frågan:
 
-![Mavologin](https://github.com/EtunaAikido/KansoWeb/blob/master/images/Inloggning.png?raw=true)
+![Mavologin](https://github.com/EtunaAikido/KansoWeb/blob/master/images/Inloggning.webp?raw=true)
 
 Välj Yes, log me in. Nu bör du ha följande högst upp i fönstret:
 
-![Mavologin](https://github.com/EtunaAikido/KansoWeb/blob/master/images/Redigerare.png?raw=true)
+![Mavologin](https://github.com/EtunaAikido/KansoWeb/blob/master/images/Redigerare.webp?raw=true)
 
 Om du väljer Edit så kan du redigera alla fält som är redigerbara på sidan, gäller för alla sidorna på hemsidan, /news, /faq och så vidare. Du får också upp knappar där du kan lägga till exempelvis en ny nyhet eller fråga/svar. Tänk på att det är alltid bäst att lägga till en nyhet på nyhetsidan, frågor/svar på faq-sidan och så vidare, eftersom du där oftast ser fler fält med information än på exempelvis framsidan där en del information kan vara dold (och således inte redigerbar):
 
-![Mavologin](https://github.com/EtunaAikido/KansoWeb/blob/master/images/Editing.png?raw=true)
+![Mavologin](https://github.com/EtunaAikido/KansoWeb/blob/master/images/Editing.webp?raw=true)
 
 När du redigerat färdigt trycker du på Save. Dina ändringar syns direkt på hemsidan. När du skriver text så kan du även formattera den genom Markdown: https://www.markdownguide.org/cheat-sheet/ - Det innebär enkelt beskrivet att om du skriver två * stjärnor före och efter en text så blir texten fetstil, och så vidare. Följ länken så hittar du alla formateringsknep.
 

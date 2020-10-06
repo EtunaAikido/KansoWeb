@@ -7,10 +7,10 @@ NETWORK:
 
 CACHE:
 /narvaro.html
-/fav/logoBW192x.png
-/fav/logoBW128x.png
-/fav/logoBW76x.png
-/fav/logoBW120x.png
+/fav/logoBW192x.webp
+/fav/logoBW128x.webp
+/fav/logoBW76x.webp
+/fav/logoBW120x.webp
 https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css
 https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css
 https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css

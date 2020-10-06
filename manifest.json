@@ -9,19 +9,19 @@
   "orientation": "portrait-primary",  
   "icons": [
     {
-      "src": "/fav/logoBW152x.png.png",
+      "src": "/fav/logoBW152x.webp",
       "sizes": "144x144",
       "type": "image/png",
       "density": 3.0
     },
     {
-      "src": "/fav/logoBW192x.png",
+      "src": "/fav/logoBW192x.webp",
       "sizes": "192x192",
       "type": "image/png",
       "density": 4.0
     },
     {
-      "src": "/fav/logoBW192x.png",
+      "src": "/fav/logoBW192x.webp",
       "sizes": "512x512",
       "type": "image/png",
       "density": 5.0
