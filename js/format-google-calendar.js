@@ -35,7 +35,10 @@ var formatGoogleCalendar = (function() {
         if (settings.upcomingTopN > 0) finalURL = finalURL.concat("&maxResults=" + settings.upcomingTopN);
 
         //Get JSON, parse it, transform into list items and append it to past or upcoming events list
-        jQuery.getJSON(finalURL, function(data) {
+        fetch(finalURL)
+        .then(response => response.json())
+        .then(data => {
+        //jQuery.getJSON(finalURL, function(data) {
             // Remove any cancelled events
             data.items.forEach(function removeCancelledEvents(item) {
                 if (item && item.hasOwnProperty('status') && item.status !== 'cancelled') {
