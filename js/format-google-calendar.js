@@ -55,8 +55,8 @@ var formatGoogleCalendar = (function() {
                 pastResult = [],
                 upcomingResult = [],
                 upcomingResultTemp = [],
-                $upcomingElem = jQuery(settings.upcomingSelector),
-                $pastElem = jQuery(settings.pastSelector),
+                $upcomingElem = $(settings.upcomingSelector),
+                $pastElem = $(settings.pastSelector),
                 i;
 
             if (settings.pastTopN === -1) {
@@ -207,7 +207,7 @@ var formatGoogleCalendar = (function() {
     	var dateMoment = moment(result.start.dateTime || result.start.date).calendar();
 
     	if (!isSameDate(new Date(result.start.dateTime || result.start.date), lastDate)) {
-    		var template = jQuery('#mallDatum').html();
+    		var template = $('#mallDatum').html();
     		Mustache.parse(template);   // optional, speeds up future uses
     		var rendered = Mustache.render(template, { date: dateMoment });
     		output = output.concat(rendered);
@@ -217,7 +217,8 @@ var formatGoogleCalendar = (function() {
     	var ikonTemplate = '#ikonHandelse';
     	var re = /(?:^|\W)#(\w+)(?!\w)/g, match, matches =[];
 
-    	var found = jQuery.map(config.defaultEventTemplates, function(item) {
+        var found = $(config.defaultEventTemplates).map ( function(item) { // => collection
+    	//var found = $.map(config.defaultEventTemplates, function(item) {
     		if (~summary.indexOf(item[0]))
 			{
 				while (match = re.exec(item[1])) {
@@ -240,8 +241,8 @@ var formatGoogleCalendar = (function() {
     	};
     	description = description.replace(re, '');
 
-    	kalenderTemplate = jQuery(kalenderTemplate).html();
-    	ikonTemplate = jQuery(ikonTemplate).html();
+    	kalenderTemplate = $(kalenderTemplate).html();
+    	ikonTemplate = $(ikonTemplate).html();
     	var timeSpan = '';
     	if (result.start.dateTime)
     		timeSpan = (moment(result.start.dateTime).format('LT-') +moment(result.end.dateTime).format('LT'));
@@ -252,18 +253,18 @@ var formatGoogleCalendar = (function() {
     	var metaTemplate = '';
 
     	if (timeSpan)
-    		metaTemplate = metaTemplate.concat(Mustache.render(jQuery('#metaTid').html(), {
+    		metaTemplate = metaTemplate.concat(Mustache.render($('#metaTid').html(), {
     			timespan: timeSpan
     	}));
 
     	if (location)
-    		metaTemplate = metaTemplate.concat(Mustache.render(jQuery('#metaPlats').html(), {
+    		metaTemplate = metaTemplate.concat(Mustache.render($('#metaPlats').html(), {
     			location: splitLocation(location),
 				address: location
 		}));
 
     	if (description)
-            metaTemplate = metaTemplate.concat(Mustache.render(jQuery('#metaBeskrivning').html(), {
+            metaTemplate = metaTemplate.concat(Mustache.render($('#metaBeskrivning').html(), {
     				description: description
     	}));
 

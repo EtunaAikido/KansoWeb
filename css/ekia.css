@@ -1,0 +1,14 @@
+[mv-mode="edit"] {
+    background-color: lightgoldenrodyellow !important;
+    border-top: 1px solid red !important;
+    border-bottom: 1px solid red !important;
+    color: black !important;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+}
