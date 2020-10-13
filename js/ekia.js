@@ -16,6 +16,9 @@ fetch('templates.html')
 
     var template = $('#mallNavigation').html();
     var filename = location.href.split("/").slice(-1)[0].split('.').shift();
+    if (filename === '') {
+        filename = "index";
+    }
     var json = $('#' + filename).html();
     var pageNav = JSON.parse(json);
 
