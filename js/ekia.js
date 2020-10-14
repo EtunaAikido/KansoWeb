@@ -15,7 +15,7 @@ fetch('templates.html')
     $('head').append(html);
 
     var template = $('#mallNavigation').html();
-    var filename = location.href.split("/").slice(-1)[0].split('.').shift();
+    var filename = window.location.pathname.split("/").slice(-1)[0].split('.').shift();
     if (filename === '') {
         filename = "index";
     }
