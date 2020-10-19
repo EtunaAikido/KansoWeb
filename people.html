@@ -45,13 +45,14 @@
     </head>
 <body>
     <!-- Header -->
-    <div mv-app="EkiaHome" mv-bar="status edit save logout" style="background-color: white !important;" mv-storage="https://github.com/EtunaAikido/KansoData/blob/master/EkiaHome.json" mv-plugins="tinymce markdown">
+    <div mv-app="EkiaHome" mv-bar="status edit save logout" style="background-color: white !important;" mv-storage="https://github.com/EtunaAikido/KansoData/blob/master/EkiaHome.json" mv-plugins="markdown">
         <!--  mv-expressions="none" -->
         <div class="ui centered grid">
             <div class="ui one column">
                 <div class="ui container">
                     <div id="navBar" class="ui tiny secondary top stackable menu">
                     </div>
+                    <div class="pageLoad-hide ui active centered loader"></div>
                 </div>
             </div>
         </div>
@@ -67,7 +68,7 @@
                     INSTRUKTÖRERNA
                 </h3>
                 <div class="ui two stackable cards">
-                    <div class="ui card senseis" mv-multiple property="instructors" mv-order="desc" title="[name]">
+                    <div class="ui card person" mv-multiple property="instructors" mv-order="desc" title="[name]">
                         <div class="ui fade masked reveal fluid image">
                             <img property="image" class="visible content" src="images/one.webp" alt="[name]">
                             <img property="actionimage" class="hidden content" src="images/one.webp" alt="[name] in action" />
@@ -213,6 +214,17 @@
                 scrollTo.scrollIntoView(true);
             }
         });
+
+        Mavo.inited
+    .then(() => Mavo.all[0].dataLoaded)
+    .then(() => {
+        var cards = $(".person");
+        for(var i = 0; i < cards.length; i++){
+            var target = Math.floor(Math.random() * cards.length -1) + 1;
+            var target2 = Math.floor(Math.random() * cards.length -1) +1;
+            cards.eq(target).before(cards.eq(target2));
+        }
+    });
 
     </script>
 </body>

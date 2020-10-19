@@ -21,12 +21,17 @@ fetch('templates.html')
     }
     var json = $('#' + filename).html();
     var pageNav = JSON.parse(json);
-
     var rendered = Mustache.render(template, pageNav);
-    $('#navBar').append(rendered);
+
+    Promise.resolve($('#navBar').append(rendered)).then(function(result) {
+        $('.pageLoad-hide').hide();
+    });
+
+    //$('#navBar').append(rendered).$('.pageLoad-hide').hide();
+
 
     formatGoogleCalendar.init({
-        calendarUrl: 'https://www.googleapis.com/calendar/v3/calendars/etuna.aikido@gmail.com/events?key=AIzaSyDbRaukZGBDmTZZ6Ku81X-rIZOvCVBT0_4',
+        calendarUrl: 'https://www.googleapis.com/calendar/v3/calendars/etuna.aikido@gmail.com/events?key=process.env.GOOGLE_CALENDAR_KEY',
         past: false,
         upcoming: true,
         sameDayTimes: true,

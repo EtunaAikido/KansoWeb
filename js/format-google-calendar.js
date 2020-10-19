@@ -40,12 +40,14 @@ var formatGoogleCalendar = (function() {
         .then(data => {
         //jQuery.getJSON(finalURL, function(data) {
             // Remove any cancelled events
+            if (data.items != undefined)
+            {
             data.items.forEach(function removeCancelledEvents(item) {
                 if (item && item.hasOwnProperty('status') && item.status !== 'cancelled') {
                     result.push(item);
                 }
             });
-
+        }
             result.sort(comp).reverse();
 
             var lastDate;
@@ -521,7 +523,7 @@ var formatGoogleCalendar = (function() {
     return {
         init: function (settingsOverride) {
             var settings = {
-                calendarUrl: 'https://www.googleapis.com/calendar/v3/calendars/milan.kacurak@gmail.com/events?key=AIzaSyCR3-ptjHE-_douJsn8o20oRwkxt-zHStY',
+                calendarUrl: '',
                 past: true,
                 upcoming: true,
                 sameDayTimes: true,
