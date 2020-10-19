@@ -31,7 +31,7 @@ fetch('templates.html')
 
 
     formatGoogleCalendar.init({
-        calendarUrl: 'https://www.googleapis.com/calendar/v3/calendars/etuna.aikido@gmail.com/events?key=process.env.GOOGLE_CALENDAR_KEY',
+        calendarUrl: 'https://www.googleapis.com/calendar/v3/calendars/etuna.aikido@gmail.com/events?key=' + GOOGLE_CALENDAR_KEY,
         past: false,
         upcoming: true,
         sameDayTimes: true,
