@@ -29,9 +29,10 @@ fetch('templates.html')
 
     //$('#navBar').append(rendered).$('.pageLoad-hide').hide();
 
-if (GOOGLE_CALENDAR_KEY != undefined) {
+if (typeof GOOGLE_CALENDAR_KEY == 'undefined'){
     var GOOGLE_CALENDAR_KEY = "";
 }
+
 
     formatGoogleCalendar.init({
         calendarUrl: 'https://www.googleapis.com/calendar/v3/calendars/etuna.aikido@gmail.com/events?key=' + GOOGLE_CALENDAR_KEY,
