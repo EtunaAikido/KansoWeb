@@ -27,8 +27,6 @@ fetch('templates.html')
         $('.pageLoad-hide').hide();
     });
 
-    //$('#navBar').append(rendered).$('.pageLoad-hide').hide();
-
     formatGoogleCalendar.init({
         calendarUrl: 'https://www.googleapis.com/calendar/v3/calendars/etuna.aikido@gmail.com/events?key=' + GOOGLE_CALENDAR_KEY,
         past: false,

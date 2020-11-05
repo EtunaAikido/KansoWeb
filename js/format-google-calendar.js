@@ -231,7 +231,24 @@ var formatGoogleCalendar = (function() {
 					ikonTemplate = match[0];
 				};
 			}
-    	});
+        });
+
+        //Hårdkodade icontemplates
+        if (/inställ/i.test(summary)) {
+            ikonTemplate = "#ikonInstallt";
+        }
+        else if (/barn/i.test(summary)) {
+            ikonTemplate = "#ikonBarn";
+        }
+        else if (/vuxen/i.test(summary)) {
+            ikonTemplate = "#ikonVuxna";
+        }
+        else if (/ungdom/i.test(summary)) {
+            ikonTemplate = "#ikonUngdomar";
+        }
+        else if (/lek/i.test(summary)) {
+            ikonTemplate = "#ikonAikidolek";
+        }
 
     	// Find template hidden in description
     	while (match = re.exec(description)) {
@@ -241,7 +258,7 @@ var formatGoogleCalendar = (function() {
     		if (~match[0].indexOf('#ikon'))
     			ikonTemplate = match[0];
     	};
-    	description = description.replace(re, '');
+        description = description.replace(re, '');
 
     	kalenderTemplate = $(kalenderTemplate).html();
     	ikonTemplate = $(ikonTemplate).html();
