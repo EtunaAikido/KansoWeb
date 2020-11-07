@@ -44,6 +44,9 @@ Om du väljer Edit så kan du redigera alla fält som är redigerbara på sidan,
 
 När du redigerat färdigt trycker du på Save. Dina ändringar syns direkt på hemsidan. När du skriver text så kan du även formattera den genom Markdown: https://www.markdownguide.org/cheat-sheet/ - Det innebär enkelt beskrivet att om du skriver två * stjärnor före och efter en text så blir texten fetstil, och så vidare. Följ länken så hittar du alla formateringsknep.
 
+
+![Markdown](https://github.com/EtunaAikido/KansoWeb/blob/master/images/Markdown.jpg?raw=true)
+
 Nu är du redo att redigera www.ekia.net, lycka till.
 
 # CSS & JS
