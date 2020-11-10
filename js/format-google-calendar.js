@@ -217,38 +217,16 @@ var formatGoogleCalendar = (function() {
 
     	var kalenderTemplate = '#mallHandelse';
     	var ikonTemplate = '#ikonHandelse';
-    	var re = /(?:^|\W)#(\w+)(?!\w)/g, match, matches =[];
-
-        var found = $(config.defaultEventTemplates).map ( function(item) { // => collection
-    	//var found = $.map(config.defaultEventTemplates, function(item) {
-    		if (~summary.indexOf(item[0]))
-			{
-				while (match = re.exec(item[1])) {
-    			//matches.push(match[1]);
-				if (~match[0].indexOf('#mall'))
-					kalenderTemplate = match[0];
-				if (~match[0].indexOf('#ikon'))
-					ikonTemplate = match[0];
-				};
-			}
+        var re = /(?:^|\W)#(\w+)(?!\w)/g, match, matches =[];
+        
+        // Find template from provided default templates
+        $(config.defaultEventTemplates).each(function(xIndex, item) {
+            var name = new RegExp(item[0], 'i');
+            if (name.test(summary)) {
+                ikonTemplate = item[1];
+                return false;
+            }
         });
-
-        //Hårdkodade icontemplates
-        if (/inställ/i.test(summary)) {
-            ikonTemplate = "#ikonInstallt";
-        }
-        else if (/barn/i.test(summary)) {
-            ikonTemplate = "#ikonBarn";
-        }
-        else if (/vuxen/i.test(summary)) {
-            ikonTemplate = "#ikonVuxna";
-        }
-        else if (/ungdom/i.test(summary)) {
-            ikonTemplate = "#ikonUngdomar";
-        }
-        else if (/lek/i.test(summary)) {
-            ikonTemplate = "#ikonAikidolek";
-        }
 
     	// Find template hidden in description
     	while (match = re.exec(description)) {
@@ -299,7 +277,29 @@ var formatGoogleCalendar = (function() {
     			meta: metaTemplate
     	});
         output = output.concat(rendered);
-		}
+        }
+        
+    $('.addDate').each(function(xIndex, segment) {
+    var name = new RegExp(segment.id, 'i');
+    if (name.test(summary))
+    {
+        var dateTemplate = $('#nextDatum').html();
+        var rendered = Mustache.render(dateTemplate, { icon: ikonTemplate, summary: summary, date: dateMoment, timespan: timeSpan });
+        var kids = $('#' + segment.id).children().eq(0).append(rendered);
+        $('#' + segment.id).removeClass('addDate');       
+    }
+ });
+
+ //{{{icon}}} {{description}} {{date}}
+
+
+// find class addDate
+// get id of parent
+// match parent id to events
+
+// <div class="addDate ui raised segment" mv-multiple property="groups" mv-order="desc" id="[calendarGroup]">
+// <div class="ui fluid image">
+
 
         return output;
     };

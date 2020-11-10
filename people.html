@@ -67,8 +67,8 @@
                 <h3 class="ui center aligned horizontal header divider">
                     INSTRUKTÖRERNA
                 </h3>
-                <div class="ui two stackable cards">
-                    <div class="ui card person" mv-multiple property="instructors" mv-order="desc" title="[name]">
+                <div class="ui two stackable cards" id="cardholder">
+                    <div class="ui card person" mv-multiple property="instructors" title="[name]" id="[anchor]">
                         <div class="ui fade masked reveal fluid image">
                             <img property="image" class="visible content" src="images/one.webp" alt="[name]">
                             <img property="actionimage" class="hidden content" src="images/one.webp" alt="[name] in action" />
@@ -143,7 +143,7 @@
                         KALENDER
                     </h3>
                     <div>
-                        <div class="ui feed" id="kalender">
+                        <div class="ui feed" id="kalender" mv-expressions="none">
                         </div>
                         <div class="ui placeholder">
                             <div class="image header">
@@ -199,30 +199,36 @@
     <script src="js/format-google-calendar.min.js" type="text/javascript"></script>
     <script src="js/ekia.min.js" type="text/javascript"></script> 
     <script>
-        var scrollTo = '';
-        Mavo.inited
-        .then(() => Mavo.all[0].dataLoaded)
-        .then(() => {
-            if (window.location.hash) {
-                scrollTo = document.getElementById(window.location.hash.substring(1));
-                //scrollTo.scrollIntoView(true);
-            }
-        });
-
-        $(document).ready(function () {
-            if (scrollTo != '') {
-                scrollTo.scrollIntoView(true);
-            }
-        });
+        // var scrollTo = '';
+        // Mavo.inited
+        // .then(() => Mavo.all[0].dataLoaded)
+        // .then(() => {
+        //     if (window.location.hash) {
+        //         scrollTo = document.getElementById(window.location.hash.substring(1));
+        //         //scrollTo.scrollIntoView(true);
+        //     }
+        // });
 
         Mavo.inited
     .then(() => Mavo.all[0].dataLoaded)
     .then(() => {
+        if (window.location.hash) {
+            var anchor = window.location.hash;//document.getElementById(window.location.hash.substring(1));
+            var selectedCard = $(anchor).detach().removeClass('ui card person').addClass('ui raised card person');
+            var header = selectedCard.find('.header')[0]; //removeClass('ui fade masked reveal fluid image').addClass('ui fade masked reveal fluid circular image');
+            $(header).addClass('ui red');
+        }
+
         var cards = $(".person");
         for(var i = 0; i < cards.length; i++){
             var target = Math.floor(Math.random() * cards.length -1) + 1;
             var target2 = Math.floor(Math.random() * cards.length -1) +1;
             cards.eq(target).before(cards.eq(target2));
+        }
+
+        if (selectedCard !== undefined)
+        {
+            $('#cardholder').prepend(selectedCard);
         }
     });
 

@@ -26,29 +26,29 @@ fetch('templates.html')
     Promise.resolve($('#navBar').append(rendered)).then(function(result) {
         $('.pageLoad-hide').hide();
     });
-
-    formatGoogleCalendar.init({
-        calendarUrl: 'https://www.googleapis.com/calendar/v3/calendars/etuna.aikido@gmail.com/events?key=' + GOOGLE_CALENDAR_KEY,
-        past: false,
-        upcoming: true,
-        sameDayTimes: true,
-        dayNames: true,
-        pastTopN: 5,
-        upcomingTopN: 20,
-        daysToShow: 5,
-        recurringEvents: true,
-        upcomingSelector: '#kalender',
-        upcomingHeading: '<h2>Kommande</h2>',
-        pastHeading: '<h2>Tidigare</h2>',
-        defaultEventTemplates:
-            [
-                ['Barnträning', '#ikonBarn'],
-                ['Vuxenträning', '#ikonVuxna'],
-                ['Ungdomsträning', '#ikonUngdomar'],
-                ['Instruktör:', '#mallTagg']
-            ]
-    });
 });
+
+// var templates = $('.addDate').each(function(segment) {
+
+//     var dateTemplate = $('#nextDatum').html();
+//     var id = segment.id;
+//     var 
+
+
+//     var rendered = Mustache.render(dateTemplate, { date: dateMoment });
+//     output = output.concat(rendered);
+//     segment.child().add(output);
+// });
+
+
+
+
+// find class addDate
+// get id of parent
+// match parent id to events
+
+// <div class="addDate ui raised segment" mv-multiple property="groups" mv-order="desc" id="[calendarGroup]">
+// <div class="ui fluid image">
 
 
 var hasRun = false;
@@ -66,4 +66,31 @@ Mavo.inited
             $(divs).show();
             hasRun = true;
         }
+
+
+            formatGoogleCalendar.init({
+                calendarUrl: 'https://www.googleapis.com/calendar/v3/calendars/etuna.aikido@gmail.com/events?key=' + GOOGLE_CALENDAR_KEY,
+                past: false,
+                upcoming: true,
+                sameDayTimes: true,
+                dayNames: true,
+                pastTopN: 5,
+                upcomingTopN: 20,
+                daysToShow: 5,
+                recurringEvents: true,
+                upcomingSelector: '#kalender',
+                upcomingHeading: '<h2>Kommande</h2>',
+                pastHeading: '<h2>Tidigare</h2>',
+                defaultEventTemplates:
+                    [
+                        ['inställ', '#ikonInstallt'],
+                        ['barn', '#ikonBarn'],
+                        ['vuxen', '#ikonVuxna'],
+                        ['ungdom', '#ikonUngdomar'],
+                        ['aikidolek', '#ikonAikidolek'],
+                        ['instruktör:', '#mallTagg']
+
+                    ]
+            
+        });
     });

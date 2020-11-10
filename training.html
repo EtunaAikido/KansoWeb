@@ -62,8 +62,10 @@
 
         <div class="ui two column stackable centered grid">
             <div class="ui eight wide column">
-                <div class="ui raised segment" mv-multiple property="groups" mv-order="desc" id="[calendarGroup]">
-                    <img property="groupImage" class="ui fluid image" src="images/one.webp" alt="[title]">
+                <div class="addDate ui raised segment" mv-multiple property="groups" mv-order="desc" id="[calendarGroup]">
+                    <div class="ui fluid image">
+                    <img property="groupImage"  src="images/one.webp" alt="[title]">
+                    </div>
                     <h1 class="ui header">
                         <span property="title"></span>
                         <div class="sub header" property="subtitle"></div>
@@ -117,7 +119,7 @@
                         KALENDER
                     </h3>
                     <div>
-                        <div class="ui feed" id="kalender">
+                        <div class="ui feed" id="kalender" mv-expressions="none">
                         </div>
                         <div class="ui placeholder">
                             <div class="image header">
