@@ -5,6 +5,12 @@
     color: black !important;
 }
 
+
+[mv-permissions~="login"] .mavoauth {
+    display: none;
+}
+
+
 html, body {
     width: 100%;
     height: 100%;
