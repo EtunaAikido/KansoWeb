@@ -50,14 +50,15 @@
         <div class="ui centered grid">
             <div class="ui one column">
                 <div class="ui container">
-                    <div id="navBar" class="ui tiny secondary top stackable menu">
+                    <div id="navBar">
                     </div>
                     <div class="pageLoad-hide ui active centered loader"></div>
                 </div>
             </div>
         </div>
-
-        <img class="ui fluid image" src="images/banner3.webp" alt="Banner">
+        <div class="ui fluid image" id="bannerimage">
+            <img src="images/banner3.webp" alt="Banner">
+        </div>
         <div class="ui hidden divider"></div>
 
         <div class="ui two column stackable centered grid">
@@ -128,6 +129,28 @@
             </div>
 
             <div class="ui three wide column">
+                <div class="ui segment">
+                    <h3>
+                        NYHETER
+                    </h3>
+                    <div class="ui middle aligned divided list">
+                        <div class="item" mv-multiple property="news" mv-order="desc">
+                            <div class="content">
+                                <a class="header" href="news"><span property="title"></span></a>
+                                <div class="ui placeholder">
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="ui basic segment">
                     <h3 class="ui center aligned horizontal header divider">
                         KALENDER

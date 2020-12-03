@@ -10,6 +10,11 @@
     display: none;
 }
 
+.white
+{
+    background-color: white !important;
+}
+
 
 html, body {
     width: 100%;
@@ -18,3 +23,22 @@ html, body {
     padding: 0px;
     overflow-x: hidden;
 }
+
+/* Mobile */
+
+@media only screen and (max-width: 767px) {
+    [class*="mobile hidden"],
+    [class*="tablet only"]:not(.mobile),
+    [class*="computer only"]:not(.mobile),
+    [class*="large monitor only"]:not(.mobile),
+    [class*="widescreen monitor only"]:not(.mobile),
+    [class*="or lower hidden"] {
+      display: none !important;
+    }
+  }
+
+  .align-vertically {
+    display: flex;
+    align-items: center;
+    height: 40px;
+  }

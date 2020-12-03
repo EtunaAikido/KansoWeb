@@ -26,6 +26,9 @@ fetch('templates.html')
     Promise.resolve($('#navBar').append(rendered)).then(function(result) {
         $('.pageLoad-hide').hide();
     });
+
+    var socialTemplate = $('#socialNavigation').html();
+    $('#bannerimage').append(socialTemplate);
 });
 
 // var templates = $('.addDate').each(function(segment) {

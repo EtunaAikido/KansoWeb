@@ -50,14 +50,15 @@
         <div class="ui centered grid">
             <div class="ui one column">
                 <div class="ui container">
-                    <div id="navBar" class="ui tiny secondary top stackable menu">
+                    <div id="navBar">
                     </div>
                     <div class="pageLoad-hide ui active centered loader"></div>
                 </div>
             </div>
         </div>
-
-        <img class="ui fluid image" src="images/banner2.webp" alt="Banner">
+        <div class="ui fluid image" id="bannerimage">
+            <img src="images/banner2.webp" alt="Banner">
+        </div>
         <div class="ui hidden divider"></div>
 
         <div class="ui two column stackable centered grid">
@@ -81,7 +82,7 @@
                     <div class="ui divider"></div>
                     <div>
                         <span mv-multiple property="groupInstructors">
-                            <a href="people#[name]" class="ui basic medium image label">
+                            <a href="people#[anchor]" class="ui basic medium image label">
                                 <img property="image" src="images/one.webp" alt="[name]">
                                 <span property="name"></span>
                             </a>
@@ -119,8 +120,8 @@
                         </div>
                     </div>
                     <a href="faq"><div class="ui tiny red button">VISA ALLA</div></a>
-
                 </div>
+
                 <div class="ui basic segment">
                     <h3 class="ui center aligned horizontal header divider">
                         KALENDER

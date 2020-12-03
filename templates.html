@@ -71,23 +71,67 @@
         </div>
     </div>
 </script>
+<!-- <div class="ui stackable grid" style="margin:10px;">
+    <div class="ui four doubling stackable equel heigh centered cards"> -->
+<script id="mallNavigation2" type="x-tmpl-mustache">
+        {{#items}}
+        <a href="{{url}}">
+        <div class="ui {{state}} red button">
+            <i class="gamepad icon"></i>
+            {{name}}
+        </div>
+        </a>
+        {{/items}}
+        <div class="button">
+            <div class="ui compact stackable items">
+                <a href="https://calendar.google.com/calendar/embed?src=etuna.aikido%40gmail.com&ctz=Europe/Stockholm"><i class="circular inverted red calendar alternate outline icon"></i></a>
+                <a href="https://goo.gl/maps/xrVzPPVFW3n"><i class="circular inverted red globe icon"></i></a>
+                <a href="https://sv-se.facebook.com/EskilstunaKiAikido/"><i class="circular inverted red facebook f icon"></i></a>
+                <a href="https://www.instagram.com/etuna.aikido/"><i class="circular inverted red instagram icon"></i></a>
+            </div>
+        </div>
+</script>
 <script id="mallNavigation" type="x-tmpl-mustache">
+<div class="ui centered stackable grid" style="margin:5px">
+    <a href="https://ekia.net" class="mobile hidden align-vertically">
+        <h1 class="ui header" style="color: black;">ESKILSTUNA KI-AIKIDO</h1>
+      </a>
+        {{#items}}
+                  <a href="{{url}}">
+                    <div class="ui active red {{state}} button" style="margin:2px">
+                        <i class="{{icon}}"></i>{{name}}
+                    </div>
+                  </a>
+        {{/items}}
+</div>
+</script>
+<script id="socialNavigation" type="x-tmpl-mustache">
+<div class="ui bottom right attached white label">
+    <a href="https://calendar.google.com/calendar/embed?src=etuna.aikido%40gmail.com&ctz=Europe/Stockholm"><i class="red calendar alternate outline big icon"></i></a>
+    <a href="https://goo.gl/maps/xrVzPPVFW3n"><i class="red globe big icon"></i></a>
+    <a href="https://sv-se.facebook.com/EskilstunaKiAikido/"><i class="red facebook f big icon"></i></a>
+    <a href="https://www.instagram.com/etuna.aikido/"><i class="red instagram big icon"></i></a>
+</div>
+</script>
+<script id="mallNavigation3" type="x-tmpl-mustache">
+<div class="ui secondary top three stackable menu">
     <div class="item">
-        <h2><a href="https://ekia.net" style="color: black;">ESKILSTUNA KI-AIKIDO</a></h2>
+        <h2 class="ui header"><a href="https://ekia.net" style="color: black;">ESKILSTUNA KI-AIKIDO</a></h2>
     </div>
     {{#items}}
     <div class="item">
         <a href="{{url}}" class="ui active red {{state}} button">
-            {{name}}
+            <i class="{{icon}}"></i>{{name}}
         </a>
     </div>
     {{/items}}
     <div class="item">
-        <a href="https://calendar.google.com/calendar/embed?src=etuna.aikido%40gmail.com&ctz=Europe/Stockholm"><i class="circular inverted red calendar icon"></i></a>
-        <a href="https://goo.gl/maps/xrVzPPVFW3n"><i class="circular inverted red marker icon"></i></a>
-        <a href="https://sv-se.facebook.com/EskilstunaKiAikido/"><i class="circular inverted red facebook icon"></i></a>
+        <a href="https://calendar.google.com/calendar/embed?src=etuna.aikido%40gmail.com&ctz=Europe/Stockholm"><i class="circular inverted red calendar alternate outline icon"></i></a>
+        <a href="https://goo.gl/maps/xrVzPPVFW3n"><i class="circular inverted red globe icon"></i></a>
+        <a href="https://sv-se.facebook.com/EskilstunaKiAikido/"><i class="circular inverted red facebook f icon"></i></a>
         <a href="https://www.instagram.com/etuna.aikido/"><i class="circular inverted red instagram icon"></i></a>
     </div>
+</div>
 </script>
 <script id="index" type="application/json">
                 {
@@ -141,10 +185,10 @@
 </script>
 <script id="club" type="application/json">
     {
-        "items": [{ "name": "START", "url": "index", "state": "" },
-        { "name": "KLUBBNYHETER", "url": "club", "state": "basic" },
-        { "name": "SMS", "url": "sms", "state": "" },
-        { "name": "TSUZUKIWAZA FILMER", "url": "tw", "state": "" }
+        "items": [{ "name": "START", "url": "index", "state": "", "icon": "heart outline icon" },
+        { "name": "KLUBBNYHETER", "url": "club", "state": "basic", "icon": "newspaper outline icon" },
+        { "name": "SMS", "url": "sms", "state": "", "icon": "comment alternate outline icon" },
+        { "name": "TSUZUKIWAZA FILMER", "url": "tw", "state": "", "icon": "film icon" }
         ]
     }
 </script>
