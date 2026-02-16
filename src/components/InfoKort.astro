@@ -7,13 +7,13 @@ interface Props {
 
 const { titel, text, typ } = Astro.props;
 
-const typStyles: Record<string, { border: string; bg: string }> = {
-  barn: { border: 'var(--belt-green)', bg: 'rgba(122, 154, 122, 0.08)' },
-  ungdom: { border: 'var(--belt-purple)', bg: 'rgba(139, 122, 154, 0.08)' },
-  vuxna: { border: 'var(--belt-blue)', bg: 'rgba(107, 143, 163, 0.08)' },
-  varning: { border: 'var(--belt-orange)', bg: 'rgba(196, 136, 106, 0.08)' },
-  viktigt: { border: 'var(--belt-red)', bg: 'rgba(166, 122, 122, 0.08)' },
-  info: { border: 'var(--color-stone)', bg: 'rgba(232, 230, 225, 0.3)' },
+const typStyles: Record<string, { border: string; bg: string; label: string }> = {
+  barn: { border: 'var(--belt-green)', bg: 'rgba(122, 154, 122, 0.08)', label: 'BARN' },
+  ungdom: { border: 'var(--belt-purple)', bg: 'rgba(139, 122, 154, 0.08)', label: 'UNGDOM' },
+  vuxna: { border: 'var(--belt-blue)', bg: 'rgba(107, 143, 163, 0.08)', label: 'VUXNA' },
+  varning: { border: 'var(--belt-orange)', bg: 'rgba(196, 136, 106, 0.08)', label: 'VARNING' },
+  viktigt: { border: 'var(--belt-red)', bg: 'rgba(166, 122, 122, 0.08)', label: 'VIKTIGT' },
+  info: { border: 'var(--color-stone)', bg: 'rgba(232, 230, 225, 0.3)', label: 'INFO' },
 };
 
 const style = typStyles[typ] || typStyles.info;
@@ -23,6 +23,13 @@ const style = typStyles[typ] || typStyles.info;
   class="p-5 border-l-3 rounded-r-sm"
   style={`border-left: 3px solid ${style.border}; background: ${style.bg};`}
 >
-  <h3 class="font-medium">{titel}</h3>
+  {typ !== 'info' ? (
+    <div class="flex items-center gap-2 flex-wrap">
+      <span class="text-xs font-medium px-2 py-0.5 text-white" style={`background: ${style.border};`}>{style.label}</span>
+      <h3 class="font-medium">{titel}</h3>
+    </div>
+  ) : (
+    <h3 class="font-medium">{titel}</h3>
+  )}
   {text && <p class="text-sm text-gray-600 mt-1">{text}</p>}
 </div>
