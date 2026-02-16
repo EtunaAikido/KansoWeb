@@ -343,11 +343,9 @@ function getDictWords(entry: TsuzukiwazaEntry): DictEntry[] {
   var nav = document.getElementById('twNav');
   if (!nav) return;
 
-  nav.addEventListener('click', function(e) {
-    var btn = e.target.closest('.tw-nav-btn');
+  function selectTW(nr) {
+    var btn = nav.querySelector('.tw-nav-btn[data-tw="' + nr + '"]');
     if (!btn) return;
-
-    var nr = btn.getAttribute('data-tw');
 
     // Update nav buttons
     nav.querySelectorAll('.tw-nav-btn').forEach(function(b) {
@@ -371,11 +369,29 @@ function getDictWords(entry: TsuzukiwazaEntry): DictEntry[] {
       }
     });
 
+    // Update URL without reload
+    var url = new URL(window.location);
+    url.searchParams.set('nr', nr);
+    history.replaceState(null, '', url);
+  }
+
+  nav.addEventListener('click', function(e) {
+    var btn = e.target.closest('.tw-nav-btn');
+    if (!btn) return;
+
+    var nr = btn.getAttribute('data-tw');
+    selectTW(nr);
+
     // Scroll to top of content on mobile
     if (window.innerWidth < 1024) {
       var panel = document.querySelector('[data-tw-panel="' + nr + '"]');
       if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   });
+
+  // Select TW from URL param on load
+  var params = new URLSearchParams(window.location.search);
+  var nr = params.get('nr');
+  if (nr) selectTW(nr);
 })();
 </script>
