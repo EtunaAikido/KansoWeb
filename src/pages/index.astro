@@ -4,7 +4,7 @@ import InfoKort from '../components/InfoKort.astro';
 import Kalender from '../components/Kalender.astro';
 
 // Fetch info-kort from Google Calendar (all-day events with tags)
-const CALENDAR_ID = import.meta.env.GOOGLE_CALENDAR_ID || import.meta.env.PUBLIC_GOOGLE_CALENDAR_ID || 'etuna.aikido@gmail.com';
+const CALENDAR_ID = import.meta.env.GOOGLE_CALENDAR_ID || import.meta.env.PUBLIC_GOOGLE_CALENDAR_ID || '';
 const API_KEY = import.meta.env.GOOGLE_CALENDAR_API_KEY || import.meta.env.PUBLIC_GOOGLE_CALENDAR_API_KEY || '';
 
 interface InfoKortData {

@@ -2,7 +2,7 @@ import type { Handler } from "@netlify/functions";
 import { GoogleAuth } from "google-auth-library";
 import { verifyToken } from "./shared/auth";
 
-const CALENDAR_ID = process.env.PUBLIC_GOOGLE_CALENDAR_ID || "etuna.aikido@gmail.com";
+const CALENDAR_ID = process.env.PUBLIC_GOOGLE_CALENDAR_ID || "";
 const SCOPES = ["https://www.googleapis.com/auth/calendar.events"];
 
 function getAuthClient() {

@@ -28,5 +28,21 @@ public/videos/*.mp4
 *.log
 npm-debug.log*
 
-# Old site files to exclude (optional, remove if you want to keep backup)
-# /pass.html
+# Old site files (archived to _archived/, kept locally)
+/*.html
+/css/
+/js/
+/fav/
+/images/
+/Filer/
+/EkiaHome.json
+/manifest.json
+/manifest_tw.json
+/_redirects
+/.htaccess
+/offline.appcache
+/debug.log
+/sitemap.xml
+/robots.txt
+/favicon.ico
+/google*.html
