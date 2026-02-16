@@ -1,0 +1,82 @@
+body {
+    padding-top: 30px;
+}
+
+.jumbotron {
+    background-color: #ffffff !important;
+}
+	
+h1, h2, h3, h4, h5, h6 {
+	color: black;
+	}
+	
+.article-intro {
+    margin-bottom: 25px;
+}
+    
+.footer-blurb-item {
+    padding: 10px 10px 10px 20px;
+    }
+ 
+.small-print {
+	background-color: #000000;
+	padding: 30px 0;
+}
+
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+    .navbar-collapse.collapse.in {
+        display: block !important;
+    }
+    .navbar-header .collapse, .navbar-toggle {
+        display:block !important;
+    }
+    .navbar-header {
+        float:none;
+    }
+
+
+
+/*
+    Original version: http://www.bootply.com/128062
+    
+    This version adds support for IE 10+ and Firefox.
+*/
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -ms-animation: spin .7s infinite linear;
+    -webkit-animation: spinw .7s infinite linear;
+    -moz-animation: spinm .7s infinite linear;
+}
+
+@keyframes spin {
+    from {
+        transform: scale(1) rotate(0deg);
+    }
+
+    to {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spinw {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes spinm {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}

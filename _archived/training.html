@@ -1,0 +1,186 @@
+﻿<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Börja träna</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <meta name="author" content="Eskilstuna Ki-Aikido">
+        <meta name="keywords" content="eskilstuna, munktellarenan, munktell, aikido, aikidoklubb, ki-aikido, ki-aikidoklubb, bokken, jo, kampkonst, kampsport, budo, vapenträning, dojo, japansk, martial art, hakama, aikidoläger, läger, aikidobilder" />
+        <meta name="description" content="Eskilstuna Ki-Aikido - Aikido sedan 1991" />
+        <link rel="preconnect" href="//mavo.io">
+        <link rel="preconnect" href="//cloudflare.com">
+        <link rel="preconnect" href="//cloudfront.net">
+        <link rel="preconnect" href="//gstatic.com">
+        <link rel="preconnect" href="//jquery.com">
+        <link rel="canonical" href="//www.ekia.net" />
+        <link rel="apple-touch-icon" sizes="57x57" href="fav/apple-icon-57x57.webp">
+        <link rel="apple-touch-icon" sizes="60x60" href="fav/apple-icon-60x60.webp">
+        <link rel="apple-touch-icon" sizes="72x72" href="fav/apple-icon-72x72.webp">
+        <link rel="apple-touch-icon" sizes="76x76" href="fav/apple-icon-76x76.webp">
+        <link rel="apple-touch-icon" sizes="114x114" href="fav/apple-icon-114x114.webp">
+        <link rel="apple-touch-icon" sizes="120x120" href="fav/apple-icon-120x120.webp">
+        <link rel="apple-touch-icon" sizes="144x144" href="fav/apple-icon-144x144.webp">
+        <link rel="apple-touch-icon" sizes="152x152" href="fav/apple-icon-152x152.webp">
+        <link rel="apple-touch-icon" sizes="180x180" href="fav/apple-icon-180x180.webp">
+        <link rel="icon" type="image/png" sizes="192x192" href="fav/android-icon-192x192.webp">
+        <link rel="icon" type="image/png" sizes="32x32" href="fav/favicon-32x32.webp">
+        <link rel="icon" type="image/png" sizes="96x96" href="fav/favicon-96x96.webp">
+        <link rel="icon" type="image/png" sizes="16x16" href="fav/favicon-16x16.webp">
+        <link rel="manifest" href="fav/manifest.json">
+        <meta property="og:title" content="Eskilstuna Ki-Aikido" />
+        <meta property="og:image" content="//www.ekia.net/images/logo2014.webp" />
+        <meta property="og:url" content="//www.ekia.net" />
+        <meta property="og:site_name" content="Ekia.net" />
+        <meta property="og:admins" content="660022871" />
+        <meta name="twitter:card" content="Aikido för alla" />
+        <meta name="twitter:title" content="Eskilstuna Ki-Aikido" />
+        <meta name="twitter:description" content="Aikido - den fredliga kampsporten" />
+        <meta name="twitter:image" content="/images/logo2014.webp" />
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="fav/ms-icon-144x144.webp">
+        <meta name="theme-color" content="#ffffff">
+        <link rel="stylesheet" href="//get.mavo.io/stable/mavo.min.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" />
+        <link rel="stylesheet" href="css/ekia.min.css">
+    </head>
+<body>
+    <!-- Header -->
+    <div mv-app="EkiaHome" mv-bar="status edit save logout" style="background-color: white !important;" mv-storage="https://github.com/EtunaAikido/KansoData/blob/master/EkiaHome.json" mv-plugins="markdown">
+        <!--  mv-expressions="none" -->
+        <div class="ui centered grid">
+            <div class="ui one column">
+                <div class="ui container">
+                    <div id="navBar">
+                    </div>
+                    <div class="pageLoad-hide ui active centered loader"></div>
+                </div>
+            </div>
+        </div>
+        <div class="ui fluid image" id="bannerimage">
+            <img src="images/banner2.webp" alt="Banner">
+        </div>
+        <div class="ui hidden divider"></div>
+
+        <div class="ui two column stackable centered grid">
+            <div class="ui eight wide column">
+
+                <h3 class="ui center aligned horizontal header divider">
+                    <div class="ui pointing below big red label">
+                        BÖRJA TRÄNA
+                    </div>
+                </h3>
+
+                <div class="addDate ui raised segment" mv-multiple property="groups" mv-order="desc" id="[calendarGroup]">
+                    <div class="ui fluid image">
+                    <img property="groupImage"  src="images/one.webp" alt="[title]">
+                    </div>
+                    <h1 class="ui header">
+                        <span property="title"></span>
+                        <div class="sub header" property="subtitle"></div>
+                    </h1>
+                    <div class="ui container markdown" property="text"></div>
+                    <div class="ui divider"></div>
+                    <div>
+                        <span mv-multiple property="groupInstructors">
+                            <a href="people#[anchor]" class="ui basic medium image label">
+                                <img property="image" src="images/one.webp" alt="[name]">
+                                <span property="name"></span>
+                            </a>
+                        </span>
+                    </div>
+                    <div>
+                        <div mv-multiple property="groupSchedule" class="ui large [color] label" style="margin-top:2px;">
+                            <i class="[icon] icon"></i>
+                            <span property="time"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="ui three wide column">
+                <div class="ui segment">
+                    <h3>
+                        VANLIGA FRÅGOR
+                    </h3>
+                    <div class="ui middle aligned divided list">
+                        <div class="item" mv-multiple property="faq" mv-order="desc">
+                            <div class="content">
+                                <a class="header" href="answers#[$index]"><span property="question"></span></a>
+                                <div class="ui placeholder">
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                    <div class="line"></div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="faq"><div class="ui tiny red button">VISA ALLA</div></a>
+                </div>
+
+                <div class="ui basic segment">
+                    <h3 class="ui center aligned horizontal header divider">
+                        KALENDER
+                    </h3>
+                    <div>
+                        <div class="ui feed" id="kalender" mv-expressions="none">
+                        </div>
+                        <div class="ui placeholder">
+                            <div class="image header">
+                              <div class="line"></div>
+                              <div class="line"></div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui hidden divider">
+        </div>
+
+        <div class="ui inverted vertical footer segment">
+            <div class="ui container">
+                <div class="ui stackable inverted divided equal height stackable grid">
+                    <div class="three wide column">
+                        <div class="image">
+                            <img class="ui small centered image" property="footerImage" src="images/one.webp" alt="Footer">
+                        </div>
+                    </div>
+                    <div class="nine wide column">
+                        <h4 class="ui inverted header">Om Oss</h4>
+                        <p class="markdown" property="footerText">
+                        <div class="ui inverted placeholder">
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                            <div class="line"></div>
+                        </div>
+                    </p>
+                    </div>
+                    <div class="four wide column">
+                        <h4 class="ui inverted header">Eskilstuna Ki-Aikido</h4>
+                        <p><a href="https://goo.gl/maps/xrVzPPVFW3n" rel="noreferrer">Munktellarenan, Eskilstuna</a></p>
+                        <p><a href="mailto:etuna.aikido@gmail.com">etuna.aikido@gmail.com</a></p>
+                        <p><a href="tel:0706816183">070-681 61 83</a></p>
+                        <p><a href="https://m.me/j.ahlberg.me" rel="noreferrer">Facebook Messenger</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="//get.mavo.io/mavo.min.js" type="text/javascript"></script>
+    <script src="js/mavo-locale-sv.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cash/8.1.0/cash.min.js" integrity="sha512-sgDgZX/GgfD7qSeMjPN/oE9EQgXZJW55FIjdexVT60QerG2gAWhR9QDQEGt3O90Dy9jVcwMWsoTMhLgldIiKXw==" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.min.js" integrity="sha512-6AXIWogbKpsHvoZJrJtHpIYES4wP8czSj0zk7ZfwOYS8GWYFNSykwdfapt7yQc4ikZytemBu+QyVObzBHJMwYg==" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js" integrity="sha512-Izh34nqeeR7/nwthfeE0SI3c8uhFSnqxV0sI9TvTcXiFJkMd6fB644O64BRq2P/LA/+7eRvCw4GmLsXksyTHBg==" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/locale/sv.min.js" integrity="sha512-DGfo0+uPZLhfqjfMnPPveWvVTSQ7M0RP6bmlkgGgF/ATKSBPKIBzjyCtActIRL3vJ0LJRirvqQHFA0icXpCIew==" crossorigin="anonymous"></script>
+    <script src="js/format-google-calendar.min.js" type="text/javascript"></script>
+    <script src="js/ekia.min.js" type="text/javascript"></script> 
+</body>
+</html>

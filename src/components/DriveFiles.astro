@@ -1,0 +1,113 @@
+---
+interface DriveFile {
+  id: string;
+  name: string;
+  mimeType: string;
+  modifiedTime: string;
+  webViewLink: string;
+}
+
+interface Props {
+  folderId?: string;
+  resourceKey?: string;
+  title?: string;
+}
+
+const { folderId, resourceKey, title = 'Dokument' } = Astro.props;
+
+const API_KEY = import.meta.env.PUBLIC_GOOGLE_CALENDAR_API_KEY || '';
+const FOLDER_ID = folderId || import.meta.env.PUBLIC_GOOGLE_DRIVE_FOLDER_ID || '';
+
+let files: DriveFile[] = [];
+let error: string | null = null;
+
+if (API_KEY && FOLDER_ID) {
+  try {
+    const url = `https://www.googleapis.com/drive/v3/files?key=${API_KEY}&q='${FOLDER_ID}'+in+parents&fields=files(id,name,mimeType,modifiedTime,webViewLink)&orderBy=modifiedTime+desc`;
+
+    const headers: Record<string, string> = {};
+    if (resourceKey) {
+      headers['X-Goog-Drive-Resource-Keys'] = `${FOLDER_ID}/${resourceKey}`;
+    }
+
+    const response = await fetch(url, { headers });
+    if (response.ok) {
+      const data = await response.json();
+      files = data.files || [];
+    } else {
+      error = 'Kunde inte hämta filer';
+    }
+  } catch (e) {
+    error = 'Fel vid hämtning av filer';
+  }
+}
+
+// Get icon based on mime type
+function getFileIcon(mimeType: string): string {
+  if (mimeType.includes('pdf')) return '📄';
+  if (mimeType.includes('document')) return '📝';
+  if (mimeType.includes('spreadsheet')) return '📊';
+  if (mimeType.includes('presentation')) return '📽️';
+  if (mimeType.includes('folder')) return '📁';
+  return '📎';
+}
+
+// Format date
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString('sv-SE', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+---
+
+<div class="overflow-hidden">
+  <h3 class="font-serif text-lg mb-4">{title}</h3>
+
+  {error && <p class="text-sm text-gray-500">{error}</p>}
+
+  {!API_KEY && (
+    <p class="text-sm text-gray-500">
+      Fillistning visas när API-nyckel är konfigurerad.
+    </p>
+  )}
+
+  {files.length > 0 && (
+    <ul class="space-y-2">
+      {files.map((file) => (
+        <li>
+          <a
+            href={file.webViewLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex items-center gap-2 md:gap-3 p-2 md:p-3 border border-[var(--color-stone)] hover:bg-[var(--color-stone)]/30 transition-colors overflow-hidden"
+          >
+            <span class="text-xl">{getFileIcon(file.mimeType)}</span>
+            <div class="min-w-0 flex-1">
+              <p class="font-medium text-sm truncate">{file.name}</p>
+              <p class="text-xs text-gray-500">{formatDate(file.modifiedTime)}</p>
+            </div>
+            <svg
+              class="w-4 h-4 text-gray-400 group-hover:text-[var(--color-ink)] transition-colors"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
+            </svg>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+
+  {files.length === 0 && API_KEY && FOLDER_ID && !error && (
+    <p class="text-sm text-gray-500">Inga filer i denna mapp.</p>
+  )}
+</div>

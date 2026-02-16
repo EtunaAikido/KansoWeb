@@ -1,0 +1,235 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  currentPath?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
+}
+
+const {
+  title = 'Eskilstuna Ki-Aikido',
+  description = 'Aikido i Eskilstuna sedan 1991. Träning för barn, ungdomar och vuxna.',
+  currentPath = '/',
+  schema,
+  noindex = false,
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, 'https://www.ekia.net').href;
+const ogImageUrl = 'https://www.ekia.net/images/logo2014.webp';
+
+// Build breadcrumb from path segments
+const pathSegments = Astro.url.pathname.split('/').filter(Boolean);
+const breadcrumbItems = [
+  { name: 'Hem', url: 'https://www.ekia.net/' },
+  ...pathSegments.map((seg, i) => {
+    const url = 'https://www.ekia.net/' + pathSegments.slice(0, i + 1).join('/');
+    const nameMap: Record<string, string> = {
+      traning: 'Träning',
+      kontakt: 'Kontakt',
+      medlem: 'Medlem',
+    };
+    return { name: nameMap[seg] || seg, url };
+  }),
+];
+
+const breadcrumbSchema = pathSegments.length > 0 ? {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbItems.map((item, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "name": item.name,
+    "item": item.url,
+  })),
+} : null;
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Eskilstuna Ki-Aikido",
+  "url": "https://www.ekia.net",
+};
+---
+
+<!doctype html>
+<html lang="sv" class="overflow-x-hidden">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
+    <meta name="geo.region" content="SE-D" />
+    <meta name="geo.placename" content="Eskilstuna" />
+
+    <title>{title}</title>
+
+    <!-- Canonical & Sitemap -->
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/fav/apple-icon-180x180.webp" />
+    <link rel="icon" type="image/webp" sizes="32x32" href="/fav/favicon-32x32.webp" />
+    <link rel="icon" type="image/webp" sizes="16x16" href="/fav/favicon-16x16.webp" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content="Eskilstuna Ki-Aikido logotyp" />
+    <meta property="og:image:width" content="200" />
+    <meta property="og:image:height" content="200" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Eskilstuna Ki-Aikido" />
+    <meta property="og:locale" content="sv_SE" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#faf9f7" />
+  </head>
+  <body class="min-h-screen grain-overlay overflow-x-hidden">
+    {/* Decorative kanji background - sits above content as subtle watermark */}
+    <div class="fixed inset-0 flex items-center justify-center pointer-events-none select-none z-40" aria-hidden="true">
+      <span class="text-[14rem] md:text-[22rem] font-serif opacity-[0.03] leading-none" style="writing-mode: vertical-rl;">合気道</span>
+    </div>
+
+    <Header currentPath={currentPath} />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer />
+
+    <!-- Scroll-triggered animations -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Intersection Observer for reveal animations
+        const observerOptions = {
+          root: null,
+          rootMargin: '0px 0px -80px 0px',
+          threshold: 0.15
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, observerOptions);
+
+        // Observe elements with reveal classes
+        document.querySelectorAll('.reveal, .stagger-reveal').forEach(el => {
+          revealObserver.observe(el);
+        });
+
+        // Add reveal to sections
+        document.querySelectorAll('section').forEach(section => {
+          if (!section.classList.contains('reveal') && !section.classList.contains('fade-up')) {
+            section.classList.add('reveal');
+            revealObserver.observe(section);
+          }
+        });
+      });
+    </script>
+
+    <!-- Mobile swipe navigation -->
+    <script is:inline define:vars={{ currentPath }}>
+    (function() {
+      if (window.innerWidth > 768) return;
+
+      var pages = ['/', '/traning', '/kontakt', '/medlem'];
+      var idx = pages.indexOf(currentPath);
+      if (idx === -1) return;
+
+      var startX = 0;
+      var startY = 0;
+      var tracking = false;
+
+      document.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        tracking = true;
+      }, { passive: true });
+
+      document.addEventListener('touchend', function(e) {
+        if (!tracking) return;
+        tracking = false;
+
+        var dx = e.changedTouches[0].clientX - startX;
+        var dy = e.changedTouches[0].clientY - startY;
+
+        // Only trigger on horizontal swipes (not vertical scroll)
+        if (Math.abs(dx) < 80 || Math.abs(dy) > Math.abs(dx) * 0.7) return;
+
+        if (dx < 0 && idx < pages.length - 1) {
+          // Swipe left → next page
+          window.location.href = pages[idx + 1];
+        } else if (dx > 0 && idx > 0) {
+          // Swipe right → previous page
+          window.location.href = pages[idx - 1];
+        }
+      }, { passive: true });
+    })();
+    </script>
+
+    <!-- Structured Data: SportsOrganization -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SportsOrganization",
+      "name": "Eskilstuna Ki-Aikido",
+      "url": "https://www.ekia.net",
+      "logo": "https://www.ekia.net/images/logo2014.webp",
+      "description": "Aikidoklubb i Eskilstuna sedan 1991",
+      "foundingDate": "1991",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Verkstadsgatan 5, Munktellarenan",
+        "addressLocality": "Eskilstuna",
+        "postalCode": "632 29",
+        "addressRegion": "Södermanland",
+        "addressCountry": "SE"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+46-70-6816183",
+        "email": "etuna.aikido@gmail.com",
+        "contactType": "customer support"
+      },
+      "sameAs": [
+        "https://www.facebook.com/EskilstunaKiAikido/",
+        "https://www.instagram.com/etuna.aikido/"
+      ]
+    })} />
+
+    <!-- Structured Data: WebSite -->
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+
+    <!-- Structured Data: BreadcrumbList -->
+    {breadcrumbSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    )}
+
+    <!-- Structured Data: Per-page schema -->
+    {schema && (
+      Array.isArray(schema)
+        ? schema.map((s) => (
+            <script type="application/ld+json" set:html={JSON.stringify(s)} />
+          ))
+        : <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    )}
+  </body>
+</html>

@@ -1,0 +1,315 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MedlemGate from '../../components/MedlemGate.astro';
+import DriveFiles from '../../components/DriveFiles.astro';
+import YouTubeEmbed from '../../components/YouTubeEmbed.astro';
+
+const snabblänkar = [
+  {
+    titel: 'Tsuzukiwaza',
+    beskrivning: 'Videoarkiv med TW 1-27',
+    href: '/medlem/tw',
+  },
+  {
+    titel: 'Facebook-grupp',
+    beskrivning: 'Medlemsgruppen på Facebook',
+    href: 'https://www.facebook.com/EskilstunaKiAikido/',
+    extern: true,
+  },
+];
+
+const nyareFilmer = [
+  { id: 'n5RbO2UVB8Q', titel: 'Ki Development Exercises – Aiki Taiso' },
+  { id: '7X3Yox4efjQ', titel: 'Basic principles of bokken practice' },
+  { id: '-FiCPLl6Xfs', titel: 'Ki Breathing and Meditation' },
+];
+
+const grundläggande = [
+  { namn: 'Kihon-waza', beskrivning: 'Grundtekniker — ikkyo, nikkyo, sankyo m.fl.', url: 'https://www.kiaikidostavanger.com/Kihon-waza/', källa: 'Karasukai' },
+  { namn: 'Katame-waza', beskrivning: 'Kontrolltekniker — lås och fasthållningar', url: 'https://www.kiaikidostavanger.com/Katame-waza/', källa: 'Karasukai' },
+  { namn: 'Kokyunage', beskrivning: 'Andningskast — principer och tillämpning', url: 'https://www.kiaikidostavanger.com/Kokyunage/', källa: 'Karasukai' },
+  { namn: 'Aikitaiso', beskrivning: 'Komplett övningssekvens enligt Yoshigasaki Sensei', url: 'https://toitsu.de/blog/2024/2024-03-15_en.html', källa: 'Toitsu' },
+  { namn: 'All Of Aikido', beskrivning: 'Yoshigasaki Senseis videoserie i fem delar', url: 'https://toitsu.de/aoa2023/index.html', källa: 'Toitsu' },
+  { namn: 'Throwing in Aikido', beskrivning: 'Kastteknik — syfte och tillämpning', url: 'https://toitsu.de/blog/2025/2025-09-07_en.html', källa: 'Toitsu' },
+  { namn: 'Falling in Aikido', beskrivning: 'Ukemi — tio sätt att falla säkert', url: 'https://toitsu.de/blog/2025/2025-09-14_en.html', källa: 'Toitsu' },
+  { namn: 'Throwing and Falling', beskrivning: 'Samspelet mellan kast och fall i träningen', url: 'https://toitsu.de/blog/2025/2025-09-21_en.html', källa: 'Toitsu' },
+  { namn: 'Aikido in 3D', beskrivning: 'Tredimensionell rörelse i kokyunage sokumen', url: 'https://toitsu.de/blog/2025/2025-12-14_en.html', källa: 'Toitsu' },
+  { namn: 'Aikido and Techniques', beskrivning: 'Tekniker, stilar och utveckling genom historien', url: 'https://toitsu.de/blog/2024/2024-07-14_en.html', källa: 'Toitsu' },
+  { namn: 'Randori Hitorigake', beskrivning: 'Fri teknik mot en angripare (2 kyu)', url: 'https://toitsu.de/blog/2022/2022-05-29_en.html', källa: 'Toitsu' },
+  { namn: 'Randori Futarigake', beskrivning: 'Fri teknik mot två angripare (1 kyu)', url: 'https://toitsu.de/blog/2022/2022-06-05_en.html', källa: 'Toitsu' },
+  { namn: 'Kodachi Misogi', beskrivning: 'Andnings- och rörelseövning med kort svärd', url: 'https://toitsu.de/blog/2022/2022-01-02_en.html', källa: 'Toitsu' },
+];
+
+const graderingsfilmer = [
+  { kyu: '5 kyu', url: 'https://vimeo.com/michido/5kyu-sept-2011-cph' },
+  { kyu: '4 kyu', url: 'https://vimeo.com/michido/4kyu-sept-2011-cph' },
+  { kyu: '3 kyu', url: 'https://vimeo.com/michido/3kyu-sept-2011-cph' },
+  { kyu: '2 kyu', url: 'https://vimeo.com/michido/2kyu-sept-2011-cph' },
+  { kyu: '1 kyu', url: 'https://vimeo.com/michido/1kyu-sept-2011-cph' },
+];
+
+const twPerGrad = [
+  {
+    grad: '1 KYU',
+    filmer: [
+      { namn: 'TW 14 – Ryotedori', url: 'https://vimeo.com/89805300' },
+      { namn: 'TW 16 – Handachi', url: 'https://vimeo.com/89947605' },
+      { namn: 'TW 1 – Katatedori Tenchin', url: 'https://vimeo.com/89805127' },
+      { namn: 'TW 3 – Ryotemochi', url: 'https://vimeo.com/89805128' },
+    ],
+  },
+  {
+    grad: 'SHODAN',
+    filmer: [
+      { namn: 'TW 11 – Katatedori irimi', url: 'https://vimeo.com/52222713' },
+      { namn: 'TW 13 – Ryotemochi', url: 'https://vimeo.com/52222715' },
+      { namn: 'TW 02 – Ushiro katatedori', url: 'https://vimeo.com/52222711' },
+      { namn: 'TW 08 – Yokomenuchi', url: 'https://vimeo.com/52222712' },
+      { namn: 'TW 21 – Tantodori 1', url: 'https://vimeo.com/52222716' },
+      { namn: 'TW 25 – Happo giri', url: 'https://vimeo.com/52222796' },
+      { namn: 'TW 27 – Jo bokken 2', url: 'https://vimeo.com/52222839' },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Medlemsportal – Eskilstuna Ki-Aikido"
+  description="Medlemsportal för Eskilstuna Ki-Aikido"
+  currentPath="/medlem"
+  noindex
+>
+  <MedlemGate>
+  {/* Hero */}
+  <section class="relative py-20 md:py-28 overflow-hidden">
+    <div class="absolute inset-0">
+      <img
+        src="/images/jela_aiki_2022_uppsala-6924_ungdom.webp"
+        alt=""
+        class="w-full h-full object-cover opacity-[0.06]"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-paper)] via-[var(--color-paper)]/90 to-[var(--color-paper)]" />
+    </div>
+
+    <div class="max-w-4xl mx-auto px-6 md:px-8 text-center fade-up">
+      <h1 class="text-4xl md:text-5xl font-serif mb-4">Medlemsportal</h1>
+      <p class="text-lg text-gray-600 max-w-lg mx-auto">
+        Dokument, videor och resurser för klubbens medlemmar.
+      </p>
+    </div>
+  </section>
+
+  {/* Snabblänkar */}
+  <section class="max-w-4xl mx-auto px-6 md:px-8 pb-12">
+    <h2 class="text-2xl font-serif mb-8">Snabblänkar</h2>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 stagger-children">
+      {snabblänkar.map((länk) => (
+        <a
+          href={länk.href}
+          target={länk.extern ? '_blank' : undefined}
+          rel={länk.extern ? 'noopener noreferrer' : undefined}
+          class="group card-zen p-4 md:p-6 flex items-start gap-4"
+        >
+          <div class="flex-1">
+            <h3 class="font-serif text-lg mb-1">{länk.titel}</h3>
+            <p class="text-sm text-gray-600">{länk.beskrivning}</p>
+          </div>
+          {länk.extern ? (
+            <svg
+              class="w-4 h-4 text-gray-400 flex-shrink-0 mt-1 transition-colors group-hover:text-[var(--color-ink)]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
+            </svg>
+          ) : (
+            <svg
+              class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0 flex-shrink-0 mt-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          )}
+        </a>
+      ))}
+    </div>
+  </section>
+
+  {/* Divider */}
+  <div class="divider-zen" />
+
+  {/* Nyare filmer */}
+  <section class="max-w-4xl mx-auto px-6 md:px-8 pb-16">
+    <h2 class="text-2xl font-serif mb-2">Nyare filmer</h2>
+    <p class="text-sm text-gray-500 mb-8">MindBody Aikido — Ki-Aikido övningar och principer.</p>
+    <div class="grid gap-6 md:grid-cols-3">
+      {nyareFilmer.map((film) => (
+        <div class="card-zen overflow-hidden">
+          <YouTubeEmbed videoId={film.id} title={film.titel} />
+          <div class="p-3 md:p-4">
+            <p class="text-sm font-medium leading-snug">{film.titel}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {/* Divider */}
+  <div class="divider-zen" />
+
+  {/* Grundläggande */}
+  <section class="max-w-4xl mx-auto px-6 md:px-8 pb-16">
+    <h2 class="text-2xl font-serif mb-2">Grundläggande</h2>
+    <p class="text-sm text-gray-500 mb-8">Artiklar och teknikguider från Karasukai och Toitsu.</p>
+    <div class="grid gap-3 sm:grid-cols-2">
+      {grundläggande.map((teknik) => (
+        <a
+          href={teknik.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group card-zen p-3 md:p-4 flex items-start gap-3"
+        >
+          <div class="min-w-0 flex-1">
+            <div class="flex items-baseline gap-2 mb-0.5">
+              <h3 class="font-serif text-base leading-snug">{teknik.namn}</h3>
+              <span class="text-[10px] tracking-wider uppercase text-gray-400 flex-shrink-0">{teknik.källa}</span>
+            </div>
+            <p class="text-xs text-gray-500 leading-relaxed">{teknik.beskrivning}</p>
+          </div>
+          <svg class="w-3.5 h-3.5 text-gray-300 group-hover:text-[var(--color-ink)] transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  {/* Divider */}
+  <div class="divider-zen" />
+
+  {/* Graderingsfilmer */}
+  <section class="max-w-4xl mx-auto px-6 md:px-8 pb-16">
+    <h2 class="text-2xl font-serif mb-8">Graderingsfilmer</h2>
+    <div class="grid gap-4 md:grid-cols-2">
+      <div class="card-zen p-4 md:p-6 lg:p-8">
+        <h3 class="font-serif text-lg mb-4">Kyu-graderingar</h3>
+        <ul class="space-y-3">
+          {graderingsfilmer.map((film) => (
+            <li>
+              <a
+                href={film.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group inline-flex items-center gap-3 link-zen text-sm"
+              >
+                <svg class="w-4 h-4 text-gray-400 group-hover:text-[var(--color-ink)] transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>Film med {film.kyu}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="card-zen p-4 md:p-6 lg:p-8">
+        <h3 class="font-serif text-lg mb-4">Mer</h3>
+        <ul class="space-y-3">
+          <li>
+            <a
+              href="https://toitsu.de/exams/exams.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group inline-flex items-center gap-3 link-zen text-sm"
+            >
+              <svg class="w-4 h-4 text-gray-400 group-hover:text-[var(--color-ink)] transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+              <span>Alla graderingar (Toitsu)</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.aikido-hechingen.de/video/pruefungen.php"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group inline-flex items-center gap-3 link-zen text-sm"
+            >
+              <svg class="w-4 h-4 text-gray-400 group-hover:text-[var(--color-ink)] transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+              <span>Dan-graderingar (Hechingen)</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {/* Divider */}
+  <div class="divider-zen" />
+
+  {/* Google Drive dokument */}
+  <section class="max-w-4xl mx-auto px-6 md:px-8 pb-16">
+    <h2 class="text-2xl font-serif mb-8">Dokument</h2>
+    <div class="grid gap-8 md:grid-cols-2">
+      <div class="card-zen p-3 md:p-6 lg:p-8 overflow-hidden">
+        <DriveFiles
+          folderId={import.meta.env.PUBLIC_GOOGLE_DRIVE_ARSMOTEN_ID}
+          resourceKey="0-s9osatoh_6s5SeekBHwQ4g"
+          title="Årsmöten"
+        />
+      </div>
+
+      <div class="card-zen p-3 md:p-6 lg:p-8 overflow-hidden">
+        <DriveFiles
+          folderId={import.meta.env.PUBLIC_GOOGLE_DRIVE_GRADERING_ID}
+          title="Blandat"
+        />
+      </div>
+    </div>
+  </section>
+
+  {/* Divider */}
+  <div class="divider-zen" />
+
+  {/* Tsuzukiwaza per grad */}
+  <section class="max-w-4xl mx-auto px-6 md:px-8 pb-20">
+    <h2 class="text-2xl font-serif mb-2">Tsuzukiwaza per grad</h2>
+    <p class="text-sm text-gray-500 mb-8">Yoshigasaki-Senseis filmer. Lösenord: <code class="bg-[var(--color-stone)]/50 px-2 py-0.5">ekia2012</code> — sprids ej utanför klubben.</p>
+    <div class="grid gap-8 md:grid-cols-2">
+      {twPerGrad.map((grad) => (
+        <div class="card-zen p-4 md:p-6 lg:p-8" style="border-left: 3px solid var(--belt-blue);">
+          <h3 class="font-serif text-lg mb-4">{grad.grad}</h3>
+          <ul class="space-y-3">
+            {grad.filmer.map((film) => (
+              <li>
+                <a
+                  href={film.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group inline-flex items-center gap-3 link-zen text-sm"
+                >
+                  <svg class="w-4 h-4 text-gray-400 group-hover:text-[var(--color-ink)] transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{film.namn}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+  </MedlemGate>
+</BaseLayout>

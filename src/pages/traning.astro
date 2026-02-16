@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Kalender from '../components/Kalender.astro';
+
+const grupper = [
+  {
+    id: 'barn',
+    namn: 'Barn',
+    alder: '6–12 år',
+    beskrivning: 'Lek blandas med aikidotekniker och övningar som stärker motorik, balans och koordination. Barnen lär sig falla säkert och rulla mjukt, samtidigt som de utvecklar koncentration och respekt för varandra.',
+    color: 'var(--belt-green)',
+  },
+  {
+    id: 'ungdomar',
+    namn: 'Ungdomar',
+    alder: '12–15 år',
+    beskrivning: 'Träningen bygger disciplin, stärkt självkänsla och förmågan att samarbeta mot samma mål. Ungdomarna utmanas med mer avancerade tekniker och får verktyg för att hantera stress och konflikter i vardagen.',
+    color: 'var(--belt-purple)',
+  },
+  {
+    id: 'vuxna',
+    namn: 'Vuxna',
+    alder: '15+ år',
+    beskrivning: 'Utveckla smidighet, balans och inre lugn. Aikido ger verktyg för att hantera konfliktsituationer utan våld, samtidigt som du tränar hela kroppen. Passar alla oavsett tidigare erfarenhet av kampsport.',
+    color: 'var(--belt-blue)',
+  },
+];
+
+const sportsLocationSchema = {
+  "@context": "https://schema.org",
+  "@type": "SportsActivityLocation",
+  "name": "Eskilstuna Ki-Aikido – Munktellarenan",
+  "description": "Aikidoträning för barn (6–12 år), ungdomar (12–15 år) och vuxna (15+) i Eskilstuna.",
+  "url": "https://www.ekia.net/traning",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Verkstadsgatan 5, Munktellarenan",
+    "addressLocality": "Eskilstuna",
+    "postalCode": "632 29",
+    "addressRegion": "Södermanland",
+    "addressCountry": "SE",
+  },
+  "sport": "Aikido",
+};
+---
+
+<BaseLayout
+  title="Träning – Eskilstuna Ki-Aikido"
+  description="Träningsgrupper och tider för aikido i Eskilstuna. Barn, ungdomar och vuxna."
+  currentPath="/traning"
+  schema={sportsLocationSchema}
+>
+  {/* Hero */}
+  <section class="relative py-20 md:py-28 overflow-hidden">
+    {/* Background image - bokken training from behind */}
+    <div class="absolute inset-0">
+      <img
+        src="/images/jela_aiki_2022_uppsala-6102.webp"
+        alt=""
+        class="w-full h-full object-cover opacity-[0.06]"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-paper)] via-[var(--color-paper)]/90 to-[var(--color-paper)]" />
+    </div>
+
+    <div class="max-w-4xl mx-auto px-6 md:px-8 text-center fade-up">
+      <h1 class="text-4xl md:text-5xl font-serif mb-4">Träning</h1>
+      <p class="text-lg text-gray-600 max-w-lg mx-auto">
+        Vi tränar i Munktellarenan i Eskilstuna.
+        Alla grupper är öppna för nybörjare.
+      </p>
+    </div>
+  </section>
+
+  {/* Schedule & Groups */}
+  <section id="grupper" class="max-w-5xl mx-auto px-6 md:px-8 pb-16 scroll-mt-24">
+    <div class="grid gap-12 lg:grid-cols-2">
+      {/* Groups */}
+      <div class="space-y-6 order-1 lg:order-2">
+        <h2 class="text-2xl font-serif">Våra grupper</h2>
+        {grupper.map((grupp) => (
+          <article
+            id={grupp.id}
+            class="card-zen p-4 md:p-6 relative"
+            style={`border-left: 3px solid ${grupp.color};`}
+          >
+            <div class="flex items-baseline gap-3 mb-2">
+              <h3 class="text-xl font-serif">{grupp.namn}</h3>
+              <span class="text-sm text-gray-500">{grupp.alder}</span>
+            </div>
+            <p class="text-gray-600 leading-relaxed">
+              {grupp.beskrivning}
+            </p>
+          </article>
+        ))}
+      </div>
+
+      {/* Calendar */}
+      <div class="card-zen p-4 md:p-6 lg:p-8 order-2 lg:order-1">
+        <Kalender maxEvents={10} />
+      </div>
+    </div>
+  </section>
+
+  {/* Divider */}
+  <div class="divider-zen" />
+
+  {/* Location */}
+  <section class="max-w-4xl mx-auto px-6 md:px-8 pb-20">
+    <div class="card-zen p-5 md:p-8 lg:p-10">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-8">
+        <div>
+          <p class="text-sm text-gray-500 mb-2">Plats</p>
+          <h2 class="text-2xl font-serif mb-1">Munktellarenan</h2>
+          <p class="text-gray-600">Eskilstuna</p>
+        </div>
+
+        <a
+          href="https://goo.gl/maps/xrVzPPVFW3n"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-zen inline-flex items-center gap-3"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          Visa på karta
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

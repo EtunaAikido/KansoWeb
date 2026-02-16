@@ -1,0 +1,381 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MedlemGate from '../../components/MedlemGate.astro';
+import YouTubeEmbed from '../../components/YouTubeEmbed.astro';
+import VimeoEmbed from '../../components/VimeoEmbed.astro';
+
+// Google Sheets API configuration
+const API_KEY = import.meta.env.PUBLIC_GOOGLE_CALENDAR_API_KEY || '';
+const SPREADSHEET_ID = import.meta.env.GOOGLE_SHEETS_ID || '1DBGA8wHPPVc_gbpIlMmUIwHSdHqCg_ZnKzwoYfDX2B4';
+const DATA_SHEET_NAME = 'Tsuzukiwaza';
+const DICT_SHEET_NAME = 'Ordlista';
+
+interface TsuzukiwazaEntry {
+  nummer: string;
+  attack: string;
+  filmyoshigasaki?: string;
+  klassificering?: string;
+  klassificeringHtml?: string;
+  ordlista?: string;
+  tekniker: string[];
+  filmer: string[];
+}
+
+interface DictEntry {
+  nummer: string;
+  word: string;
+  description: string;
+}
+
+// Helper to extract YouTube video ID
+function getYoutubeId(url: string): string | null {
+  if (!url) return null;
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+  return match && match[2].length === 11 ? match[2] : null;
+}
+
+// Helper to extract Vimeo video ID and optional privacy hash
+function getVimeoInfo(url: string): { id: string; hash?: string } | null {
+  if (!url) return null;
+  const match = url.match(/vimeo\.com\/(\d+)(?:\/([a-f0-9]+))?/);
+  if (!match) return null;
+  return { id: match[1], hash: match[2] || undefined };
+}
+
+// Simple markdown to HTML for klassificering field
+function renderMarkdown(text: string): string {
+  if (!text) return '';
+  let html = text
+    // Escape HTML
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    // Bold: **text** or ** text **
+    .replace(/\*\*\s*(.+?)\s*\*\*/g, '<strong>$1</strong>')
+    // Italic: _text_
+    .replace(/(?<!\w)_(.+?)_(?!\w)/g, '<em>$1</em>')
+    // List items: + item (at start of line)
+    .replace(/(?:^|\n)\+\s+(.+)/g, '\n<li>$1</li>')
+    // Wrap consecutive <li> in <ul>
+    .replace(/((?:<li>.*?<\/li>\n?)+)/g, '<ul class="list-disc list-inside space-y-1 text-sm text-gray-600">$1</ul>')
+    // Double newlines → paragraph break
+    .replace(/\n\n/g, '</p><p class="mb-2">')
+    // Single newlines → line break
+    .replace(/\n/g, '<br>');
+  return `<p class="mb-2">${html}</p>`;
+}
+
+// Helper to convert sheet data to objects (normalize header keys by stripping spaces)
+function sheetDataToObjectArray(values: string[][]): Record<string, string>[] {
+  const headers = values[0].map((h) => h.toLowerCase().replace(/\s+/g, ''));
+  const dataRows = values.slice(1);
+  return dataRows.map((row) => {
+    const rowObject: Record<string, string> = {};
+    headers.forEach((header, index) => {
+      rowObject[header] = row[index] || '';
+    });
+    return rowObject;
+  });
+}
+
+// Fetch data
+let entries: TsuzukiwazaEntry[] = [];
+let dictionary: DictEntry[] = [];
+let error: string | null = null;
+
+if (API_KEY) {
+  try {
+    const dataUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${DATA_SHEET_NAME}?key=${API_KEY}`;
+    const dictUrl = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${DICT_SHEET_NAME}?key=${API_KEY}`;
+
+    const [dataResponse, dictResponse] = await Promise.all([
+      fetch(dataUrl),
+      fetch(dictUrl),
+    ]);
+
+    if (dataResponse.ok && dictResponse.ok) {
+      const dataJson = await dataResponse.json();
+      const dictJson = await dictResponse.json();
+
+      const rawData = sheetDataToObjectArray(dataJson.values);
+      const rawDict = sheetDataToObjectArray(dictJson.values);
+
+      entries = rawData.map((row) => {
+        const tekniker: string[] = [];
+        const filmer: string[] = [];
+
+        for (let i = 1; i <= 14; i++) {
+          const teknik = row[`teknik${i}`];
+          if (teknik) tekniker.push(teknik);
+        }
+
+        for (let i = 1; i <= 10; i++) {
+          const film = row[`film${i}`];
+          if (film) filmer.push(film);
+        }
+
+        return {
+          nummer: row.nummer,
+          attack: row.attack,
+          filmyoshigasaki: row.filmyoshigasaki,
+          klassificering: row.klassificering,
+          klassificeringHtml: renderMarkdown(row.klassificering || ''),
+          ordlista: row.ordlista,
+          tekniker,
+          filmer,
+        };
+      });
+
+      dictionary = rawDict.map((row) => ({
+        nummer: row.nummer,
+        word: row.word,
+        description: row.description,
+      }));
+    } else {
+      error = 'Kunde inte hämta data från Google Sheets';
+    }
+  } catch (e) {
+    error = 'Fel vid hämtning av data';
+  }
+}
+
+// Helper to get dictionary words for an entry
+function getDictWords(entry: TsuzukiwazaEntry): DictEntry[] {
+  if (!entry.ordlista) return [];
+  return entry.ordlista
+    .split(';')
+    .filter(Boolean)
+    .map((num) => dictionary.find((d) => d.nummer === num.trim()))
+    .filter((d): d is DictEntry => d !== undefined);
+}
+---
+
+<BaseLayout
+  title="Tsuzukiwaza – Eskilstuna Ki-Aikido"
+  description="Tsuzukiwaza videoarkiv för medlemmar i Eskilstuna Ki-Aikido"
+  currentPath="/medlem"
+  noindex
+>
+  <MedlemGate>
+  {/* Hero */}
+  <section class="relative py-16 md:py-20 overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-paper)] via-[var(--color-paper)]/90 to-[var(--color-paper)]" />
+    </div>
+
+    <div class="max-w-5xl mx-auto px-6 md:px-8 fade-up">
+      <a href="/medlem" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[var(--color-ink)] transition-colors link-zen mb-6">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16l-4-4m0 0l4-4m-4 4H21" />
+        </svg>
+        <span>Medlemsportalen</span>
+      </a>
+      <h1 class="text-4xl md:text-5xl font-serif">Tsuzukiwaza</h1>
+    </div>
+  </section>
+
+  {error && (
+    <div class="max-w-5xl mx-auto px-6 md:px-8 mb-8">
+      <div class="card-zen p-5" style="border-left: 3px solid var(--belt-orange);">
+        <p class="text-gray-700">{error}</p>
+      </div>
+    </div>
+  )}
+
+  {!API_KEY && (
+    <div class="max-w-5xl mx-auto px-6 md:px-8 mb-8">
+      <div class="card-zen p-5" style="border-left: 3px solid var(--belt-yellow);">
+        <p class="text-gray-700">
+          API-nyckel saknas. Konfigurera PUBLIC_GOOGLE_CALENDAR_API_KEY i Netlify.
+        </p>
+      </div>
+    </div>
+  )}
+
+  {entries.length > 0 && (
+    <section class="max-w-5xl mx-auto px-6 md:px-8 pb-20">
+      <div class="grid gap-8 lg:grid-cols-4">
+        {/* Navigation */}
+        <nav class="lg:col-span-1">
+          <div class="card-zen p-5 sticky top-28">
+            <h2 class="font-serif text-lg mb-4">Välj TW</h2>
+            <ul id="twNav" class="space-y-1 max-h-[10rem] overflow-y-auto">
+              {entries.map((entry, i) => (
+                <li>
+                  <button
+                    type="button"
+                    data-tw={entry.nummer}
+                    class:list={[
+                      'tw-nav-btn block w-full text-left px-3 py-2 text-sm transition-colors',
+                      i === 0
+                        ? 'bg-[var(--color-ink)] text-[var(--color-paper)]'
+                        : 'hover:bg-[var(--color-stone)]/50',
+                    ]}
+                  >
+                    TW {entry.nummer} – {entry.attack}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
+
+        {/* Content panels - all rendered, only first visible */}
+        <div class="lg:col-span-3">
+          {entries.map((entry, i) => {
+            const dictWords = getDictWords(entry);
+            return (
+              <div
+                data-tw-panel={entry.nummer}
+                class:list={['tw-panel space-y-8', i !== 0 && 'hidden']}
+              >
+                {/* Header */}
+                <div>
+                  <h2 class="text-2xl md:text-3xl font-serif mb-2">
+                    Tsuzukiwaza {entry.nummer}
+                  </h2>
+                  <p class="text-xl text-gray-600">{entry.attack}</p>
+                </div>
+
+                {/* Tekniker */}
+                <div class="card-zen p-6 md:p-8">
+                  <h3 class="font-serif text-lg mb-4">Tekniker</h3>
+                  <ol class="list-decimal list-inside space-y-2">
+                    {entry.tekniker.map((teknik) => (
+                      <li class="text-gray-700">{teknik}</li>
+                    ))}
+                  </ol>
+                </div>
+
+                {/* Videor */}
+                {entry.filmer.length > 0 && (
+                  <div>
+                    <h3 class="font-serif text-lg mb-4">Videor</h3>
+                    <div class="grid gap-4 md:grid-cols-2">
+                      {entry.filmer.map((filmUrl) => {
+                        const ytId = getYoutubeId(filmUrl);
+                        const vimeo = getVimeoInfo(filmUrl);
+                        return ytId ? (
+                          <YouTubeEmbed
+                            videoId={ytId}
+                            title={`TW ${entry.nummer}`}
+                          />
+                        ) : vimeo ? (
+                          <VimeoEmbed
+                            videoId={vimeo.id}
+                            hash={vimeo.hash}
+                            title={`TW ${entry.nummer}`}
+                            password="ekia2012"
+                          />
+                        ) : null;
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {entry.filmyoshigasaki && (() => {
+                  const yoshiVimeo = getVimeoInfo(entry.filmyoshigasaki);
+                  return yoshiVimeo ? (
+                    <div>
+                      <h3 class="font-serif text-lg mb-4">Yoshigasakis film</h3>
+                      <div class="max-w-xl">
+                        <VimeoEmbed
+                          videoId={yoshiVimeo.id}
+                          hash={yoshiVimeo.hash}
+                          title={`TW ${entry.nummer} – Yoshigasaki`}
+                          password="ekia2012"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <a
+                        href={entry.filmyoshigasaki}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-2 text-sm link-zen"
+                      >
+                        <span>Yoshigasakis film (ekia2012)</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </a>
+                    </div>
+                  );
+                })()}
+
+                {/* Klassificering & Ordlista */}
+                <div class="grid gap-4 md:grid-cols-2">
+                  {entry.klassificeringHtml && (
+                    <div class="card-zen p-6 md:p-8">
+                      <h3 class="font-serif text-lg mb-4">Klassificering</h3>
+                      <div class="text-gray-700 text-sm" set:html={entry.klassificeringHtml} />
+                    </div>
+                  )}
+
+                  {dictWords.length > 0 && (
+                    <div class="card-zen p-6 md:p-8">
+                      <h3 class="font-serif text-lg mb-4">Ordlista</h3>
+                      <dl class="space-y-3">
+                        {dictWords.map((word) => (
+                          <div>
+                            <dt class="font-medium text-sm">{word.word}</dt>
+                            <dd class="text-gray-600 text-sm">{word.description}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+  </MedlemGate>
+</BaseLayout>
+
+<script is:inline>
+(function() {
+  var nav = document.getElementById('twNav');
+  if (!nav) return;
+
+  nav.addEventListener('click', function(e) {
+    var btn = e.target.closest('.tw-nav-btn');
+    if (!btn) return;
+
+    var nr = btn.getAttribute('data-tw');
+
+    // Update nav buttons
+    nav.querySelectorAll('.tw-nav-btn').forEach(function(b) {
+      b.className = 'tw-nav-btn block w-full text-left px-3 py-2 text-sm transition-colors hover:bg-[var(--color-stone)]/50';
+    });
+    btn.className = 'tw-nav-btn block w-full text-left px-3 py-2 text-sm transition-colors bg-[var(--color-ink)] text-[var(--color-paper)]';
+
+    // Scroll selected nav item to center of list
+    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    var listH = nav.clientHeight;
+    var btnTop = btn.offsetTop - nav.offsetTop;
+    var btnH = btn.offsetHeight;
+    nav.scrollTo({ top: btnTop - listH / 2 + btnH / 2, behavior: 'smooth' });
+
+    // Show/hide panels
+    document.querySelectorAll('.tw-panel').forEach(function(panel) {
+      if (panel.getAttribute('data-tw-panel') === nr) {
+        panel.classList.remove('hidden');
+      } else {
+        panel.classList.add('hidden');
+      }
+    });
+
+    // Scroll to top of content on mobile
+    if (window.innerWidth < 1024) {
+      var panel = document.querySelector('[data-tw-panel="' + nr + '"]');
+      if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+})();
+</script>

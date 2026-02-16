@@ -1,11 +1,142 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[functions]
+  directory = "netlify/functions"
+
 [[headers]]
-  for = "/narvaro"
+  for = "/*"
   [headers.values]
-    Access-Control-Allow-Origin = "*"
-    Allow-Origin = "*"
-    Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept"
-    Access-Control-Allow-Credentials = "true"
-    Access-Control-Allow-Methods = "GET,POST,OPTIONS,DELETE,PUT"
-    Access-Control-Request-Method = "POST"
-    Access-Control-Request-Headers = "origin, x-requested-with, accept"
-    Origin = "https://www.ekia.net/narvaro"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Block member/admin pages from search engines
+[[headers]]
+  for = "/medlem/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/admin"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+# Short cache for sitemap and robots (may change on redeploy)
+[[headers]]
+  for = "/sitemap-index.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/sitemap-*.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+# Cache static assets
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fav/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Redirects for old URLs
+[[redirects]]
+  from = "/training"
+  to = "/traning"
+  status = 301
+
+[[redirects]]
+  from = "/training.html"
+  to = "/traning"
+  status = 301
+
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/members"
+  to = "/medlem"
+  status = 301
+
+[[redirects]]
+  from = "/members.html"
+  to = "/medlem"
+  status = 301
+
+[[redirects]]
+  from = "/tw.html"
+  to = "/medlem/tw"
+  status = 301
+
+[[redirects]]
+  from = "/answers"
+  to = "/kontakt"
+  status = 301
+
+[[redirects]]
+  from = "/answers.html"
+  to = "/kontakt"
+  status = 301
+
+[[redirects]]
+  from = "/club"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/club.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/people"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/people.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/news"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/news.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/gradering"
+  to = "/medlem"
+  status = 301
+
+[[redirects]]
+  from = "/gradering.html"
+  to = "/medlem"
+  status = 301
+
+# 404 fallback
+[[redirects]]
+  from = "/*"
+  to = "/404"
+  status = 404

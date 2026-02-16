@@ -1,0 +1,156 @@
+---
+interface Props {
+  videoId: string;
+  hash?: string;
+  title?: string;
+  password?: string;
+}
+
+const { videoId, hash, title = 'Vimeo video', password } = Astro.props;
+const hashParam = hash ? `&h=${hash}` : '';
+const embedSrc = `https://player.vimeo.com/video/${videoId}?${hashParam}`;
+---
+
+<div class="vimeo-wrap">
+  {password && (
+    <p class="text-xs text-gray-500 mb-1">
+      Lösenord: <code class="bg-[var(--color-stone)]/50 px-1.5 py-0.5 rounded text-[var(--color-ink)] select-all">{password}</code>
+    </p>
+  )}
+  {password ? (
+    <div class="vimeo-iframe-wrap rounded-lg overflow-hidden">
+      <iframe
+        src={embedSrc}
+        title={title}
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+      />
+    </div>
+  ) : (
+    <lite-vimeo
+      videoid={videoId}
+      data-hash={hash}
+      class="rounded-lg overflow-hidden"
+    >
+      <button type="button" class="ltv-playbtn" title={`Spela: ${title}`}>
+        <span class="lyt-visually-hidden">{`Spela: ${title}`}</span>
+      </button>
+    </lite-vimeo>
+  )}
+</div>
+
+<style is:global>
+  .vimeo-iframe-wrap {
+    position: relative;
+    padding-bottom: 75%; /* 4:3 */
+    height: 0;
+    max-width: 720px;
+  }
+
+  .vimeo-iframe-wrap > iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  lite-vimeo {
+    background-color: #000;
+    position: relative;
+    display: block;
+    contain: content;
+    background-position: center center;
+    background-size: cover;
+    cursor: pointer;
+    max-width: 720px;
+  }
+
+  lite-vimeo::after {
+    content: "";
+    display: block;
+    padding-bottom: 75%; /* 4:3 */
+  }
+
+  lite-vimeo > iframe {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+  }
+
+  lite-vimeo > .ltv-playbtn {
+    display: block;
+    width: 65px;
+    height: 40px;
+    position: absolute;
+    cursor: pointer;
+    transform: translate3d(-50%, -50%, 0);
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.6);
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white"><path d="M6.5 4.5v11l9-5.5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px;
+    border: none;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+  }
+
+  lite-vimeo:hover > .ltv-playbtn {
+    background-color: rgba(0, 173, 239, 0.9);
+  }
+
+  lite-vimeo.ltv-activated {
+    cursor: unset;
+  }
+
+  lite-vimeo.ltv-activated > .ltv-playbtn {
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  class LiteVimeoEmbed extends HTMLElement {
+    connectedCallback() {
+      const videoId = this.getAttribute('videoid');
+      const hash = this.getAttribute('data-hash');
+      if (!videoId) return;
+
+      // Load thumbnail
+      fetch(`https://vimeo.com/api/v2/video/${videoId}.json`)
+        .then((r) => r.json())
+        .then((data) => {
+          if (data[0]?.thumbnail_large) {
+            this.style.backgroundImage = `url("${data[0].thumbnail_large}")`;
+          }
+        })
+        .catch(() => {});
+
+      const playBtn = this.querySelector('.ltv-playbtn');
+      const activate = () => {
+        const iframe = document.createElement('iframe');
+        iframe.width = '640';
+        iframe.height = '360';
+        iframe.title = playBtn?.getAttribute('title') || 'Vimeo video';
+        iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+        iframe.allowFullscreen = true;
+        const params = hash ? `?h=${hash}&autoplay=1` : '?autoplay=1';
+        iframe.src = `https://player.vimeo.com/video/${videoId}${params}`;
+        this.append(iframe);
+        this.classList.add('ltv-activated');
+      };
+
+      playBtn?.addEventListener('click', activate);
+      this.addEventListener('click', activate);
+    }
+  }
+
+  customElements.define('lite-vimeo', LiteVimeoEmbed);
+</script>

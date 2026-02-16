@@ -1,0 +1,21 @@
+{
+  "name": "Tsuzukiwazas",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Filmer och information om Tsuzukiwazas.",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/Content/images/logoWB152x.webp.webp",
+      "sizes": "144x144",
+      "type": "image/png",
+      "density": 3.0
+    },
+    {
+      "src": "/Content/images/logoWB192x.webp",
+      "sizes": "192x192",
+      "type": "image/png",
+      "density": 4.0
+    }
+  ]
+}

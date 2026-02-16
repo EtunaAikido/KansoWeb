@@ -1,0 +1,232 @@
+---
+const CALENDAR_ID = import.meta.env.GOOGLE_CALENDAR_ID || import.meta.env.PUBLIC_GOOGLE_CALENDAR_ID || 'etuna.aikido@gmail.com';
+const API_KEY = import.meta.env.GOOGLE_CALENDAR_API_KEY || import.meta.env.PUBLIC_GOOGLE_CALENDAR_API_KEY || '';
+
+interface CalendarEvent {
+  id: string;
+  summary: string;
+  start: { dateTime?: string; date?: string };
+  end: { dateTime?: string; date?: string };
+}
+
+interface Props {
+  maxEvents?: number;
+}
+
+const { maxEvents = 50 } = Astro.props;
+
+let events: CalendarEvent[] = [];
+let error: string | null = null;
+
+if (API_KEY) {
+  try {
+    const now = new Date().toISOString();
+    const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${now}&maxResults=${maxEvents}&singleEvents=true&orderBy=startTime`;
+
+    const response = await fetch(url);
+    if (response.ok) {
+      const data = await response.json();
+      // Filter out all-day events (those are info cards, not training sessions)
+      events = (data.items || []).filter((event: CalendarEvent) =>
+        event.start?.dateTime && !event.start?.date
+      );
+    } else {
+      const errorData = await response.json().catch(() => ({}));
+      console.error('Calendar API error:', response.status, errorData);
+      error = 'Kunde inte hämta kalender';
+    }
+  } catch (e) {
+    console.error('Calendar fetch error:', e);
+    error = 'Fel vid hämtning av kalender';
+  }
+} else {
+  console.log('No API key found. Checked: GOOGLE_CALENDAR_API_KEY, PUBLIC_GOOGLE_CALENDAR_API_KEY');
+}
+
+// Serialize for client-side rendering
+const eventsJSON = JSON.stringify(events.map(e => ({
+  summary: e.summary,
+  dateTime: e.start.dateTime,
+})));
+---
+
+<div class="kalender-widget overflow-hidden">
+  <div class="flex items-center justify-between mb-6">
+    <h3 class="font-serif text-xl">Kommande träningar</h3>
+    {events.length > 0 && (
+      <div class="flex items-center gap-1">
+        <button id="kalPrev" class="p-1.5 rounded hover:bg-[var(--color-stone)]/50 transition-colors disabled:opacity-20" title="Föregående" disabled>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <span id="kalPageLabel" class="text-xs opacity-40 min-w-[3rem] text-center"></span>
+        <button id="kalNext" class="p-1.5 rounded hover:bg-[var(--color-stone)]/50 transition-colors disabled:opacity-20" title="Nästa">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    )}
+  </div>
+
+  {error && (
+    <p class="text-sm opacity-50">{error}</p>
+  )}
+
+  {!API_KEY && (
+    <div class="space-y-3">
+      {[1, 2, 3, 4, 5].map((i) => (
+        <div class="flex items-center gap-4 py-3 border-b border-[var(--color-stone)] last:border-0">
+          <div class="w-2 h-2 rounded-full bg-[var(--color-stone)]" />
+          <div class="flex-1">
+            <div class="h-4 w-24 bg-[var(--color-stone)] rounded" />
+            <div class="h-3 w-16 bg-[var(--color-stone)]/50 rounded mt-1" />
+          </div>
+        </div>
+      ))}
+      <p class="text-xs opacity-40 text-center pt-2">
+        Kalender laddas när API-nyckel konfigureras
+      </p>
+    </div>
+  )}
+
+  <div id="kalList" class="space-y-1" style="transition: opacity 0.3s ease, transform 0.3s ease;"></div>
+
+  {events.length === 0 && API_KEY && !error && (
+    <p class="text-sm opacity-50">Inga kommande träningar.</p>
+  )}
+</div>
+
+<script is:inline define:vars={{ eventsJSON }}>
+(function() {
+  const events = JSON.parse(eventsJSON);
+  if (!events.length) return;
+
+  const list = document.getElementById('kalList');
+  const prev = document.getElementById('kalPrev');
+  const next = document.getElementById('kalNext');
+  const label = document.getElementById('kalPageLabel');
+  if (!list || !prev || !next || !label) return;
+
+  function getISOWeek(d) {
+    const date = new Date(d.getTime());
+    date.setHours(0, 0, 0, 0);
+    date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
+    const week1 = new Date(date.getFullYear(), 0, 4);
+    return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + ((week1.getDay() + 6) % 7)) / 7);
+  }
+
+  function weekKey(dt) {
+    return dt.getFullYear() + '-' + getISOWeek(dt);
+  }
+
+  function getWeekLabel(dt) {
+    const now = new Date();
+    const thisWeek = getISOWeek(now);
+    const thisYear = now.getFullYear();
+    const eventWeek = getISOWeek(dt);
+    const eventYear = dt.getFullYear();
+    if (eventWeek === thisWeek && eventYear === thisYear) return 'Denna vecka';
+    if (eventWeek === thisWeek + 1 && eventYear === thisYear) return 'Nästa vecka';
+    return 'Vecka ' + eventWeek;
+  }
+
+  // Group events by week
+  const weeks = [];
+  let currentKey = '';
+  for (const ev of events) {
+    const dt = new Date(ev.dateTime);
+    const key = weekKey(dt);
+    if (key !== currentKey) {
+      currentKey = key;
+      weeks.push({ label: getWeekLabel(dt), events: [] });
+    }
+    weeks[weeks.length - 1].events.push(ev);
+  }
+
+  // Show 2 weeks per page (first page always starts with current/first week)
+  const WEEKS_PER_PAGE = 2;
+  let page = 0;
+  const totalPages = Math.max(1, Math.ceil(weeks.length / WEEKS_PER_PAGE));
+
+  function render() {
+    prev.disabled = page <= 0;
+    next.disabled = page >= totalPages - 1;
+    label.textContent = totalPages > 1 ? (page + 1) + ' / ' + totalPages : '';
+
+    const pageWeeks = weeks.slice(page * WEEKS_PER_PAGE, (page + 1) * WEEKS_PER_PAGE);
+    const now = new Date();
+    const today = new Date(now);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    let html = '';
+
+    for (let wi = 0; wi < pageWeeks.length; wi++) {
+      const week = pageWeeks[wi];
+
+      html += '<div class="flex items-center gap-3 ' + (wi > 0 ? 'mt-3 ' : '') + 'pt-2 pb-1">' +
+        '<span class="text-[10px] font-medium tracking-widest uppercase opacity-35">' + week.label + '</span>' +
+        '<div class="flex-1 h-px" style="background: var(--color-stone);"></div>' +
+        '</div>';
+
+      for (const ev of week.events) {
+        const dt = new Date(ev.dateTime);
+        const isPast = dt < now;
+        const isToday = dt.toDateString() === today.toDateString();
+        const isTomorrow = dt.toDateString() === tomorrow.toDateString();
+        const dayName = isToday ? 'Idag' : isTomorrow ? 'Imorgon' : dt.toLocaleDateString('sv-SE', { weekday: 'long' });
+        const day = dt.getDate();
+        const month = dt.toLocaleDateString('sv-SE', { month: 'short' });
+        const time = dt.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' });
+
+        const lower = (ev.summary || '').toLowerCase();
+        let dotColor = 'var(--color-stone)';
+        if (lower.includes('barn')) dotColor = 'var(--belt-green)';
+        else if (lower.includes('ungdom')) dotColor = 'var(--belt-purple)';
+        else if (lower.includes('vuxen') || lower.includes('vuxna')) dotColor = 'var(--belt-blue)';
+
+        var rowOpacity = isPast ? 'opacity: 0.35;' : '';
+        var dateBoxOpacity = isPast ? '0.3' : isToday ? '1' : '0.7';
+
+        html += '<div class="flex flex-row items-center gap-3 md:gap-4 p-2 md:p-3 rounded-lg hover:bg-[var(--color-stone)]/30 transition-colors hover-float" style="' + rowOpacity + '">' +
+          '<div class="flex flex-col items-center justify-center w-11 h-11 md:w-14 md:h-14 rounded-lg flex-shrink-0 text-white" style="background-color: #1a1a1a; opacity: ' + dateBoxOpacity + ';">' +
+            '<span class="text-base md:text-lg font-semibold leading-none">' + day + '</span>' +
+            '<span class="text-[9px] md:text-[10px] uppercase tracking-wide opacity-80">' + month + '</span>' +
+          '</div>' +
+          '<div class="min-w-0 flex-1">' +
+            '<p class="font-medium truncate text-sm md:text-base">' + ev.summary.replace(/</g, '&lt;') + '</p>' +
+            '<p class="text-xs md:text-sm text-gray-500">' + dayName + ' kl ' + time + '</p>' +
+          '</div>' +
+          '<div class="w-2 h-2 rounded-full flex-shrink-0" style="background-color: ' + dotColor + ';"></div>' +
+        '</div>';
+      }
+    }
+
+    list.innerHTML = html;
+  }
+
+  function animateTo(newPage) {
+    if (newPage === page || newPage < 0 || newPage >= totalPages) return;
+    var direction = newPage > page ? 1 : -1;
+    // Fade out + slide in direction
+    list.style.opacity = '0';
+    list.style.transform = 'translateY(' + (direction * -8) + 'px)';
+    setTimeout(function() {
+      page = newPage;
+      render();
+      // Start from opposite side
+      list.style.transition = 'none';
+      list.style.transform = 'translateY(' + (direction * 12) + 'px)';
+      // Force reflow
+      list.offsetHeight;
+      // Animate in
+      list.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      list.style.opacity = '1';
+      list.style.transform = 'translateY(0)';
+    }, 200);
+  }
+
+  prev.addEventListener('click', function() { animateTo(page - 1); });
+  next.addEventListener('click', function() { animateTo(page + 1); });
+
+  render();
+})();
+</script>

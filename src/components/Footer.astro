@@ -1,0 +1,30 @@
+---
+---
+
+<footer class="relative mt-32 py-24 overflow-hidden">
+  {/* Zen garden pattern - raked sand lines */}
+  <div class="absolute inset-0">
+    <svg class="w-full h-full" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1200 400">
+      {/* Sand background */}
+      <rect width="100%" height="100%" fill="var(--color-paper)" />
+
+      {/* Horizontal raked lines */}
+      {[...Array(40)].map((_, i) => (
+        <path
+          d={`M0,${i * 10 + 5} Q200,${i * 10 + (i % 3 === 0 ? 2 : i % 3 === 1 ? 8 : 5)} 400,${i * 10 + 5} T800,${i * 10 + 5} T1200,${i * 10 + 5}`}
+          fill="none"
+          stroke="var(--color-stone)"
+          stroke-width="1"
+          opacity="0.5"
+        />
+      ))}
+    </svg>
+  </div>
+
+  {/* Simple copyright */}
+  <div class="relative text-center">
+    <p class="text-sm text-gray-400">
+      &copy; {new Date().getFullYear()} Eskilstuna Ki-Aikido
+    </p>
+  </div>
+</footer>

@@ -1,0 +1,30 @@
+{
+  "name": "Närvaroregistrering",
+  "short_name": "Närvaroreg",
+  "start_url": "narvaro.html",
+  "theme_color": "#fff",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Registrera närvarande medlemmar för Eskilstuna Ki-Aikido",
+  "orientation": "portrait-primary",  
+  "icons": [
+    {
+      "src": "/fav/logoBW152x.webp",
+      "sizes": "144x144",
+      "type": "image/png",
+      "density": 3.0
+    },
+    {
+      "src": "/fav/logoBW192x.webp",
+      "sizes": "192x192",
+      "type": "image/png",
+      "density": 4.0
+    },
+    {
+      "src": "/fav/logoBW192x.webp",
+      "sizes": "512x512",
+      "type": "image/png",
+      "density": 5.0
+    }
+  ]
+}

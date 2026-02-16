@@ -1,0 +1,1088 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Admin – Eskilstuna Ki-Aikido"
+  description="Admin för Eskilstuna Ki-Aikido"
+  currentPath="/admin"
+  noindex
+>
+  <main class="max-w-4xl mx-auto px-6 md:px-8 py-8">
+    <!-- LOGIN -->
+    <section id="loginSection" class="flex items-center justify-center" style="min-height: 50vh;">
+      <div class="w-full max-w-xs text-center fade-up">
+        <p class="text-sm tracking-[0.3em] uppercase text-gray-500 mb-6">Administration</p>
+        <h1 class="text-2xl font-serif mb-8">Logga in</h1>
+        <form id="loginForm" class="space-y-4">
+          <input
+            id="pinInput"
+            type="password"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            maxlength="8"
+            placeholder="····"
+            autocomplete="off"
+            class="w-full px-4 py-3 text-center text-2xl tracking-[0.5em] border focus:outline-none focus:border-[var(--color-ink)] transition-colors"
+            style="border-color: var(--color-stone); background: white;"
+          />
+          <button type="submit" class="btn-zen w-full">Logga in</button>
+          <p id="loginError" class="text-sm hidden" style="color: var(--belt-red);"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="dashboardSection" class="hidden space-y-12">
+
+      <!-- Toast -->
+      <div id="toast" class="fixed top-24 right-4 z-50 hidden px-5 py-3 text-sm text-white shadow-lg transition-all" style="background-color: var(--color-ink);"></div>
+
+      <!-- Header with logout -->
+      <div class="flex items-center justify-between">
+        <h1 class="text-3xl font-serif">Admin</h1>
+        <button id="logoutBtn" class="text-sm text-gray-500 hover:text-[var(--color-ink)] transition-colors">Logga ut</button>
+      </div>
+
+      <div class="divider-zen"></div>
+
+      <!-- Create / Edit info-kort -->
+      <div>
+        <h2 class="text-xl font-serif mb-6" id="formTitle">Skapa info-kort</h2>
+        <form id="infoKortForm" class="space-y-4">
+          <input type="hidden" id="editEventId" value="" />
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="typSelect" class="block text-sm mb-1 text-gray-500">Typ</label>
+              <select id="typSelect" class="w-full px-3 py-2 border focus:outline-none focus:border-[var(--color-ink)] transition-colors" style="border-color: var(--color-stone); background: white;">
+                <option value="info">Info</option>
+                <option value="varning">Varning</option>
+                <option value="viktigt">Viktigt</option>
+                <option value="barn">Barn</option>
+                <option value="ungdom">Ungdom</option>
+                <option value="vuxna">Vuxna</option>
+              </select>
+            </div>
+            <div>
+              <label for="titelInput" class="block text-sm mb-1 text-gray-500">Titel</label>
+              <input id="titelInput" type="text" required placeholder="T.ex. Sportlov" class="w-full px-3 py-2 border focus:outline-none focus:border-[var(--color-ink)] transition-colors" style="border-color: var(--color-stone); background: white;" />
+            </div>
+          </div>
+
+          <div>
+            <label for="textInput" class="block text-sm mb-1 text-gray-500">Beskrivning</label>
+            <textarea id="textInput" rows="2" placeholder="T.ex. Ingen träning v.8" class="w-full px-3 py-2 border focus:outline-none focus:border-[var(--color-ink)] transition-colors resize-none" style="border-color: var(--color-stone); background: white;"></textarea>
+          </div>
+
+          <div>
+            <p class="text-xs text-gray-400 mb-2">Kortet visas på startsidan under denna period</p>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="startDate" class="block text-sm mb-1 text-gray-500">Visas från</label>
+                <input id="startDate" type="date" required class="w-full px-3 py-2 border focus:outline-none focus:border-[var(--color-ink)] transition-colors" style="border-color: var(--color-stone); background: white;" />
+              </div>
+              <div>
+                <label for="endDate" class="block text-sm mb-1 text-gray-500">Visas till</label>
+                <input id="endDate" type="date" required class="w-full px-3 py-2 border focus:outline-none focus:border-[var(--color-ink)] transition-colors" style="border-color: var(--color-stone); background: white;" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Preview -->
+          <div>
+            <p class="text-sm text-gray-500 mb-2">Förhandsgranskning</p>
+            <div id="preview" class="card-zen p-5" style="border-left: 3px solid var(--color-stone);">
+              <h3 class="font-medium" id="previewTitle">Titel</h3>
+              <p class="text-sm mt-1 text-gray-500" id="previewText"></p>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <button type="submit" id="submitBtn" class="btn-zen flex-1">Skapa info-kort</button>
+            <button type="button" id="cancelEditBtn" class="hidden px-6 py-3 text-sm border hover:bg-[var(--color-stone)]/30 transition-colors" style="border-color: var(--color-stone);">Avbryt</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="divider-zen"></div>
+
+      <!-- Active & upcoming info-kort -->
+      <div>
+        <h2 class="text-xl font-serif mb-6">Aktiva & kommande info-kort</h2>
+        <div id="infoKortList" class="space-y-3">
+          <p class="text-sm text-gray-500">Laddar...</p>
+        </div>
+      </div>
+
+      <div class="divider-zen"></div>
+
+      <!-- Term generator -->
+      <div>
+        <h2 class="text-xl font-serif mb-6">Generera termin</h2>
+
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <label for="terminStart" class="block text-sm mb-1 text-gray-500">Startdatum</label>
+            <input id="terminStart" type="date" class="w-full px-3 py-2 border focus:outline-none focus:border-[var(--color-ink)] transition-colors" style="border-color: var(--color-stone); background: white;" />
+          </div>
+          <div>
+            <label for="terminEnd" class="block text-sm mb-1 text-gray-500">Slutdatum</label>
+            <input id="terminEnd" type="date" class="w-full px-3 py-2 border focus:outline-none focus:border-[var(--color-ink)] transition-colors" style="border-color: var(--color-stone); background: white;" />
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label for="terminLocation" class="block text-sm mb-1 text-gray-500">Plats</label>
+          <input id="terminLocation" type="text" value="Munktellarenan, Verkstadsgatan 5, Eskilstuna" class="w-full px-3 py-2 border focus:outline-none focus:border-[var(--color-ink)] transition-colors" style="border-color: var(--color-stone); background: white;" />
+        </div>
+
+        <div class="flex items-center justify-between mb-3">
+          <p class="text-sm text-gray-500">Träningsgrupper</p>
+          <button id="terminAddGroupBtn" type="button" class="text-xs px-3 py-1 border hover:bg-[var(--color-stone)]/30 transition-colors" style="border-color: var(--color-stone);">+ Lägg till grupp</button>
+        </div>
+        <div id="terminGroups" class="space-y-3 mb-6"></div>
+
+        <div id="terminPreview" class="card-zen p-4 mb-6 hidden">
+          <p class="text-sm font-medium" id="terminTotal"></p>
+          <p class="text-sm text-gray-500 mt-1" id="terminBreakdown"></p>
+        </div>
+
+        <div id="terminProgress" class="hidden mb-4">
+          <div class="flex items-center justify-between mb-2">
+            <p class="text-sm" id="terminProgressText">Skapar pass...</p>
+            <p class="text-sm text-gray-500" id="terminProgressCount"></p>
+          </div>
+          <div class="w-full h-2 overflow-hidden" style="background: var(--color-stone);">
+            <div id="terminProgressBar" class="h-full transition-all" style="background: var(--color-ink); width: 0%;"></div>
+          </div>
+        </div>
+
+        <button id="terminGenerateBtn" type="button" class="btn-zen w-full" disabled>Generera pass</button>
+      </div>
+
+      <div class="divider-zen"></div>
+
+      <!-- Upcoming training sessions -->
+      <div>
+        <h2 class="text-xl font-serif mb-6">Kommande träningar</h2>
+        <div id="trainingSeries" class="space-y-2 mb-6"></div>
+
+        <div class="flex items-center justify-between mb-4">
+          <p class="text-sm text-gray-500" id="trainingCountLabel"></p>
+          <div class="flex items-center gap-2">
+            <button id="trainingPrev" class="p-2 hover:bg-[var(--color-stone)]/50 transition-colors disabled:opacity-20" title="Föregående">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <span id="trainingPageLabel" class="text-sm text-gray-500 min-w-[4rem] text-center"></span>
+            <button id="trainingNext" class="p-2 hover:bg-[var(--color-stone)]/50 transition-colors disabled:opacity-20" title="Nästa">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Delete progress -->
+        <div id="deleteProgress" class="hidden mb-4">
+          <div class="flex items-center justify-between mb-2">
+            <p class="text-sm" id="deleteProgressText">Tar bort...</p>
+            <p class="text-sm text-gray-500" id="deleteProgressCount"></p>
+          </div>
+          <div class="w-full h-2 overflow-hidden" style="background: var(--color-stone);">
+            <div id="deleteProgressBar" class="h-full transition-all" style="background: var(--belt-red); width: 0%;"></div>
+          </div>
+        </div>
+
+        <div id="trainingList" class="space-y-1">
+          <p class="text-sm text-gray-500">Laddar...</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script is:inline>
+    // ========== State ==========
+    const isLocalDev = ['localhost', '127.0.0.1'].includes(location.hostname);
+    const API = {
+      auth: '/.netlify/functions/auth-verify',
+      read: '/.netlify/functions/calendar-read',
+      write: '/.netlify/functions/calendar-write',
+    };
+
+    const typStyles = {
+      barn:    { border: '#7a9a7a', bg: 'rgba(122, 154, 122, 0.08)', label: 'BARN' },
+      ungdom:  { border: '#8b7a9a', bg: 'rgba(139, 122, 154, 0.08)', label: 'UNGDOM' },
+      vuxna:   { border: '#6b8fa3', bg: 'rgba(107, 143, 163, 0.08)', label: 'VUXNA' },
+      varning: { border: '#c4886a', bg: 'rgba(196, 136, 106, 0.08)', label: 'VARNING' },
+      viktigt: { border: '#a67a7a', bg: 'rgba(166, 122, 122, 0.08)', label: 'VIKTIGT' },
+      info:    { border: '#e8e6e1', bg: 'rgba(232, 230, 225, 0.3)',  label: 'INFO' },
+    };
+
+    function getToken() { return sessionStorage.getItem('admin_token'); }
+    function setToken(t) { sessionStorage.setItem('admin_token', t); }
+    function clearToken() { sessionStorage.removeItem('admin_token'); }
+
+    // ========== DOM references ==========
+    const $ = (id) => document.getElementById(id);
+    const loginSection = $('loginSection');
+    const dashboardSection = $('dashboardSection');
+    const loginForm = $('loginForm');
+    const pinInput = $('pinInput');
+    const loginError = $('loginError');
+    const logoutBtn = $('logoutBtn');
+    const infoKortForm = $('infoKortForm');
+    const formTitle = $('formTitle');
+    const editEventId = $('editEventId');
+    const typSelect = $('typSelect');
+    const titelInput = $('titelInput');
+    const textInput = $('textInput');
+    const startDate = $('startDate');
+    const endDate = $('endDate');
+    const preview = $('preview');
+    const previewTitle = $('previewTitle');
+    const previewText = $('previewText');
+    const submitBtn = $('submitBtn');
+    const cancelEditBtn = $('cancelEditBtn');
+    const infoKortList = $('infoKortList');
+    const trainingList = $('trainingList');
+    const toast = $('toast');
+
+    // ========== Toast ==========
+    let toastTimeout;
+    function showToast(msg, isError = false) {
+      toast.textContent = msg;
+      toast.style.backgroundColor = isError ? '#a67a7a' : 'var(--color-ink)';
+      toast.classList.remove('hidden');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => toast.classList.add('hidden'), 3000);
+    }
+
+    // ========== Auth ==========
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      loginError.classList.add('hidden');
+      submitBtn.disabled = true;
+      const pin = pinInput.value.trim();
+      if (!pin) return;
+
+      try {
+        const res = await fetch(API.auth, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pin }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          loginError.textContent = data.error || 'Fel vid inloggning';
+          loginError.classList.remove('hidden');
+          return;
+        }
+        setToken(data.token);
+        showDashboard();
+      } catch {
+        if (isLocalDev) {
+          // Bypass auth on localhost — Netlify functions aren't available
+          setToken('dev-mode');
+          showDashboard();
+          showToast('Lokalt läge — utan server');
+          return;
+        }
+        loginError.textContent = 'Kunde inte ansluta till servern';
+        loginError.classList.remove('hidden');
+      }
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      clearToken();
+      showLogin();
+    });
+
+    function showLogin() {
+      loginSection.classList.remove('hidden');
+      dashboardSection.classList.add('hidden');
+      pinInput.value = '';
+    }
+
+    function showDashboard() {
+      loginSection.classList.add('hidden');
+      dashboardSection.classList.remove('hidden');
+      setDefaultDates();
+      loadEvents();
+    }
+
+    // ========== Auto-login if token exists ==========
+    if (getToken()) {
+      showDashboard();
+    }
+
+    // ========== Dates ==========
+    function setDefaultDates() {
+      const today = new Date();
+      const nextWeek = new Date(today);
+      nextWeek.setDate(nextWeek.getDate() + 7);
+      startDate.value = formatDateISO(today);
+      endDate.value = formatDateISO(nextWeek);
+    }
+
+    function formatDateISO(d) {
+      return d.toISOString().split('T')[0];
+    }
+
+    function formatDateSv(dateStr) {
+      if (!dateStr) return '';
+      const d = new Date(dateStr + 'T00:00:00');
+      return d.toLocaleDateString('sv-SE', { day: 'numeric', month: 'short' });
+    }
+
+    // ========== Preview ==========
+    function updatePreview() {
+      const typ = typSelect.value;
+      const style = typStyles[typ] || typStyles.info;
+      preview.style.borderLeft = `3px solid ${style.border}`;
+      preview.style.background = style.bg;
+      previewTitle.textContent = titelInput.value || 'Titel';
+      previewText.textContent = textInput.value || '';
+      previewText.style.display = textInput.value ? 'block' : 'none';
+    }
+
+    typSelect.addEventListener('change', updatePreview);
+    titelInput.addEventListener('input', updatePreview);
+    textInput.addEventListener('input', updatePreview);
+
+    // ========== API helpers ==========
+    async function authFetch(url, options = {}) {
+      const token = getToken();
+      if (!token) { showLogin(); return null; }
+      try {
+        const res = await fetch(url, {
+          ...options,
+          headers: {
+            ...options.headers,
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+        if (res.status === 401) {
+          clearToken();
+          showLogin();
+          showToast('Sessionen har gått ut, logga in igen', true);
+          return null;
+        }
+        return res;
+      } catch {
+        if (isLocalDev) return null;
+        throw new Error('Network error');
+      }
+    }
+
+    // ========== Load events ==========
+    async function loadEvents() {
+      infoKortList.innerHTML = '<p class="text-sm text-gray-500">Laddar info-kort...</p>';
+      trainingList.innerHTML = '<p class="text-sm text-gray-500">Laddar träningar...</p>';
+
+      try {
+        const res = await authFetch(API.read);
+        if (!res) {
+          if (isLocalDev) {
+            infoKortList.innerHTML = '<p class="text-sm text-gray-500">Lokalt läge — kalenderdata visas inte utan Netlify-funktioner.</p>';
+            trainingList.innerHTML = '<p class="text-sm text-gray-500">Lokalt läge — kalenderdata visas inte utan Netlify-funktioner.</p>';
+          }
+          return;
+        }
+        const data = await res.json();
+        if (!res.ok) {
+          infoKortList.innerHTML = `<p class="text-sm" style="color: var(--belt-red);">Fel: ${data.error}</p>`;
+          trainingList.innerHTML = '';
+          return;
+        }
+
+        const events = data.events || [];
+        const infoKorts = events.filter(e => e.isAllDay);
+        const trainings = events.filter(e => !e.isAllDay);
+
+        renderInfoKorts(infoKorts);
+        renderTrainings(trainings);
+      } catch (err) {
+        if (isLocalDev) {
+          infoKortList.innerHTML = '<p class="text-sm text-gray-500">Lokalt läge — kalenderdata visas inte utan Netlify-funktioner.</p>';
+          trainingList.innerHTML = '<p class="text-sm text-gray-500">Lokalt läge — kalenderdata visas inte utan Netlify-funktioner.</p>';
+        } else {
+          infoKortList.innerHTML = '<p class="text-sm" style="color: var(--belt-red);">Kunde inte ladda data</p>';
+          trainingList.innerHTML = '';
+        }
+      }
+    }
+
+    // ========== Parse tag from summary ==========
+    function parseTag(summary) {
+      const match = summary.match(/^\[(\w+)\]\s*/i);
+      if (!match) return { typ: 'info', titel: summary };
+      const tag = match[1].toLowerCase();
+      const titel = summary.replace(match[0], '').trim();
+      const typMap = {
+        barn: 'barn', ungdom: 'ungdom', ungdomar: 'ungdom',
+        vuxna: 'vuxna', vuxen: 'vuxna',
+        varning: 'varning', viktigt: 'viktigt', info: 'info',
+      };
+      return { typ: typMap[tag] || 'info', titel };
+    }
+
+    // ========== Render info-kort list ==========
+    function renderInfoKorts(events) {
+      if (events.length === 0) {
+        infoKortList.innerHTML = '<p class="text-sm text-gray-500">Inga info-kort hittades.</p>';
+        return;
+      }
+
+      infoKortList.innerHTML = events.map(event => {
+        const { typ, titel } = parseTag(event.summary);
+        const style = typStyles[typ] || typStyles.info;
+        const dateRange = `${formatDateSv(event.start?.date)} – ${formatDateSv(event.end?.date)}`;
+
+        return `
+          <div class="card-zen flex items-center gap-3 p-4 transition-colors" style="border-left: 3px solid ${style.border}; background: ${style.bg};">
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-xs font-medium px-2 py-0.5" style="background: ${style.border}; color: white;">${style.label}</span>
+                <span class="font-medium truncate">${escapeHtml(titel)}</span>
+              </div>
+              ${event.description ? `<p class="text-sm mt-1 text-gray-500 truncate">${escapeHtml(event.description)}</p>` : ''}
+              <p class="text-xs mt-1 text-gray-400">${dateRange}</p>
+            </div>
+            <div class="flex gap-2 flex-shrink-0">
+              <button onclick="editInfoKort('${event.id}', '${typ}', '${escapeAttr(titel)}', '${escapeAttr(event.description || '')}', '${event.start?.date || ''}', '${event.end?.date || ''}')" class="p-2 hover:bg-[var(--color-stone)]/50 transition-colors" title="Redigera">
+                <svg class="w-4 h-4 text-gray-400 hover:text-[var(--color-ink)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              </button>
+              <button onclick="deleteInfoKort('${event.id}', '${escapeAttr(titel)}')" class="p-2 hover:bg-[var(--color-stone)]/50 transition-colors" title="Ta bort">
+                <svg class="w-4 h-4 text-gray-400 hover:text-[var(--belt-red)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ========== Training pagination state ==========
+    let allTrainings = [];
+    let trainingPage = 0;
+    const TRAININGS_PER_PAGE = 15;
+    const trainingPrev = $('trainingPrev');
+    const trainingNext = $('trainingNext');
+    const trainingPageLabel = $('trainingPageLabel');
+    const trainingCountLabel = $('trainingCountLabel');
+    const trainingSeries = $('trainingSeries');
+    const deleteProgress = $('deleteProgress');
+    const deleteProgressText = $('deleteProgressText');
+    const deleteProgressCount = $('deleteProgressCount');
+    const deleteProgressBar = $('deleteProgressBar');
+
+    trainingPrev.addEventListener('click', () => {
+      if (trainingPage > 0) { trainingPage--; renderTrainingsPage(); }
+    });
+    trainingNext.addEventListener('click', () => {
+      const maxPage = Math.ceil(allTrainings.length / TRAININGS_PER_PAGE) - 1;
+      if (trainingPage < maxPage) { trainingPage++; renderTrainingsPage(); }
+    });
+
+    // ISO week number
+    function getISOWeek(d) {
+      const date = new Date(d.getTime());
+      date.setHours(0, 0, 0, 0);
+      date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
+      const week1 = new Date(date.getFullYear(), 0, 4);
+      return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + ((week1.getDay() + 6) % 7)) / 7);
+    }
+
+    function getWeekLabel(dt) {
+      const now = new Date();
+      const thisWeek = getISOWeek(now);
+      const thisYear = now.getFullYear();
+      const eventWeek = getISOWeek(dt);
+      const eventYear = dt.getFullYear();
+
+      if (eventWeek === thisWeek && eventYear === thisYear) return 'Denna vecka';
+      if (eventWeek === thisWeek + 1 && eventYear === thisYear) return 'Nästa vecka';
+      return `Vecka ${eventWeek}`;
+    }
+
+    function getTrainingColor(summary) {
+      const lower = (summary || '').toLowerCase();
+      if (lower.includes('barn')) return '#7a9a7a';
+      if (lower.includes('ungdom')) return '#8b7a9a';
+      if (lower.includes('vuxen') || lower.includes('vuxna')) return '#6b8fa3';
+      return 'var(--color-stone)';
+    }
+
+    // ========== Render training list ==========
+    function renderTrainings(events) {
+      const now = new Date();
+      allTrainings = events.filter(e => new Date(e.start?.dateTime || e.start?.date) >= now);
+      trainingPage = 0;
+      renderTrainingSeries();
+      renderTrainingsPage();
+    }
+
+    function renderTrainingSeries() {
+      if (allTrainings.length === 0) {
+        trainingSeries.innerHTML = '';
+        trainingCountLabel.textContent = '';
+        return;
+      }
+
+      // Group by summary
+      const groups = {};
+      for (const ev of allTrainings) {
+        const name = ev.summary || 'Okänd';
+        if (!groups[name]) groups[name] = [];
+        groups[name].push(ev);
+      }
+
+      trainingCountLabel.textContent = `${allTrainings.length} pass totalt`;
+
+      trainingSeries.innerHTML = Object.entries(groups).map(([name, events]) => {
+        const color = getTrainingColor(name);
+        const ids = events.map(e => e.id).join(',');
+        const first = new Date(events[0].start?.dateTime);
+        const last = new Date(events[events.length - 1].start?.dateTime);
+        const range = `${formatDateSv(first.toISOString().split('T')[0])} – ${formatDateSv(last.toISOString().split('T')[0])}`;
+
+        return `
+          <div class="card-zen flex items-center gap-3 p-3 transition-colors" style="border-left: 3px solid ${color};">
+            <div class="flex-1 min-w-0">
+              <span class="font-medium">${escapeHtml(name)}</span>
+              <span class="text-sm text-gray-500 ml-2">${events.length} pass</span>
+              <p class="text-xs text-gray-400 mt-0.5">${range}</p>
+            </div>
+            <button onclick="deleteTrainingSeries('${escapeAttr(name)}', '${ids}')" class="text-xs px-3 py-1.5 border hover:bg-[var(--color-stone)]/30 transition-colors flex items-center gap-1.5" style="border-color: var(--color-stone);">
+              <svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              Ta bort alla
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderTrainingsPage() {
+      const totalPages = Math.max(1, Math.ceil(allTrainings.length / TRAININGS_PER_PAGE));
+      trainingPrev.disabled = trainingPage <= 0;
+      trainingNext.disabled = trainingPage >= totalPages - 1;
+      trainingPageLabel.textContent = allTrainings.length > 0 ? `${trainingPage + 1} / ${totalPages}` : '';
+
+      if (allTrainings.length === 0) {
+        trainingList.innerHTML = '<p class="text-sm text-gray-500">Inga kommande träningar.</p>';
+        return;
+      }
+
+      const pageEvents = allTrainings.slice(
+        trainingPage * TRAININGS_PER_PAGE,
+        (trainingPage + 1) * TRAININGS_PER_PAGE
+      );
+
+      let html = '';
+      let currentWeekLabel = '';
+      const today = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      for (const event of pageEvents) {
+        const dt = new Date(event.start?.dateTime);
+        const weekLabel = getWeekLabel(dt);
+
+        if (weekLabel !== currentWeekLabel) {
+          currentWeekLabel = weekLabel;
+          html += `
+            <div class="flex items-center gap-3 pt-4 pb-2 ${html ? 'mt-2' : ''}">
+              <span class="text-xs font-medium tracking-widest uppercase text-gray-400">${weekLabel}</span>
+              <div class="flex-1 h-px" style="background: var(--color-stone);"></div>
+            </div>
+          `;
+        }
+
+        const isPast = dt < today;
+        const isToday = dt.toDateString() === today.toDateString();
+        const isTomorrow = dt.toDateString() === tomorrow.toDateString();
+        const dayLabel = isToday ? 'Idag' : isTomorrow ? 'Imorgon' : dt.toLocaleDateString('sv-SE', { weekday: 'long' });
+        const time = dt.toLocaleTimeString('sv-SE', { hour: '2-digit', minute: '2-digit' });
+        const day = dt.getDate();
+        const month = dt.toLocaleDateString('sv-SE', { month: 'short' });
+        const color = getTrainingColor(event.summary);
+        const dateBoxOpacity = isPast ? '0.3' : isToday ? '1' : '0.7';
+
+        html += `
+          <div class="group flex items-center gap-4 p-3 hover:bg-[var(--color-stone)]/30 transition-colors" style="${isPast ? 'opacity: 0.35;' : ''}">
+            <div class="flex flex-col items-center justify-center w-12 h-12 flex-shrink-0 text-white text-center" style="background-color: var(--color-ink); opacity: ${dateBoxOpacity};">
+              <span class="text-base font-semibold leading-none">${day}</span>
+              <span class="text-[9px] uppercase tracking-wide opacity-80">${month}</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="font-medium truncate">${escapeHtml(event.summary)}</p>
+              <p class="text-sm text-gray-500">${dayLabel} kl ${time}</p>
+            </div>
+            <div class="w-2 h-2 rounded-full flex-shrink-0" style="background-color: ${color};"></div>
+            <button onclick="deleteTraining('${event.id}', '${escapeAttr(event.summary)}')" class="p-1.5 opacity-0 group-hover:opacity-100 hover:bg-[var(--color-stone)]/50 transition-all" title="Ta bort">
+              <svg class="w-4 h-4 text-gray-400 hover:text-[var(--belt-red)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+        `;
+      }
+
+      trainingList.innerHTML = html;
+    }
+
+    // ========== Delete single training ==========
+    window.deleteTraining = async function(id, name) {
+      if (!confirm(`Ta bort "${name}"?`)) return;
+      try {
+        const res = await authFetch(`${API.write}?eventId=${id}`, { method: 'DELETE' });
+        if (!res) return;
+        if (res.ok) {
+          showToast('Pass borttaget');
+          loadEvents();
+        } else {
+          const data = await res.json();
+          showToast(data.error || 'Kunde inte ta bort', true);
+        }
+      } catch {
+        showToast('Kunde inte ansluta till servern', true);
+      }
+    };
+
+    // ========== Delete training series (batch) ==========
+    window.deleteTrainingSeries = async function(name, idsStr) {
+      const ids = idsStr.split(',');
+      if (!confirm(`Ta bort alla ${ids.length} "${name}"-pass?`)) return;
+
+      deleteProgress.classList.remove('hidden');
+      const CHUNK_SIZE = 25;
+      let totalDeleted = 0;
+      let totalFailed = 0;
+
+      for (let i = 0; i < ids.length; i += CHUNK_SIZE) {
+        const chunk = ids.slice(i, i + CHUNK_SIZE);
+        const progress = Math.min(i + chunk.length, ids.length);
+        deleteProgressText.textContent = `Tar bort ${progress} av ${ids.length}...`;
+        deleteProgressCount.textContent = `${progress} / ${ids.length}`;
+        deleteProgressBar.style.width = `${(progress / ids.length) * 100}%`;
+
+        try {
+          const res = await authFetch(API.write, {
+            method: 'DELETE',
+            body: JSON.stringify({ eventIds: chunk }),
+          });
+          if (res) {
+            const data = await res.json();
+            totalDeleted += data.deleted || 0;
+            totalFailed += data.failed || 0;
+          } else {
+            totalFailed += chunk.length;
+          }
+        } catch {
+          totalFailed += chunk.length;
+        }
+      }
+
+      deleteProgressBar.style.width = '100%';
+      deleteProgressText.textContent = 'Klart!';
+      deleteProgressCount.textContent = '';
+
+      if (totalFailed > 0) {
+        showToast(`${totalDeleted} borttagna, ${totalFailed} misslyckades`, true);
+      } else {
+        showToast(`${totalDeleted} pass borttagna`);
+      }
+
+      setTimeout(() => {
+        deleteProgress.classList.add('hidden');
+        deleteProgressBar.style.width = '0%';
+        loadEvents();
+      }, 1500);
+    };
+
+    // ========== Create / Update info-kort ==========
+    infoKortForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const typ = typSelect.value;
+      const titel = titelInput.value.trim();
+      const text = textInput.value.trim();
+      const start = startDate.value;
+      const end = endDate.value;
+
+      if (!titel || !start || !end) return;
+
+      const endExclusive = new Date(end + 'T00:00:00');
+      endExclusive.setDate(endExclusive.getDate() + 1);
+      const endStr = formatDateISO(endExclusive);
+
+      const tag = typStyles[typ]?.label || 'INFO';
+      const summary = `[${tag}] ${titel}`;
+
+      const payload = { summary, description: text, startDate: start, endDate: endStr };
+      const eventId = editEventId.value;
+      const isEdit = !!eventId;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = isEdit ? 'Sparar...' : 'Skapar...';
+
+      try {
+        const url = isEdit ? `${API.write}?eventId=${eventId}` : API.write;
+        const method = isEdit ? 'PUT' : 'POST';
+        const res = await authFetch(url, { method, body: JSON.stringify(payload) });
+        if (!res) return;
+
+        if (res.ok) {
+          showToast(isEdit ? 'Info-kort uppdaterat' : 'Info-kort skapat');
+          resetForm();
+          loadEvents();
+        } else {
+          const data = await res.json();
+          showToast(data.error || 'Något gick fel', true);
+        }
+      } catch {
+        showToast('Kunde inte ansluta till servern', true);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = editEventId.value ? 'Spara ändringar' : 'Skapa info-kort';
+      }
+    });
+
+    // ========== Edit ==========
+    window.editInfoKort = function(id, typ, titel, description, start, end) {
+      editEventId.value = id;
+      typSelect.value = typ;
+      titelInput.value = titel;
+      textInput.value = description;
+      startDate.value = start || '';
+
+      if (end) {
+        const endInclusive = new Date(end + 'T00:00:00');
+        endInclusive.setDate(endInclusive.getDate() - 1);
+        endDate.value = formatDateISO(endInclusive);
+      }
+
+      formTitle.textContent = 'Redigera info-kort';
+      submitBtn.textContent = 'Spara ändringar';
+      cancelEditBtn.classList.remove('hidden');
+      updatePreview();
+      formTitle.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    // ========== Delete ==========
+    window.deleteInfoKort = async function(id, titel) {
+      if (!confirm(`Ta bort "${titel}"?`)) return;
+
+      try {
+        const res = await authFetch(`${API.write}?eventId=${id}`, { method: 'DELETE' });
+        if (!res) return;
+        if (res.ok) {
+          showToast('Info-kort borttaget');
+          loadEvents();
+        } else {
+          const data = await res.json();
+          showToast(data.error || 'Kunde inte ta bort', true);
+        }
+      } catch {
+        showToast('Kunde inte ansluta till servern', true);
+      }
+    };
+
+    // ========== Cancel edit ==========
+    cancelEditBtn.addEventListener('click', resetForm);
+
+    function resetForm() {
+      editEventId.value = '';
+      typSelect.value = 'info';
+      titelInput.value = '';
+      textInput.value = '';
+      formTitle.textContent = 'Skapa info-kort';
+      submitBtn.textContent = 'Skapa info-kort';
+      cancelEditBtn.classList.add('hidden');
+      setDefaultDates();
+      updatePreview();
+    }
+
+    // ========== Helpers ==========
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function escapeAttr(str) {
+      return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    // Init preview
+    updatePreview();
+
+    // ========== Term generator ==========
+    const terminStart = $('terminStart');
+    const terminEnd = $('terminEnd');
+    const terminGroupsEl = $('terminGroups');
+    const terminPreview = $('terminPreview');
+    const terminTotal = $('terminTotal');
+    const terminBreakdown = $('terminBreakdown');
+    const terminGenerateBtn = $('terminGenerateBtn');
+    const terminProgress = $('terminProgress');
+    const terminProgressText = $('terminProgressText');
+    const terminProgressCount = $('terminProgressCount');
+    const terminProgressBar = $('terminProgressBar');
+
+    const dayNames = ['Sön', 'Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör'];
+    const terminLocation = $('terminLocation');
+    const terminAddGroupBtn = $('terminAddGroupBtn');
+
+    const terminGroups = [
+      { name: 'Barn Aikido',  days: [4],    start: '17:00', end: '18:45', enabled: true, editing: false },
+      { name: 'Vuxna Aikido', days: [4],    start: '19:00', end: '20:30', enabled: true, editing: false },
+      { name: 'Vuxna Aikido', days: [0],    start: '10:30', end: '12:30', enabled: true, editing: false },
+    ];
+
+    function setTerminDates() {
+      const now = new Date();
+      const month = now.getMonth();
+      const year = now.getFullYear();
+      if (month <= 5) {
+        terminStart.value = `${year}-01-13`;
+        terminEnd.value = `${year}-06-12`;
+      } else {
+        terminStart.value = `${year}-08-18`;
+        terminEnd.value = `${year}-12-18`;
+      }
+    }
+
+    function renderTerminGroups() {
+      terminGroupsEl.innerHTML = terminGroups.map((g, i) => {
+        const daysLabel = g.days.map(d => dayNames[d]).join(', ');
+
+        if (g.editing) {
+          const dayCheckboxes = [1,2,3,4,5,6,0].map(d =>
+            `<label class="flex items-center gap-1 text-sm">
+              <input type="checkbox" data-group="${i}" data-day="${d}" ${g.days.includes(d) ? 'checked' : ''} class="termin-day-cb" />
+              ${dayNames[d]}
+            </label>`
+          ).join('');
+
+          return `
+            <div class="card-zen p-4 space-y-3" style="border-left: 3px solid var(--color-ink);">
+              <div class="flex items-center gap-3">
+                <input type="checkbox" ${g.enabled ? 'checked' : ''} class="termin-enable-cb" data-group="${i}" />
+                <input type="text" value="${escapeHtml(g.name)}" class="termin-name-input flex-1 px-2 py-1 text-sm border" style="border-color: var(--color-stone); background: white;" data-group="${i}" />
+                <button class="text-xs px-3 py-1 border hover:bg-[var(--color-stone)]/30 transition-colors termin-edit-btn" style="border-color: var(--color-stone);" data-group="${i}">Klar</button>
+                <button class="p-1 hover:bg-[var(--color-stone)]/50 transition-colors termin-remove-btn" data-group="${i}" title="Ta bort">
+                  <svg class="w-4 h-4 text-gray-400 hover:text-[var(--belt-red)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+              </div>
+              <div class="flex flex-wrap gap-3">
+                ${dayCheckboxes}
+              </div>
+              <div class="flex items-center gap-3">
+                <label class="text-sm text-gray-500">Start:</label>
+                <input type="time" value="${g.start}" class="termin-start-input px-2 py-1 text-sm border" style="border-color: var(--color-stone); background: white;" data-group="${i}" />
+                <label class="text-sm text-gray-500">Slut:</label>
+                <input type="time" value="${g.end}" class="termin-end-input px-2 py-1 text-sm border" style="border-color: var(--color-stone); background: white;" data-group="${i}" />
+              </div>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="card-zen flex items-center gap-3 p-4 transition-colors" style="opacity: ${g.enabled ? '1' : '0.4'};">
+            <input type="checkbox" ${g.enabled ? 'checked' : ''} class="termin-enable-cb" data-group="${i}" />
+            <div class="flex-1 min-w-0">
+              <span class="font-medium">${escapeHtml(g.name)}</span>
+              <span class="text-sm text-gray-500 ml-2">${daysLabel}</span>
+            </div>
+            <span class="text-sm text-gray-500">${g.start}–${g.end}</span>
+            <button class="text-xs px-3 py-1 border hover:bg-[var(--color-stone)]/30 transition-colors termin-edit-btn" style="border-color: var(--color-stone);" data-group="${i}">Redigera</button>
+            <button class="p-1 hover:bg-[var(--color-stone)]/50 transition-colors termin-remove-btn" data-group="${i}" title="Ta bort">
+              <svg class="w-4 h-4 text-gray-400 hover:text-[var(--belt-red)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      terminGroupsEl.querySelectorAll('.termin-enable-cb').forEach(cb => {
+        cb.addEventListener('change', (e) => {
+          const idx = parseInt(e.target.dataset.group);
+          terminGroups[idx].enabled = e.target.checked;
+          renderTerminGroups();
+          updateTerminPreview();
+        });
+      });
+
+      terminGroupsEl.querySelectorAll('.termin-edit-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.target.dataset.group);
+          if (terminGroups[idx].editing) {
+            const nameInput = terminGroupsEl.querySelector(`.termin-name-input[data-group="${idx}"]`);
+            const startInput = terminGroupsEl.querySelector(`.termin-start-input[data-group="${idx}"]`);
+            const endInput = terminGroupsEl.querySelector(`.termin-end-input[data-group="${idx}"]`);
+            const dayCbs = terminGroupsEl.querySelectorAll(`.termin-day-cb[data-group="${idx}"]`);
+
+            if (nameInput) terminGroups[idx].name = nameInput.value.trim() || terminGroups[idx].name;
+            if (startInput) terminGroups[idx].start = startInput.value;
+            if (endInput) terminGroups[idx].end = endInput.value;
+
+            const newDays = [];
+            dayCbs.forEach(dcb => { if (dcb.checked) newDays.push(parseInt(dcb.dataset.day)); });
+            terminGroups[idx].days = newDays;
+          }
+          terminGroups[idx].editing = !terminGroups[idx].editing;
+          renderTerminGroups();
+          updateTerminPreview();
+        });
+      });
+
+      terminGroupsEl.querySelectorAll('.termin-remove-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.target.closest('[data-group]').dataset.group);
+          terminGroups.splice(idx, 1);
+          renderTerminGroups();
+          updateTerminPreview();
+        });
+      });
+    }
+
+    terminAddGroupBtn.addEventListener('click', () => {
+      terminGroups.push({ name: 'Ny grupp', days: [], start: '17:00', end: '18:00', enabled: true, editing: true });
+      renderTerminGroups();
+      updateTerminPreview();
+    });
+
+    function countSessionsForGroup(group) {
+      const start = new Date(terminStart.value + 'T00:00:00');
+      const end = new Date(terminEnd.value + 'T00:00:00');
+      if (isNaN(start.getTime()) || isNaN(end.getTime()) || start > end) return 0;
+      let count = 0;
+      const d = new Date(start);
+      while (d <= end) {
+        if (group.days.includes(d.getDay())) count++;
+        d.setDate(d.getDate() + 1);
+      }
+      return count;
+    }
+
+    function updateTerminPreview() {
+      const enabledGroups = terminGroups.filter(g => g.enabled && g.days.length > 0);
+      if (enabledGroups.length === 0 || !terminStart.value || !terminEnd.value) {
+        terminPreview.classList.add('hidden');
+        terminGenerateBtn.disabled = true;
+        terminGenerateBtn.textContent = 'Generera pass';
+        return;
+      }
+
+      const counts = enabledGroups.map(g => ({
+        name: g.name,
+        days: g.days.map(d => dayNames[d]).join(', '),
+        count: countSessionsForGroup(g),
+      }));
+      const total = counts.reduce((sum, c) => sum + c.count, 0);
+
+      terminTotal.textContent = `Förhandsgranskning: ${total} pass`;
+      terminBreakdown.textContent = counts.map(c => `${c.name} (${c.days}): ${c.count}`).join(' | ');
+
+      terminPreview.classList.remove('hidden');
+      terminGenerateBtn.disabled = total === 0;
+      terminGenerateBtn.textContent = `Generera ${total} pass`;
+    }
+
+    function generateEvents() {
+      const start = new Date(terminStart.value + 'T00:00:00');
+      const end = new Date(terminEnd.value + 'T00:00:00');
+      const enabledGroups = terminGroups.filter(g => g.enabled && g.days.length > 0);
+      const location = terminLocation.value.trim();
+      const events = [];
+
+      const d = new Date(start);
+      while (d <= end) {
+        const dayOfWeek = d.getDay();
+        for (const group of enabledGroups) {
+          if (group.days.includes(dayOfWeek)) {
+            const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+            const ev = {
+              summary: group.name,
+              startDateTime: `${dateStr}T${group.start}:00`,
+              endDateTime: `${dateStr}T${group.end}:00`,
+            };
+            if (location) ev.location = location;
+            events.push(ev);
+          }
+        }
+        d.setDate(d.getDate() + 1);
+      }
+      return events;
+    }
+
+    terminGenerateBtn.addEventListener('click', async () => {
+      const events = generateEvents();
+      if (events.length === 0) return;
+
+      if (!confirm(`Skapa ${events.length} pass?`)) return;
+
+      terminGenerateBtn.disabled = true;
+      terminProgress.classList.remove('hidden');
+
+      const CHUNK_SIZE = 25;
+      let totalCreated = 0;
+      let totalFailed = 0;
+
+      for (let i = 0; i < events.length; i += CHUNK_SIZE) {
+        const chunk = events.slice(i, i + CHUNK_SIZE);
+        const progress = Math.min(i + chunk.length, events.length);
+        terminProgressText.textContent = `Skapar pass ${i + 1}–${progress} av ${events.length}...`;
+        terminProgressCount.textContent = `${progress} / ${events.length}`;
+        terminProgressBar.style.width = `${(progress / events.length) * 100}%`;
+
+        try {
+          const res = await authFetch(API.write, {
+            method: 'POST',
+            body: JSON.stringify({ events: chunk }),
+          });
+          if (res) {
+            const data = await res.json();
+            totalCreated += data.created || 0;
+            totalFailed += data.failed || 0;
+          } else {
+            totalFailed += chunk.length;
+          }
+        } catch {
+          totalFailed += chunk.length;
+        }
+      }
+
+      terminProgressBar.style.width = '100%';
+      terminProgressText.textContent = 'Klart!';
+      terminProgressCount.textContent = '';
+
+      if (totalFailed > 0) {
+        showToast(`${totalCreated} pass skapade, ${totalFailed} misslyckades`, true);
+      } else {
+        showToast(`${totalCreated} pass skapade`);
+      }
+
+      setTimeout(() => {
+        terminProgress.classList.add('hidden');
+        terminProgressBar.style.width = '0%';
+        terminGenerateBtn.disabled = false;
+        updateTerminPreview();
+        loadEvents();
+      }, 1500);
+    });
+
+    terminStart.addEventListener('change', updateTerminPreview);
+    terminEnd.addEventListener('change', updateTerminPreview);
+
+    const _origShowDashboard = showDashboard;
+    showDashboard = function() {
+      _origShowDashboard();
+      setTerminDates();
+      renderTerminGroups();
+      updateTerminPreview();
+    };
+
+    if (getToken()) {
+      setTerminDates();
+      renderTerminGroups();
+      updateTerminPreview();
+    }
+  </script>
+</BaseLayout>

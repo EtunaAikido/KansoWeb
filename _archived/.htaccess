@@ -1,0 +1,12 @@
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1 [NC,L,R]
+
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^ %{REQUEST_URI}.html [NC,L]
+
+Header add Access-Control-Allow-Origin "*"
+Header add Access-Control-Allow-Headers "Content-Type"
+Header add Access-Control-Allow-Credentials "true"
+Header add Access-Control-Allow-Methods "GET,POST,OPTIONS,DELETE,PUT"
+Header add Access-Control-Allow-Headers "application/json"
+Header add Access-Control-Allow-Headers "x-test-header, Origin, X-Requested-With, Content-Type, Accept, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, Screen"

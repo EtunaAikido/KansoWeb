@@ -1,0 +1,23 @@
+# Träningsgrupper
+
+grupper:
+  - namn: "Barn"
+    alder: "7-11 år"
+    tider: "Måndag & Onsdag 17:30-18:30"
+    beskrivning: "Lek blandas med aikidotekniker och övningar som stärker motorik och balans."
+    farg: "ekia-barn"
+    bild: "/images/kids.webp"
+
+  - namn: "Ungdomar"
+    alder: "12-15 år"
+    tider: "Tisdag & Torsdag 17:30-18:30"
+    beskrivning: "Fokus på disciplin, stärkt självkänsla och att samarbeta mot samma mål."
+    farg: "ekia-ungdom"
+    bild: "/images/youths.webp"
+
+  - namn: "Vuxna"
+    alder: "15-99 år"
+    tider: "Måndag, Onsdag & Fredag 19:00-20:30"
+    beskrivning: "Smidighet och balans i kroppen och ökat självförtroende i konfliktsituationer."
+    farg: "ekia-vuxen"
+    bild: "/images/adults.webp"

@@ -1,0 +1,277 @@
+/* Fonts: Zen Kaku Gothic for body, Shippori Mincho for headings (softer kanji) */
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Core palette - Aikido white & black */
+    --color-ink: #1a1a1a;
+    --color-paper: #faf9f7;
+    --color-stone: #e8e6e1;
+
+    /* Belt colors - muted, sophisticated */
+    --belt-yellow: #d4b896;
+    --belt-orange: #c4886a;
+    --belt-green: #7a9a7a;
+    --belt-blue: #6b8fa3;
+    --belt-purple: #8b7a9a;
+    --belt-red: #a67a7a;
+    --belt-brown: #8a7a6a;
+
+    /* Semantic */
+    --color-accent: var(--belt-blue);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased text-base;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+
+  /* Selection */
+  ::selection {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+}
+
+@layer components {
+  /* Zen button - minimal, purposeful */
+  .btn-zen {
+    @apply inline-flex items-center justify-center px-8 py-3 text-sm tracking-widest uppercase;
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-zen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.6s ease;
+  }
+
+  .btn-zen:hover {
+    letter-spacing: 0.15em;
+  }
+
+  .btn-zen:hover::before {
+    left: 100%;
+  }
+
+  /* Card with soft, organic feel */
+  .card-zen {
+    background-color: white;
+    border: 1px solid var(--color-stone);
+    border-radius: 2px;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+  }
+
+  .card-zen::before {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-stone), transparent);
+  }
+
+  .card-zen:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+  }
+
+  /* Divider - Zen raked sand lines */
+  .divider-zen {
+    @apply relative py-16;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,15 Q300,10 600,15 T1200,15' fill='none' stroke='%23e8e6e1' stroke-width='1'/%3E%3Cpath d='M0,30 Q300,35 600,30 T1200,30' fill='none' stroke='%23e8e6e1' stroke-width='1'/%3E%3Cpath d='M0,45 Q300,40 600,45 T1200,45' fill='none' stroke='%23e8e6e1' stroke-width='1'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: 100% 60px;
+  }
+
+  /* Belt color badges */
+  .belt-barn { background-color: var(--belt-green); }
+  .belt-ungdom { background-color: var(--belt-purple); }
+  .belt-vuxen { background-color: var(--belt-blue); }
+
+  /* Japanese vertical text accent */
+  .vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  /* Subtle grain overlay for texture */
+  .grain-overlay {
+    position: relative;
+  }
+
+  .grain-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+  }
+
+  /* Fade in animation */
+  .fade-up {
+    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Staggered children */
+  .stagger-children > * {
+    opacity: 0;
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+  .stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+  .stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+  .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+  .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+
+  /* Horizontal scroll line */
+  .scroll-line {
+    @apply fixed bottom-8 left-8 w-px h-16 bg-gray-300;
+  }
+
+  .scroll-line::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full bg-gray-900;
+    height: var(--scroll-progress, 0%);
+    transition: height 0.1s;
+  }
+
+  /* Link underline animation */
+  .link-zen {
+    @apply relative;
+  }
+
+  .link-zen::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-px bg-current;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .link-zen:hover::after {
+    @apply w-full;
+  }
+
+  /* Info kort - refined */
+  .info-kort {
+    @apply p-6 border-l-2;
+    background: white;
+  }
+
+  .info-kort-info {
+    border-color: var(--belt-blue);
+  }
+
+  .info-kort-varning {
+    border-color: var(--belt-orange);
+  }
+
+  .info-kort-viktigt {
+    border-color: var(--belt-red);
+  }
+}
+
+/* Smooth page transitions */
+@view-transition {
+  navigation: auto;
+}
+
+/* ===== Aikido-inspired animations ===== */
+
+/* Scroll-triggered reveal - slow, gentle fade */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1.2s ease-out,
+              transform 1.2s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered reveal for lists - slower, more graceful */
+.stagger-reveal > * {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 1s ease-out,
+              transform 1s ease-out;
+}
+
+.stagger-reveal.visible > *:nth-child(1) { transition-delay: 0.1s; }
+.stagger-reveal.visible > *:nth-child(2) { transition-delay: 0.2s; }
+.stagger-reveal.visible > *:nth-child(3) { transition-delay: 0.3s; }
+.stagger-reveal.visible > *:nth-child(4) { transition-delay: 0.4s; }
+.stagger-reveal.visible > *:nth-child(5) { transition-delay: 0.5s; }
+.stagger-reveal.visible > *:nth-child(6) { transition-delay: 0.6s; }
+.stagger-reveal.visible > *:nth-child(7) { transition-delay: 0.7s; }
+.stagger-reveal.visible > *:nth-child(8) { transition-delay: 0.8s; }
+
+.stagger-reveal.visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Page load - gentle fade */
+@keyframes pageEnter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+html {
+  animation: pageEnter 0.8s ease-out;
+}
+
+/* Gentle hover float - like breathing */
+@keyframes hoverFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.hover-float:hover {
+  animation: hoverFloat 2s ease-in-out infinite;
+}

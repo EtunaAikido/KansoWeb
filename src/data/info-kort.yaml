@@ -1,0 +1,13 @@
+# Info-kort som visas på startsidan
+# typ: info | varning | viktigt
+# aktiv: true | false
+
+kort:
+  - titel: "Vårtermin 2026"
+    text: "Terminen startar måndag 13 januari"
+    typ: info
+    aktiv: true
+  - titel: "Sportlov"
+    text: "Ingen träning v.8 (sportlov)"
+    typ: varning
+    aktiv: false

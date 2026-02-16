@@ -1,0 +1,242 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import InfoKort from '../components/InfoKort.astro';
+import Kalender from '../components/Kalender.astro';
+
+// Fetch info-kort from Google Calendar (all-day events with tags)
+const CALENDAR_ID = import.meta.env.GOOGLE_CALENDAR_ID || import.meta.env.PUBLIC_GOOGLE_CALENDAR_ID || 'etuna.aikido@gmail.com';
+const API_KEY = import.meta.env.GOOGLE_CALENDAR_API_KEY || import.meta.env.PUBLIC_GOOGLE_CALENDAR_API_KEY || '';
+
+interface InfoKortData {
+  titel: string;
+  text: string;
+  typ: 'barn' | 'ungdom' | 'vuxna' | 'varning' | 'viktigt' | 'info';
+}
+
+const infoKort: InfoKortData[] = [];
+
+if (API_KEY) {
+  try {
+    const now = new Date();
+    const timeMin = now.toISOString();
+    const timeMax = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000).toISOString(); // 30 days ahead
+
+    const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
+
+    const response = await fetch(url);
+    if (response.ok) {
+      const data = await response.json();
+      const events = data.items || [];
+
+      // Filter for all-day events that span today
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      for (const event of events) {
+        // All-day events have 'date' instead of 'dateTime'
+        if (event.start?.date && !event.start?.dateTime) {
+          const startDate = new Date(event.start.date);
+          const endDate = new Date(event.end?.date || event.start.date);
+
+          // Check if today falls within the event range
+          if (startDate <= today && today < endDate) {
+            const title = event.summary || '';
+
+            // Parse tag from title: [BARN], [VUXNA], [VARNING], etc.
+            const tagMatch = title.match(/^\[(\w+)\]\s*/i);
+            let typ: InfoKortData['typ'] = 'info';
+            let cleanTitle = title;
+
+            if (tagMatch) {
+              const tag = tagMatch[1].toLowerCase();
+              cleanTitle = title.replace(tagMatch[0], '').trim();
+
+              if (tag === 'barn') typ = 'barn';
+              else if (tag === 'ungdom' || tag === 'ungdomar') typ = 'ungdom';
+              else if (tag === 'vuxna' || tag === 'vuxen') typ = 'vuxna';
+              else if (tag === 'varning') typ = 'varning';
+              else if (tag === 'viktigt') typ = 'viktigt';
+            }
+
+            infoKort.push({
+              titel: cleanTitle,
+              text: event.description || '',
+              typ
+            });
+          }
+        }
+      }
+    }
+  } catch (e) {
+    console.error('Error fetching info cards from calendar:', e);
+  }
+}
+
+const grupper = [
+  {
+    namn: 'Barn',
+    alder: '6–12 år',
+    bild: '/images/jela_aiki_2022_uppsala-6056.webp',
+    alt: 'Barn tränar aikido',
+    href: '/traning',
+    beltClass: 'belt-barn',
+  },
+  {
+    namn: 'Ungdomar',
+    alder: '12–15 år',
+    bild: '/images/jela-aikido-170114-473-highres.webp',
+    alt: 'Ungdomar tränar aikido',
+    href: '/traning',
+    beltClass: 'belt-ungdom',
+  },
+  {
+    namn: 'Vuxna',
+    alder: '15+ år',
+    bild: '/images/jela_aiki_2022_uppsala-6924_ungdom.webp',
+    alt: 'Vuxna tränar aikido',
+    href: '/traning',
+    beltClass: 'belt-vuxen',
+  },
+];
+---
+
+<BaseLayout currentPath="/">
+  {/* Hero Section - Zen minimal */}
+  <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+    {/* Background image - group training with motion blur */}
+    <div class="absolute inset-0">
+      <img
+        src="/images/jela-aikido-170114-473-highres.webp"
+        alt=""
+        class="w-full h-full object-cover opacity-[0.08]"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-paper)] via-[var(--color-paper)]/80 to-[var(--color-paper)]" />
+    </div>
+
+    <div class="relative max-w-4xl mx-auto px-6 md:px-8 text-center fade-up">
+      <div class="relative">
+        <p class="text-sm tracking-[0.3em] uppercase text-gray-500 mb-6">
+          Sedan 1991 i Eskilstuna
+        </p>
+
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-serif tracking-tight mb-6">
+          Aikido
+        </h1>
+
+        <p class="text-lg md:text-xl text-gray-600 max-w-lg mx-auto mb-10">
+          Harmonins väg — en kampkonst där vi lär oss falla,
+          resa oss och växa tillsammans.
+        </p>
+
+        <a href="/traning" class="btn-zen">
+          Börja träna
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+  {/* Info-kort - if any active */}
+  {infoKort.length > 0 && (
+    <section class="max-w-4xl mx-auto px-6 md:px-8 -mt-8 relative z-10">
+      <div class="space-y-4">
+        {infoKort.map((kort) => (
+          <InfoKort titel={kort.titel} text={kort.text || ''} typ={kort.typ} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  {/* Divider */}
+  <div class="divider-zen" />
+
+  {/* Training Groups */}
+  <section class="max-w-6xl mx-auto px-6 md:px-8">
+    <div class="text-center mb-16 fade-up">
+      <h2 class="text-3xl md:text-4xl font-serif">
+        Aikido för alla åldrar
+      </h2>
+    </div>
+
+    <div class="grid gap-6 md:gap-8 md:grid-cols-3 stagger-reveal">
+      {grupper.map((grupp, i) => (
+        <a
+          href={grupp.href}
+          class="group card-zen relative overflow-hidden"
+        >
+          {/* Image */}
+          <div class="aspect-[4/5] relative overflow-hidden">
+            <img
+              src={grupp.bild}
+              alt={grupp.alt}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+
+            {/* Overlay gradient */}
+            <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)]/60 via-transparent to-transparent" />
+
+
+            {/* Belt color indicator */}
+            <div class:list={['absolute bottom-0 left-0 right-0 h-1', grupp.beltClass]} />
+          </div>
+
+          {/* Content */}
+          <div class="p-6 flex items-baseline justify-between">
+            <div>
+              <h3 class="text-xl font-serif">{grupp.namn}</h3>
+              <span class="text-sm text-gray-500">{grupp.alder}</span>
+            </div>
+            <svg class="w-5 h-5 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  {/* Divider */}
+  <div class="divider-zen" />
+
+  {/* Calendar Section */}
+  <section class="max-w-6xl mx-auto px-6 md:px-8 pb-16">
+    <div class="grid gap-12 lg:grid-cols-2 items-start">
+      {/* Left: Philosophy text */}
+      <div class="fade-up">
+        <h2 class="text-3xl md:text-4xl font-serif mb-6">
+          Vägen till harmoni
+        </h2>
+        <div class="space-y-4 text-gray-600 leading-relaxed">
+          <p>
+            Aikido är en japansk kampkonst som utvecklades av Morihei Ueshiba
+            (1883–1969). Namnet betyder "vägen till harmoni med ki" — den
+            universella livsenergin.
+          </p>
+          <p>
+            Till skillnad från andra kampkonster fokuserar aikido inte på att
+            besegra motståndaren, utan på att neutralisera aggressionen och
+            skapa harmoni. Vi tränar tillsammans, inte mot varandra.
+          </p>
+          <p>
+            Ki-Aikido, som vi utövar, betonar särskilt koordinationen mellan
+            kropp och sinne. Grundprincipen är att behålla lugnet — "keep one
+            point" — oavsett vad som händer runtomkring.
+          </p>
+        </div>
+
+        <a href="/kontakt" class="inline-flex items-center gap-2 mt-8 text-sm link-zen">
+          <span>Kontakta oss</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+
+      {/* Right: Calendar */}
+      <div class="card-zen p-4 md:p-6 lg:p-8 fade-up" style="animation-delay: 0.2s;">
+        <Kalender />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
