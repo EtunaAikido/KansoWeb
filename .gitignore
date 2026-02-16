@@ -21,6 +21,9 @@ Thumbs.db
 # Astro
 .astro/
 
+# Large video files (served locally only)
+public/videos/*.mp4
+
 # Misc
 *.log
 npm-debug.log*
