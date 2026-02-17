@@ -26,10 +26,10 @@ const style = typStyles[typ] || typStyles.info;
   {typ !== 'info' ? (
     <div class="flex items-center gap-2 flex-wrap">
       <span class="text-xs font-medium px-2 py-0.5 text-white" style={`background: ${style.border};`}>{style.label}</span>
-      <h3 class="font-medium">{titel}</h3>
+      <p class="font-medium">{titel}</p>
     </div>
   ) : (
-    <h3 class="font-medium">{titel}</h3>
+    <p class="font-medium">{titel}</p>
   )}
   {text && <p class="text-sm text-gray-600 mt-1">{text}</p>}
 </div>

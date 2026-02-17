@@ -1,5 +1,4 @@
-/* Fonts: Zen Kaku Gothic for body, Shippori Mincho for headings (softer kanji) */
-@import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600&display=swap');
+/* Fonts loaded via <link> in BaseLayout.astro for non-render-blocking loading */
 
 @tailwind base;
 @tailwind components;
@@ -40,7 +39,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Noto Serif JP', serif;
+    font-family: 'Shippori Mincho', serif;
     font-weight: 400;
     letter-spacing: 0.02em;
   }

@@ -12,8 +12,8 @@ interface Props {
 }
 
 const {
-  title = 'Eskilstuna Ki-Aikido',
-  description = 'Aikido i Eskilstuna sedan 1991. Träning för barn, ungdomar och vuxna.',
+  title = 'Eskilstuna Ki-Aikido – Aikidoträning för barn och vuxna',
+  description = 'Eskilstuna Ki-Aikido erbjuder aikidoträning för barn, ungdomar och vuxna sedan 1991. Välkommen att prova på Ki-Aikido i Eskilstuna – harmonins kampkonst.',
   currentPath = '/',
   schema,
   noindex = false,
@@ -72,6 +72,19 @@ const websiteSchema = {
     <link rel="canonical" href={canonicalUrl} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
+    <!-- Fonts (non-render-blocking) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho:wght@400;500&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho:wght@400;500&display=swap" />
+    </noscript>
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/fav/apple-icon-180x180.webp" />
@@ -102,7 +115,7 @@ const websiteSchema = {
   <body class="min-h-screen grain-overlay overflow-x-hidden">
     {/* Decorative kanji background - sits above content as subtle watermark */}
     <div class="fixed inset-0 flex items-center justify-center pointer-events-none select-none z-40" aria-hidden="true">
-      <span class="text-[14rem] md:text-[22rem] font-serif opacity-[0.03] leading-none" style="writing-mode: vertical-rl;">合気道</span>
+      <span class="text-[14rem] md:text-[22rem] opacity-[0.03] leading-none whitespace-nowrap" style="writing-mode: vertical-rl; font-family: 'Shippori Mincho', 'Hiragino Mincho Pro', 'Yu Mincho', 'MS Mincho', serif;">合気道</span>
     </div>
 
     <Header currentPath={currentPath} />
@@ -119,8 +132,8 @@ const websiteSchema = {
         // Intersection Observer for reveal animations
         const observerOptions = {
           root: null,
-          rootMargin: '0px 0px -80px 0px',
-          threshold: 0.15
+          rootMargin: '0px 0px -40px 0px',
+          threshold: 0.05
         };
 
         const revealObserver = new IntersectionObserver((entries) => {
@@ -136,12 +149,12 @@ const websiteSchema = {
           revealObserver.observe(el);
         });
 
-        // Add reveal to sections
+        // Add reveal to sections (skip hidden sections and those inside #dashboardSection)
         document.querySelectorAll('section').forEach(section => {
-          if (!section.classList.contains('reveal') && !section.classList.contains('fade-up')) {
-            section.classList.add('reveal');
-            revealObserver.observe(section);
-          }
+          if (section.classList.contains('reveal') || section.classList.contains('fade-up')) return;
+          if (section.classList.contains('hidden') || section.closest('.hidden')) return;
+          section.classList.add('reveal');
+          revealObserver.observe(section);
         });
       });
     </script>
